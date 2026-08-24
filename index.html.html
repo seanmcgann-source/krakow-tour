@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>As Old As It Looks — Kraków</title>
+<style>
+:root{
+  /* Polish flag: white above, crimson below. Kraków's arms: blue wall, gold-crowned white eagle. */
+  --ink:#1A1A20; --ink-soft:#4C4C58;
+  --paper:#F7F4F0;            /* warm flag-white */
+  --card:#FFFFFF;
+  --red:#C1121F;              /* Polish crimson */
+  --red-deep:#8E0E17;
+  --blue:#1B4B8F;             /* Kraków arms blue */
+  --blue-dim:#3E6BA8;
+  --gold:#B0872B;             /* the eagle's crown */
+  --green:#2C6E49;
+  --rule:#DCD5CC; --fs:1;
+  --display:Georgia,'Iowan Old Style','Times New Roman',serif;
+  --body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  /* legacy names kept so nothing breaks */
+  --lapis:var(--blue); --lapis-dim:var(--blue-dim); --brass:var(--gold);
+  --crimson:var(--red); --emerald:var(--green);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);
+  font-size:calc(17px*var(--fs));line-height:1.55;padding-bottom:110px;-webkit-text-size-adjust:100%}
+.wrap{max-width:660px;margin:0 auto;padding:0 18px}
+
+/* bar */
+.bar{position:sticky;top:0;z-index:40;background:var(--red);color:#fff;
+  border-bottom:3px solid var(--gold);
+  background-image:linear-gradient(#fff 0,#fff 4px,var(--red) 4px)}
+.bar-in{max-width:660px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:8px}
+.bar-title{font-family:var(--display);font-size:calc(15px*var(--fs));flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar button{font-family:var(--body);font-size:calc(13px*var(--fs));background:rgba(255,255,255,.14);
+  color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:6px;padding:8px 11px;cursor:pointer}
+.bar button:active{background:rgba(255,255,255,.32)}
+.board{background:var(--red-deep);color:#fff;font-size:calc(13px*var(--fs));padding:7px 14px;
+  display:flex;gap:6px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+.board::-webkit-scrollbar{display:none}
+.board .chip{background:rgba(255,255,255,.12);border-radius:20px;padding:4px 12px;flex:0 0 auto}
+.board .chip b{color:var(--brass);margin-left:6px}
+.board .empty{opacity:.65;font-style:italic}
+
+/* type */
+h1{font-family:var(--display);font-weight:normal;font-size:calc(33px*var(--fs));line-height:1.12;margin:24px 0 8px;letter-spacing:-.01em}
+h2{font-family:var(--display);font-weight:normal;font-size:calc(27px*var(--fs));line-height:1.15;margin:4px 0 10px}
+h3{font-size:calc(12px*var(--fs));text-transform:uppercase;letter-spacing:.15em;color:var(--blue);
+  margin:28px 0 10px;font-weight:700;display:flex;align-items:center;gap:9px}
+h3:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+h3 .arms{flex:0 0 auto;width:15px;height:15px}
+p{margin:0 0 14px}
+.lede{color:var(--ink-soft);font-size:calc(16px*var(--fs))}
+.eyebrow{font-size:calc(11px*var(--fs));text-transform:uppercase;letter-spacing:.16em;color:var(--brass);font-weight:700;margin:0 0 6px}
+hr.rule{height:0;border:0;margin:28px 0;text-align:center;overflow:visible}
+hr.rule:after{content:"";display:block;height:3px;
+  background:linear-gradient(90deg,transparent,var(--gold) 20%,var(--red) 50%,var(--gold) 80%,transparent);
+  opacity:.55}
+
+/* buttons */
+.btn{display:block;width:100%;text-align:left;font-family:var(--body);font-size:calc(17px*var(--fs));
+  background:var(--card);border:1px solid var(--rule);border-left:5px solid var(--blue);border-radius:4px;
+  padding:15px 16px;margin:0 0 10px;cursor:pointer;color:var(--ink);line-height:1.35}
+.btn:active{background:#e7ebf3}
+.btn small{display:block;color:var(--ink-soft);font-size:calc(13px*var(--fs));margin-top:3px}
+.btn.done{border-left-color:var(--emerald)}
+.btn.solemn{border-left-color:var(--crimson)}
+.btn.quiz{border-left-color:var(--gold);background:#FBF6E9}
+.ghost{font-family:var(--body);font-size:calc(15px*var(--fs));background:transparent;border:1px solid var(--rule);
+  border-radius:4px;padding:12px 16px;cursor:pointer;color:var(--ink-soft)}
+.ghost.warn{border-color:var(--crimson);color:var(--crimson)}
+.solid{font-family:var(--body);font-size:calc(15px*var(--fs));background:var(--lapis);color:#fff;
+  border:0;border-radius:4px;padding:13px 18px;cursor:pointer;font-weight:600}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* cards */
+.card{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:18px;margin:0 0 16px}
+.story{border-left:5px solid var(--brass)}
+.story p:last-child{margin-bottom:0}
+.why{background:#EEF2F9;border:1px solid #C8D5E8;border-radius:5px;padding:15px 18px;margin-bottom:16px}
+.why p{margin:0}
+.why .eyebrow{color:var(--lapis)}
+.look{background:var(--card);border:1px solid var(--rule);border-left:5px solid var(--emerald);border-radius:5px;padding:18px;margin-bottom:16px}
+.look p:last-child{margin-bottom:0}
+.look .eyebrow{color:var(--emerald)}
+.guide{background:var(--gold);color:#1A1A20;border-radius:5px;padding:13px 17px;margin-bottom:18px;
+  font-size:calc(15px*var(--fs));font-weight:600}
+.solemn-note{background:#FAE9EA;border:1px solid var(--crimson);border-left:5px solid var(--crimson);
+  border-radius:4px;padding:15px 17px;margin-bottom:16px;font-size:calc(16px*var(--fs))}
+.note{font-size:calc(15px*var(--fs));color:var(--ink-soft)}
+
+/* illustration */
+.illus{background:#fff;border:1px solid var(--rule);border-radius:5px;padding:10px;margin-bottom:16px}
+.illus svg{display:block;width:100%;height:auto}
+.illus figcaption{font-size:calc(12px*var(--fs));color:var(--ink-soft);text-align:center;padding:8px 6px 2px;font-style:italic}
+
+/* activity */
+.act{background:var(--card);border:1px solid var(--rule);border-top:5px solid var(--crimson);border-radius:5px;padding:18px;margin-bottom:16px}
+.act .kind{font-size:calc(11px*var(--fs));text-transform:uppercase;letter-spacing:.15em;color:var(--crimson);font-weight:700;margin-bottom:8px}
+.act .prompt{font-family:var(--display);font-size:calc(20px*var(--fs));line-height:1.3;margin-bottom:14px}
+.opt{display:block;width:100%;text-align:left;font-family:var(--body);font-size:calc(16px*var(--fs));
+  background:transparent;border:1px solid var(--rule);border-radius:4px;padding:12px 14px;margin-bottom:8px;cursor:pointer;color:var(--ink)}
+.opt:disabled{cursor:default}
+.opt.pick{border-color:var(--blue);background:#EEF2F9}
+.opt.right{border-color:var(--green);background:#E6F1EA;font-weight:600}
+.opt.wrong{border-color:var(--red);background:#FAE9EA}
+.opt .num{display:inline-block;min-width:26px;font-weight:700;color:var(--lapis)}
+.opt .cat{float:right;font-size:calc(13px*var(--fs));color:var(--lapis);font-weight:700}
+.answer{background:#E6F1EA;border:1px solid var(--green);border-radius:4px;padding:14px 16px;margin-top:12px;font-size:calc(16px*var(--fs))}
+.answer strong{color:var(--emerald);display:block;text-transform:uppercase;letter-spacing:.12em;font-size:calc(11px*var(--fs));margin-bottom:5px}
+.buckets{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+.buckets button{flex:1 1 40%;font-family:var(--body);font-size:calc(15px*var(--fs));padding:12px 8px;
+  border:1px solid var(--lapis);background:transparent;color:var(--lapis);border-radius:4px;cursor:pointer;font-weight:600}
+.buckets button.on{background:var(--lapis);color:#fff}
+
+/* guess rounds */
+.guess{background:var(--card);border:1px solid var(--rule);border-left:5px solid var(--lapis-dim);border-radius:5px;padding:16px 18px;margin-bottom:12px}
+.guess .q{font-family:var(--display);font-size:calc(18px*var(--fs));line-height:1.3;margin-bottom:10px}
+
+/* the children's brief */
+.kids{background:#FBF6E9;border:1px solid var(--gold);border-left:5px solid var(--gold);
+  border-radius:5px;padding:16px 18px;margin-bottom:16px}
+.kids .eyebrow{color:var(--gold);display:flex;align-items:center;gap:7px}
+.kids .eyebrow svg{width:15px;height:15px;flex:0 0 auto}
+.kids p{margin:0 0 10px}
+.kids p:last-child{margin-bottom:0}
+.kids .lab{font-weight:700;color:var(--ink)}
+.kids.skip{background:#F3F1EE;border-color:var(--rule);border-left-color:var(--ink-soft);opacity:.9}
+.kids.skip .eyebrow{color:var(--ink-soft)}
+.scale{display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:7px 12px;
+  background:var(--gold);color:#fff;border-radius:20px;font-size:calc(13px*var(--fs));font-weight:700}
+.scale svg{width:14px;height:14px}
+
+/* food & drink */
+.fgroup{margin-bottom:26px}
+.fgroup .gnote{font-size:calc(14px*var(--fs));color:var(--ink-soft);margin:-4px 0 12px;font-style:italic}
+.fitem{background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--gold);
+  border-radius:4px;padding:13px 15px;margin-bottom:9px}
+.fitem .fn{font-family:var(--display);font-size:calc(19px*var(--fs));margin-bottom:5px;color:var(--ink)}
+.fitem .fd{font-size:calc(15px*var(--fs));color:var(--ink-soft);line-height:1.5}
+.fgroup.top .fitem{border-left-color:var(--red);background:#FDF6F6}
+.fgroup.top .fitem .fn{color:var(--red-deep)}
+.fitem .fsrc{margin-top:9px;padding-top:8px;border-top:1px dotted var(--rule);
+  font-size:calc(13px*var(--fs));line-height:1.45}
+.fitem .fsrc a{color:var(--blue);word-break:break-word}
+.fmore{font-size:calc(13px*var(--fs));color:var(--ink-soft);margin:10px 0 0;padding:9px 12px;
+  background:#EEF2F9;border-radius:4px}
+.fmore span{text-transform:uppercase;letter-spacing:.13em;font-weight:700;font-size:calc(11px*var(--fs));
+  color:var(--blue);margin-right:6px}
+.fmore a{color:var(--blue);word-break:break-word}
+
+/* the kids' walkthrough */
+.kids .how{background:#fff;border:1px dashed var(--gold);border-radius:4px;padding:12px 14px;
+  margin-top:12px;font-size:calc(15px*var(--fs));line-height:1.5;color:var(--ink)}
+.kids .how b{display:block;font-size:calc(11px*var(--fs));text-transform:uppercase;letter-spacing:.14em;
+  color:var(--gold);margin-bottom:6px;font-weight:700}
+
+/* guess source chip */
+.gsrc{display:inline-block;font-size:calc(10px*var(--fs));text-transform:uppercase;letter-spacing:.13em;
+  font-weight:700;padding:3px 8px;border-radius:3px;margin-bottom:8px}
+.gsrc.here{background:#EEF2F9;color:var(--blue);border:1px solid var(--blue-dim)}
+.gsrc.away{background:#FBF6E9;color:var(--gold);border:1px solid var(--gold)}
+
+/* how-to line above an activity */
+.howto{font-size:calc(14px*var(--fs));color:var(--ink-soft);background:#FBF6E9;border-left:3px solid var(--gold);
+  padding:9px 12px;border-radius:3px;margin-bottom:14px}
+
+/* countdown */
+.timer{font-family:var(--display);font-size:calc(40px*var(--fs));text-align:center;color:var(--blue);
+  padding:6px 0 2px;letter-spacing:.02em}
+.timer.low{color:var(--red)}
+.timerbar{height:6px;background:var(--rule);border-radius:3px;overflow:hidden;margin-bottom:12px}
+.timerbar i{display:block;height:100%;background:var(--red);width:100%;transition:width 1s linear}
+
+/* column label in a matching round */
+.collab{font-size:calc(11px*var(--fs));text-transform:uppercase;letter-spacing:.14em;color:var(--ink-soft);
+  font-weight:700;margin:14px 0 8px}
+.lcol .opt .cat,.optlist .opt .cat{background:var(--green);color:#fff;border-radius:3px;padding:1px 8px;font-size:calc(12px*var(--fs))}
+
+/* verdict stamp */
+.verdict{background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:18px;margin-bottom:16px;overflow:hidden}
+.verdict .eyebrow{color:var(--crimson)}
+.vrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.vrow button{flex:1 1 30%;font-family:var(--body);font-size:calc(14px*var(--fs));padding:13px 8px;
+  border:1px solid var(--crimson);background:transparent;color:var(--crimson);border-radius:4px;cursor:pointer;font-weight:600}
+.vrow button.on{background:var(--crimson);color:#fff}
+.stamp{margin-top:14px;border:4px double var(--crimson);color:var(--crimson);padding:12px 14px;
+  transform:rotate(-2.5deg);text-align:center;font-family:var(--display);font-size:calc(20px*var(--fs));
+  line-height:1.2;animation:thud .45s cubic-bezier(.2,1.5,.4,1) both}
+.stamp span{display:block;font-family:var(--body);font-size:calc(11px*var(--fs));text-transform:uppercase;
+  letter-spacing:.16em;margin-bottom:6px;opacity:.8}
+@keyframes thud{from{transform:rotate(-2.5deg) scale(2.4);opacity:0}to{transform:rotate(-2.5deg) scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){.stamp{animation:none}}
+
+/* winner picker */
+.win{margin-top:12px;padding-top:12px;border-top:1px dashed var(--rule)}
+.win .lab{font-size:calc(12px*var(--fs));text-transform:uppercase;letter-spacing:.13em;color:var(--ink-soft);margin-bottom:8px;font-weight:700}
+.win .who{display:flex;gap:6px;flex-wrap:wrap}
+.win .who button{font-family:var(--body);font-size:calc(14px*var(--fs));padding:9px 13px;border-radius:20px;
+  border:1px solid var(--lapis);background:transparent;color:var(--lapis);cursor:pointer}
+.win .who button.on{background:var(--emerald);border-color:var(--emerald);color:#fff}
+.win .who button:disabled{opacity:.45}
+.win .done{color:var(--green);font-weight:600;font-size:calc(14px*var(--fs))}
+.win .done.skipped{color:var(--ink-soft);font-weight:500;font-style:italic}
+.win .who button.on{background:var(--green);border-color:var(--green);color:#fff}
+.winact{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.winact .solid{flex:1 1 auto;font-size:calc(14px*var(--fs));padding:11px 14px}
+.winact .solid:disabled{opacity:.4}
+.winact .ghost{font-size:calc(14px*var(--fs));padding:11px 14px}
+
+/* players */
+.player{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--rule);
+  border-radius:4px;padding:12px 14px;margin-bottom:8px}
+.player .nm{flex:1;font-weight:600}
+.player .pts{color:var(--brass);font-weight:700}
+.player button{background:transparent;border:0;color:var(--crimson);font-size:calc(18px*var(--fs));cursor:pointer;padding:0 6px}
+input[type=text]{font-family:var(--body);font-size:calc(16px*var(--fs));padding:13px 14px;border:1px solid var(--rule);
+  border-radius:4px;width:100%;background:#fff;color:var(--ink)}
+
+/* address bar */
+.addr{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--rule);
+  border-left:5px solid var(--lapis-dim);border-radius:4px;padding:11px 12px;margin-bottom:16px}
+.addr .a{flex:1;font-size:calc(14px*var(--fs));color:var(--ink-soft);line-height:1.35;word-break:break-word}
+.addr button{font-family:var(--body);font-size:calc(13px*var(--fs));background:var(--lapis);color:#fff;
+  border:0;border-radius:4px;padding:9px 14px;cursor:pointer;flex:0 0 auto;font-weight:600}
+
+/* pin bar */
+.pinbar{margin-bottom:10px}
+.pinbar .lab{display:block;font-size:calc(12px*var(--fs));text-transform:uppercase;letter-spacing:.13em;
+  color:var(--ink-soft);margin-bottom:8px;font-weight:700}
+.pinbar .who{display:flex;gap:6px;flex-wrap:wrap}
+.pinbar .who button{font-family:var(--body);font-size:calc(14px*var(--fs));padding:9px 13px;border-radius:20px;
+  border:1px solid var(--crimson);background:transparent;color:var(--crimson);cursor:pointer}
+.pinbar .who button.on{background:var(--crimson);color:#fff}
+
+/* map */
+.mapwrap{background:#fff;border:1px solid var(--rule);border-radius:5px;padding:8px;margin-bottom:12px;position:relative}
+.mapwrap svg{display:block;width:100%;height:auto;touch-action:manipulation}
+.tag{display:inline-block;font-size:calc(10px*var(--fs));text-transform:uppercase;letter-spacing:.14em;
+  padding:4px 9px;border-radius:3px;font-weight:700;margin:0 6px 6px 0}
+.tag.all{background:var(--gold);color:#fff}
+.tag.split{background:var(--lapis);color:#fff}
+.tag.food{background:#e6ebf6;color:var(--lapis);border:1px solid var(--lapis-dim)}
+.sources{font-size:calc(14px*var(--fs));color:var(--ink-soft)}
+.sources a{color:var(--lapis);word-break:break-word}
+footer{margin:36px 0 10px;font-size:calc(13px*var(--fs));color:var(--ink-soft);text-align:center}
+:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="bar-in">
+    <button id="back" class="hide">&larr; Back</button>
+    <div class="bar-title" id="barTitle">As Old As It Looks</div>
+    <button id="fs">A<sup>+</sup></button>
+  </div>
+  <div class="board" id="board"></div>
+</div>
+<div class="wrap" id="app"></div>
+<footer class="wrap">Kraków &middot; three days</footer>
+<script>
+/* ===== hand-drawn SVG illustrations: no photos, no network ===== */
+const S={};
+const P='stroke="var(--lapis)" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"';
+const B='stroke="var(--brass)" fill="none" stroke-width="2" stroke-linecap="round"';
+const F='fill="var(--brass)" opacity=".18"';
+
+S.sukiennice=`<svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Cloth Hall">
+<path ${F} d="M40 150h320V70H40z"/>
+<path ${P} d="M30 150h340M40 150V72h320v78"/>
+<path ${P} d="M40 72l30-22h260l30 22"/>
+${[0,1,2,3,4,5,6].map(i=>`<path ${P} d="M${62+i*40} 150v-34a14 14 0 0 1 28 0v34"/>`).join('')}
+<path ${B} d="M60 62h280M74 50c4-8 12-8 16 0M114 50c4-8 12-8 16 0M154 50c4-8 12-8 16 0M194 50c4-8 12-8 16 0M234 50c4-8 12-8 16 0M274 50c4-8 12-8 16 0M314 50c4-8 12-8 16 0"/>
+<path ${P} d="M182 30h36v20h-36zM200 30V16"/><circle cx="200" cy="12" r="4" ${P}/>
+</svg>`;
+
+S.adalbert=`<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="St Adalbert's, raised out of the rising square">
+<path fill="var(--brass)" opacity=".13" d="M0 128h400v82H0z"/>
+<path ${P} d="M0 128h400"/>
+<text x="8" y="146" font-size="11" fill="var(--ink-soft)" font-family="sans-serif">today's paving</text>
+<path stroke="var(--crimson)" stroke-dasharray="5 5" stroke-width="2" fill="none" d="M0 186h400"/>
+<text x="8" y="202" font-size="11" fill="var(--crimson)" font-family="sans-serif">ground level c.1000</text>
+<path ${P} d="M150 128v-46h100v46"/>
+<path stroke="var(--crimson)" fill="none" stroke-width="2" d="M150 128v58h100v-58"/>
+<path ${P} d="M150 82q50-40 100 0"/>
+<path ${P} d="M186 60q14-22 28 0"/>
+<path ${P} d="M200 38V22M192 28h16"/>
+<circle cx="176" cy="104" r="9" ${P}/><circle cx="224" cy="104" r="9" ${P}/>
+<path stroke="var(--crimson)" fill="none" stroke-width="2" d="M166 186v-30h20v30"/>
+<path ${B} d="M270 128v58M264 132l6-6 6 6M264 182l6 6 6-6"/>
+<text x="282" y="162" font-size="12" fill="var(--brass)" font-family="sans-serif">~2m</text>
+</svg>`;
+
+S.stmary=`<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="St Mary's two unequal towers">
+<path ${P} d="M20 205h360"/>
+<path ${F} d="M120 205V96h160v109z"/>
+<path ${P} d="M120 205V96h160v109M120 96l80-30 80 30"/>
+<path ${P} d="M70 205V72h50v133M70 72h50M74 72V54h42v18"/>
+<path ${P} d="M78 54l17-32 17 32"/>
+<path ${B} d="M95 22V8"/><circle cx="95" cy="5" r="3" fill="var(--brass)"/>
+<path ${P} d="M280 205V88h48v117M280 88h48M284 88V72h40v16M288 72l16-26 16 26"/>
+<path ${P} d="M186 205v-52a14 14 0 0 1 28 0v52"/>
+<circle cx="200" cy="118" r="12" ${P}/>
+<path ${B} d="M104 40l26-12M104 40l24 6M104 40l6 26M104 40L86 60"/>
+</svg>`;
+
+S.altar=`<svg viewBox="0 0 400 230" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The altarpiece: a five-panel pentaptych">
+<path ${F} d="M130 60h140v150H130z"/>
+<path ${P} d="M60 210h280"/>
+<path ${P} d="M130 210V70h140v140zM130 70q70-46 140 0"/>
+<path ${P} d="M70 210V96h60v114M270 210V96h60v114"/>
+<path ${P} d="M70 96q30-18 60-8M270 88q30-10 60 8"/>
+<path ${P} d="M160 190v-58a12 12 0 0 1 24 0v58M216 190v-58a12 12 0 0 1 24 0v58"/>
+<circle cx="172" cy="118" r="10" ${P}/><circle cx="228" cy="118" r="10" ${P}/>
+<path ${P} d="M88 190v-44a10 10 0 0 1 20 0v44M292 190v-44a10 10 0 0 1 20 0v44"/>
+<circle cx="98" cy="134" r="8" ${P}/><circle cx="302" cy="134" r="8" ${P}/>
+<path ${B} d="M130 26h140M130 22v8M270 22v8"/>
+<text x="200" y="18" font-size="12" text-anchor="middle" fill="var(--brass)" font-family="sans-serif">11 m wide</text>
+<path ${B} d="M356 60v150M352 64l4-4 4 4M352 206l4 4 4-4"/>
+<text x="368" y="140" font-size="12" fill="var(--brass)" font-family="sans-serif" transform="rotate(90 368 140)">13 m</text>
+</svg>`;
+
+S.mickiewicz=`<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Mickiewicz monument and its four allegorical figures">
+<path ${P} d="M60 206h280"/>
+<path ${F} d="M150 206v-70h100v70z"/>
+<path ${P} d="M120 206v-14h160v14M136 192v-16h128v16M150 176v-72h100v72"/>
+<path ${P} d="M200 104V60"/>
+<circle cx="200" cy="48" r="13" ${P}/>
+<path ${P} d="M182 104q18-46 36 0M200 62v22M186 76l-8 26M214 76l8 26"/>
+<path ${P} d="M142 176v-24a9 9 0 0 1 18 0v24M240 176v-24a9 9 0 0 1 18 0v24"/>
+<circle cx="151" cy="142" r="8" ${P}/><circle cx="249" cy="142" r="8" ${P}/>
+<path ${P} d="M172 192v-14a8 8 0 0 1 16 0v14M212 192v-14a8 8 0 0 1 16 0v14"/>
+<circle cx="180" cy="170" r="7" ${P}/><circle cx="220" cy="170" r="7" ${P}/>
+<text x="90" y="150" font-size="11" fill="var(--brass)" font-family="sans-serif">Motherland</text>
+<text x="286" y="150" font-size="11" fill="var(--brass)" font-family="sans-serif">Science</text>
+<text x="120" y="188" font-size="11" fill="var(--brass)" font-family="sans-serif">Poetry</text>
+<text x="286" y="188" font-size="11" fill="var(--brass)" font-family="sans-serif">Courage</text>
+</svg>`;
+
+S.head=`<svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A giant hollow bronze head lying on its side">
+<path ${P} d="M20 168h360"/>
+<path ${F} d="M96 168c-24-52 6-112 66-118 56-6 106 32 112 74 4 30-14 44-44 44z"/>
+<path ${P} d="M96 168c-24-52 6-112 66-118 56-6 106 32 112 74 4 30-14 44-44 44z"/>
+<path ${P} d="M120 96c26-16 56-18 84-6"/>
+<ellipse cx="146" cy="92" rx="12" ry="7" ${P}/><ellipse cx="196" cy="88" rx="12" ry="7" ${P}/>
+<path ${B} d="M108 74c50-22 102-14 140 14M114 118c48-20 100-12 138 16"/>
+<path ${P} d="M232 140c-16 10-40 12-58 4"/>
+<path ${P} d="M262 122c14-4 22-14 20-26"/>
+<text x="300" y="176" font-size="11" fill="var(--ink-soft)" font-family="sans-serif">1,900 kg</text>
+</svg>`;
+
+S.barbican=`<svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Barbican and St Florian's Gate">
+<path ${P} d="M20 168h360"/>
+<path ${F} d="M60 168v-58a70 40 0 0 1 140 0v58z"/>
+<path ${P} d="M60 168v-58a70 40 0 0 1 140 0v58"/>
+${[0,1,2,3,4,5,6].map(i=>`<path ${P} d="M${64+i*22} ${104-Math.round(22*Math.sin(i*Math.PI/6))}v-16h12v16"/>`).join('')}
+${[0,1,2,3].map(i=>`<path ${B} d="M${86+i*28} 150v-14"/>`).join('')}
+<path ${P} d="M112 168v-30a18 18 0 0 1 36 0v30"/>
+<path ${P} d="M200 150h60M232 150V60h56v90"/>
+<path ${P} d="M232 60h56M236 60V44h48v16M240 44l20-26 20 26"/>
+<path ${P} d="M244 150v-28a16 16 0 0 1 32 0v28"/>
+<path ${B} d="M288 96h60M288 132h60"/>
+<text x="300" y="120" font-size="11" fill="var(--brass)" font-family="sans-serif">wall line</text>
+</svg>`;
+
+S.planty=`<svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Planty: a green ring where the walls stood">
+<ellipse cx="200" cy="100" rx="150" ry="80" fill="var(--emerald)" opacity=".16"/>
+<ellipse cx="200" cy="100" rx="150" ry="80" stroke="var(--emerald)" fill="none" stroke-width="2"/>
+<ellipse cx="200" cy="100" rx="122" ry="60" stroke="var(--emerald)" fill="none" stroke-width="2" stroke-dasharray="4 4"/>
+<rect x="150" y="82" width="100" height="36" ${P}/>
+<text x="200" y="106" font-size="13" text-anchor="middle" fill="var(--lapis)" font-family="sans-serif">Rynek</text>
+<circle cx="200" cy="20" r="9" ${P}/><text x="216" y="24" font-size="11" fill="var(--lapis)" font-family="sans-serif">Barbican</text>
+<circle cx="200" cy="180" r="9" ${P}/><text x="216" y="184" font-size="11" fill="var(--lapis)" font-family="sans-serif">Wawel</text>
+${[0,1,2].map(i=>`<rect x="${288+i*10}" y="${66+i*22}" width="9" height="14" stroke="var(--crimson)" fill="none" stroke-width="2"/>`).join('')}
+<text x="300" y="150" font-size="11" fill="var(--crimson)" font-family="sans-serif">3 towers</text>
+<text x="20" y="200" font-size="11" fill="var(--emerald)" font-family="sans-serif">4 km ring, planted 1822&ndash;1830</text>
+</svg>`;
+
+S.wawel=`<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wawel's three-tier arcaded courtyard">
+<path ${P} d="M20 182h360"/>
+<path ${F} d="M40 182V36h320v146z"/>
+<path ${P} d="M40 182V40h320v142"/>
+<path ${P} d="M40 40l40-16h240l40 16"/>
+${[0,1,2,3,4,5,6].map(i=>`<path ${P} d="M${60+i*44} 182v-40a16 16 0 0 1 32 0v40"/>`).join('')}
+${[0,1,2,3,4,5,6].map(i=>`<path ${P} d="M${60+i*44} 126v-30a16 16 0 0 1 32 0v30"/>`).join('')}
+${[0,1,2,3,4,5,6].map(i=>`<path ${P} d="M${76+i*44} 82V46"/>`).join('')}
+<path ${P} d="M46 82h308M46 128h308"/>
+<path ${B} d="M372 46v36M368 50l4-4 4 4M368 78l4 4 4-4"/>
+<text x="378" y="70" font-size="11" fill="var(--brass)" font-family="sans-serif" transform="rotate(90 378 70)">double</text>
+</svg>`;
+
+S.arka=`<svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Arka Pana, shaped like an ark">
+<path ${P} d="M20 168h360"/>
+<path ${F} d="M60 168c10-40 60-58 140-58s130 18 140 58z"/>
+<path ${P} d="M60 168c10-40 60-58 140-58s130 18 140 58"/>
+<path ${P} d="M92 110c20-34 66-52 108-52s88 18 108 52"/>
+<path ${P} d="M200 58V22"/><path ${P} d="M180 34h40"/>
+<path ${B} d="M124 148c0-12 10-20 22-20M164 152c0-12 10-20 22-20M204 152c0-12 10-20 22-20M244 148c0-12 10-20 22-20"/>
+${[0,1,2,3,4,5,6,7,8,9].map(i=>`<circle cx="${86+i*26}" cy="${162-Math.round(i%3*4)}" r="3" fill="var(--brass)" opacity=".55"/>`).join('')}
+<text x="20" y="184" font-size="11" fill="var(--brass)" font-family="sans-serif">two million river stones</text>
+</svg>`;
+
+S.mound=`<svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A mound in profile, with only the top sampled">
+<path ${P} d="M0 148h400"/>
+<path ${F} d="M70 148q130-118 260 0z"/>
+<path ${P} d="M70 148q130-118 260 0"/>
+<path stroke="var(--crimson)" fill="none" stroke-width="2" stroke-dasharray="4 4" d="M168 62h64"/>
+<text x="238" y="58" font-size="11" fill="var(--crimson)" font-family="sans-serif">only the top 30cm dug</text>
+<path ${B} d="M200 60V36"/><path ${B} d="M188 44l12-10 12 10"/>
+<path ${P} d="M120 148q80-60 160 0" stroke-dasharray="3 5"/>
+<text x="150" y="132" font-size="11" fill="var(--lapis)" font-family="sans-serif">timber core?</text>
+<text x="10" y="164" font-size="11" fill="var(--ink-soft)" font-family="sans-serif">16 m high, age unknown</text>
+</svg>`;
+
+S.rotunda=`<svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The twelve-sided rotunda on Plac Nowy">
+<path ${P} d="M20 148h360"/>
+<path ${F} d="M110 148V88l90-34 90 34v60z"/>
+<path ${P} d="M110 148V88l90-34 90 34v60"/>
+<path ${P} d="M110 88h180"/>
+${[0,1,2,3,4].map(i=>`<rect x="${126+i*34}" y="104" width="22" height="26" ${P}/>`).join('')}
+<path ${B} d="M200 54V32"/><circle cx="200" cy="28" r="4" fill="var(--brass)"/>
+<text x="20" y="164" font-size="11" fill="var(--ink-soft)" font-family="sans-serif">built 1900 &middot; hatches added later</text>
+</svg>`;
+
+S.obwarzanek=`<svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An obwarzanek: two twisted strands, not one rope">
+<g transform="translate(110,75)">
+<circle r="52" ${P}/><circle r="26" ${P}/>
+${Array.from({length:16},(_,i)=>{const a=i*Math.PI/8;const b=a+0.42;
+ return `<path ${B} d="M${(39*Math.cos(a)).toFixed(1)} ${(39*Math.sin(a)).toFixed(1)}L${(39*Math.cos(b)).toFixed(1)} ${(39*Math.sin(b)).toFixed(1)}"/>`}).join('')}
+</g>
+<text x="110" y="142" font-size="12" text-anchor="middle" fill="var(--lapis)" font-family="sans-serif">obwarzanek: braided</text>
+<g transform="translate(290,75)"><circle r="52" ${P}/><circle r="26" ${P}/></g>
+<text x="290" y="142" font-size="12" text-anchor="middle" fill="var(--ink-soft)" font-family="sans-serif">bagel: one rope</text>
+</svg>`;
+
+S.plac=`<svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Socialist realist blocks with Renaissance arcades">
+<path ${P} d="M10 160h380"/>
+<path ${F} d="M30 160V44h150v116zM220 160V44h150v116z"/>
+<path ${P} d="M30 160V48h150v112M220 160V48h150v112"/>
+<path ${P} d="M30 48l14-14h122l14 14M220 48l14-14h122l14 14"/>
+${[0,1,2,3].map(i=>`<path ${P} d="M${44+i*34} 160v-26a12 12 0 0 1 24 0v26"/>`).join('')}
+${[0,1,2,3].map(i=>`<path ${P} d="M${234+i*34} 160v-26a12 12 0 0 1 24 0v26"/>`).join('')}
+${[0,1,2,3].map(i=>[0,1].map(j=>`<rect x="${46+i*34}" y="${64+j*26}" width="18" height="16" ${P}/>`).join('')).join('')}
+${[0,1,2,3].map(i=>[0,1].map(j=>`<rect x="${236+i*34}" y="${64+j*26}" width="18" height="16" ${P}/>`).join('')).join('')}
+<path ${B} d="M190 160V96M182 104l8-8 8 8"/>
+<text x="150" y="176" font-size="11" fill="var(--brass)" font-family="sans-serif">arcades below, authority above</text>
+</svg>`;
+
+S.tray=`<svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A milk bar tray">
+<rect x="50" y="30" width="300" height="90" rx="8" ${P}/>
+<rect x="62" y="42" width="276" height="66" rx="4" ${F}/>
+<circle cx="130" cy="76" r="30" ${P}/><circle cx="130" cy="76" r="20" ${B}/>
+<rect x="186" y="52" width="70" height="48" rx="4" ${P}/>
+<path ${B} d="M196 66h50M196 78h50M196 90h34"/>
+<path ${P} d="M290 100V60a14 14 0 0 1 28 0v40z"/>
+<path ${B} d="M292 74h24"/>
+<text x="200" y="140" font-size="11" text-anchor="middle" fill="var(--ink-soft)" font-family="sans-serif">tray, counter, point, pay, sit</text>
+</svg>`;
+
+S.clock=`<svg viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The courtyard clock and its six processing figures">
+<circle cx="200" cy="66" r="46" ${P}/><circle cx="200" cy="66" r="38" ${B}/>
+${Array.from({length:12},(_,i)=>{const a=i*Math.PI/6;
+ return `<path ${P} d="M${(200+32*Math.sin(a)).toFixed(1)} ${(66-32*Math.cos(a)).toFixed(1)}L${(200+37*Math.sin(a)).toFixed(1)} ${(66-37*Math.cos(a)).toFixed(1)}"/>`}).join('')}
+<path ${P} d="M200 66V42M200 66l18 12"/>
+<path ${P} d="M40 160h320M40 130h320"/>
+${[0,1,2,3,4,5].map(i=>`<g transform="translate(${74+i*50},0)"><path ${P} d="M0 160v-18a8 8 0 0 1 16 0v18"/><circle cx="8" cy="130" r="7" ${P}/></g>`).join('')}
+<text x="200" y="176" font-size="11" text-anchor="middle" fill="var(--ink-soft)" font-family="sans-serif">six figures, five times a day</text>
+</svg>`;
+
+S.dragon=`<svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The Wawel dragon">
+<path ${P} d="M20 150h360"/>
+<path ${F} d="M92 150c-8-34 14-58 48-58 34 0 44 18 74 18 24 0 34-14 34-14v54z"/>
+<path ${P} d="M92 150c-8-34 14-58 48-58 34 0 44 18 74 18 24 0 34-14 34-14"/>
+<path ${P} d="M248 96c14-8 26-24 26-40 0-14-12-24-26-20-12 4-16 16-14 28"/>
+<path ${P} d="M234 44c-10-8-24-6-30 4"/>
+<circle cx="252" cy="46" r="4" fill="var(--lapis)"/>
+<path ${B} d="M266 34c14-6 28-2 38 8M266 34c16 2 28 12 34 24M266 34c10-12 26-16 40-12"/>
+<path ${P} d="M118 96l14-22 16 22M158 96l14-26 16 26M198 100l14-24 14 24"/>
+<path ${P} d="M100 150l-30 8 30 6"/>
+<path ${P} d="M130 150v14M170 150v14M210 150v14"/>
+</svg>`;
+
+S.lem=`<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A whisper dish and a thinking machine">
+<path ${P} d="M20 140h360"/>
+<path ${P} d="M70 140V96M40 96a30 44 0 0 1 60 0z" />
+<path ${F} d="M40 96a30 44 0 0 1 60 0z"/>
+<path ${B} d="M104 62c18-8 38-8 56 0M108 76c16-6 34-6 50 0"/>
+<rect x="230" y="66" width="80" height="60" rx="6" ${P}/>
+<rect x="244" y="80" width="52" height="26" rx="3" ${F}/>
+<circle cx="256" cy="92" r="5" ${P}/><circle cx="284" cy="92" r="5" ${P}/>
+<path ${P} d="M252 116h36M270 66V50M254 50h32"/>
+<path ${P} d="M230 126v14M310 126v14"/>
+<text x="200" y="156" font-size="11" text-anchor="middle" fill="var(--ink-soft)" font-family="sans-serif">poke it, watch, work out why</text>
+</svg>`;
+
+S.chairs=`<svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Empty chairs on the square">
+<path stroke="var(--crimson)" fill="none" stroke-width="2" d="M10 132h380"/>
+${[0,1,2,3,4,5,6].map(i=>`<g transform="translate(${34+i*50},0)"><path stroke="var(--crimson)" fill="none" stroke-width="2" d="M0 132v-30h26v30M0 102V62h4v40M22 102V62h4v40"/></g>`).join('')}
+<path stroke="var(--crimson)" stroke-dasharray="6 5" stroke-width="2" fill="none" d="M10 144h380"/>
+<text x="200" y="26" font-size="12" text-anchor="middle" fill="var(--crimson)" font-family="sans-serif">33 chairs facing the pharmacy</text>
+</svg>`;
+
+/* Kraków, projected from real coordinates. lon 19.895-20.055, lat 50.030-50.085 */
+S.map=`<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of Kraków">
+<rect width="400" height="300" fill="#F3F0EA"/>
+<path d="M12 232q24 4 46 0t28-24 22-4 14 16 26 10 24 2 38-20 38-44 62-38 92-24v198H12z" fill="#DDE6F2"/>
+<path d="M12 226q24 4 46 2t24-23 16-22 12 17 15 11 25 5 25 2 38-20 38-43 62-40 75-25"
+ stroke="#6E93C4" fill="none" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12 226q24 4 46 2t24-23 16-22 12 17 15 11 25 5 25 2 38-20 38-43 62-40 75-25"
+ stroke="#3E6BA8" fill="none" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="196" y="232" font-size="10" fill="#3E6BA8" font-family="sans-serif" font-style="italic">Wis&#322;a</text>
+<ellipse cx="106" cy="127" rx="40" ry="30" fill="var(--green)" opacity=".17"/>
+<ellipse cx="106" cy="127" rx="40" ry="30" stroke="var(--green)" fill="none" stroke-width="1.5"/>
+<text x="106" y="99" font-size="9" text-anchor="middle" fill="var(--green)" font-family="sans-serif">Old Town</text>
+<ellipse cx="46" cy="128" rx="26" ry="20" fill="var(--green)" opacity=".14"/>
+<text x="46" y="131" font-size="8" text-anchor="middle" fill="var(--green)" font-family="sans-serif">B&#322;onia</text>
+<ellipse cx="118" cy="190" rx="28" ry="17" fill="var(--gold)" opacity=".16"/>
+<text x="118" y="193" font-size="8" text-anchor="middle" fill="var(--gold)" font-family="sans-serif">Kazimierz</text>
+<ellipse cx="152" cy="242" rx="36" ry="22" fill="var(--ink-soft)" opacity=".09"/>
+<text x="152" y="245" font-size="8" text-anchor="middle" fill="var(--ink-soft)" font-family="sans-serif">Podg&#243;rze</text>
+<ellipse cx="336" cy="72" rx="52" ry="34" fill="var(--red)" opacity=".08"/>
+<text x="336" y="46" font-size="9" text-anchor="middle" fill="var(--red)" font-family="sans-serif">Nowa Huta</text>
+<path d="M316 84h18v9h-18zM320 84v-9h4v9M328 84v-9h4v9" stroke="var(--red)" fill="none" stroke-width="1.3"/>
+<text x="12" y="22" font-size="9" fill="var(--ink-soft)" font-family="sans-serif">N</text>
+<path stroke="var(--ink-soft)" stroke-width="1.5" fill="none" d="M17 36V16M12 21l5-5 5 5"/>
+<path stroke="var(--ink-soft)" stroke-width="1.5" fill="none" d="M300 288h50M300 284v8M350 284v8"/>
+<text x="325" y="282" font-size="8" text-anchor="middle" fill="var(--ink-soft)" font-family="sans-serif">2 km</text>
+</svg>`;
+
+/* Kraków's arms: a wall with three towers, used as a section mark */
+S.arms=`<svg class="arms" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M3 21V11h18v10z" fill="var(--blue)"/>
+<path d="M4 11V6h4v5M10 11V3h4v8M16 11V6h4v5" fill="var(--blue)"/>
+<path d="M9 21v-6a3 3 0 0 1 6 0v6z" fill="var(--gold)"/>
+</svg>`;
+
+/* a dragon scale, used to mark the sticker moment */
+S.scale=`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M12 2c5 0 9 4 9 9 0 6-4 11-9 11S3 17 3 11c0-5 4-9 9-9z" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M12 7c2.5 0 4.5 2 4.5 4.5S14.5 16 12 16s-4.5-2-4.5-4.5S9.5 7 12 7z" fill="currentColor" opacity=".45"/>
+</svg>`;
+/* ===== the opener: four rounds, all guessable without knowing anything ===== */
+const QUIZ=[
+{id:"q-size", round:"Size matters", kind:"order",
+ blurb:"Tap the items into order. You are scored on how many land in the right position, so nobody scores zero. Nobody expects you to know these.",
+ items:[
+  {prompt:"Five moments from Polish history. Tap them into order, earliest first.",
+   opts:[
+    {l:"A bishop is murdered converting pagans on the Baltic coast, and Poland gains its first saint",v:997},
+    {l:"Mongol raiders sweep across Europe and burn the city to the ground",v:1241},
+    {l:"At the height of the Polish golden age, a German warrior-monk kneels to a Polish king",v:1525},
+    {l:"Poland is wiped off the map entirely, carved up between three empires",v:1795},
+    {l:"A Soviet-funded steelworks rises east of the city to build a model communist town",v:1949}],
+   note:"997, 1241, 1525, 1795, 1949. Roughly: the arrival of Christianity, the Mongol invasions, the Renaissance golden age, the partitions that erased the country for 123 years, then communism. Those five periods are the spine of the whole trip."},
+  {prompt:"Five things you will pay for this weekend. Tap them into order, cheapest first.",
+   opts:[
+    {l:"An obwarzanek: the ring-shaped bread sold from carts on every corner",v:1},
+    {l:"A zapiekanka: a foot-long toasted baguette with cheese and mushrooms",v:2},
+    {l:"One adult ticket to the Eagle Pharmacy, a small wartime museum",v:3},
+    {l:"Lunch for two in a milk bar: soup, a main course and a drink each",v:4},
+    {l:"A family ticket to the painting gallery above the Cloth Hall",v:5}],
+   note:"Roughly 5 PLN, 10 to 18 PLN, 22 PLN, 50 to 80 PLN, then 70 PLN for a family of four. About five złoty to the pound."},
+  {prompt:"Five things you will stand in front of. Tap them into order, shortest first.",
+   opts:[
+    {l:"The bronze dragon below the castle, which breathes real fire",v:6},
+    {l:"The monument to Poland's national poet, in the middle of the main square",v:10},
+    {l:"A carved wooden altarpiece inside the main church, the largest Gothic one in the world",v:13},
+    {l:"A grass mound raised by hand, the oldest structure in the city",v:16},
+    {l:"The taller of the two church towers on the main square, where a trumpeter plays hourly",v:82}],
+   note:"6m dragon, 10m monument, 13m altarpiece, 16m mound, 82m tower. The altarpiece standing taller than a house is the one that surprises people."},
+  {prompt:"Five things that all look old. Tap them into order, oldest first.",
+   opts:[
+    {l:"The monument to the national poet, as it stands today after being blown up and rebuilt",v:1955},
+    {l:"The fire-breathing dragon statue by the river",v:1969},
+    {l:"A church in the communist new town, built by hand from two million river stones",v:1977},
+    {l:"A giant bronze head lying on the main square, bandaged and broken like an excavated antiquity",v:1999},
+    {l:"The mechanical clock in the old university courtyard, with its procession of carved figures",v:2000}],
+   note:"1955, 1969, 1977, 1999, 2000. Every one was made within living memory, and every one is built to look older. That is the argument the whole trip rests on."}
+ ]},
+
+{id:"q-mcq", round:"Polish general knowledge", kind:"mcq",
+ blurb:"Six questions, four answers each, and a plausible wrong answer hiding in every one. Argue it out before anybody taps.",
+ items:[
+  {q:"Three of these four are Polish. Which one is not?",
+   opts:["Marie Curie, who won two Nobel prizes","Joseph Conrad, who wrote Heart of Darkness",
+         "Nicolaus Copernicus, the astronomer","Sigmund Freud, the father of psychoanalysis"],
+   a:3, note:"Freud was Austrian. Conrad is the trap: he wrote in English, took an English name, became a British subject and sits on the shelf with English novelists, but he was born J\u00f3zef Korzeniowski and was orphaned here in Krak\u00f3w at eleven. You stand at his plaque on the first day. All four built their careers outside the country they were born in, which is rather the point."},
+  {q:"What is the capital of Poland?",
+   opts:["Kraków","Warsaw","Gdańsk","Wrocław"],
+   a:1, note:"Warsaw, since 1596, when the king moved his court. Kraków is the older capital and still holds the castle, the cathedral and the royal tombs, which is why it does not feel like a provincial city."},
+  {q:"In 1795 Poland was carved up and vanished from the map. Which three powers did it?",
+   opts:["Russia, Prussia and Austria","Germany, Russia and the Ottoman Empire",
+         "Sweden, Russia and Prussia","France, Austria and Russia"],
+   a:0, note:"Russia, Prussia and Austria. Sweden is the good red herring, having invaded and devastated Poland in the 1650s in an episode Poles call the Deluge. Germany did not yet exist as a country in 1795."},
+  {q:"Solidarity, the movement that helped end communism in Eastern Europe, began how?",
+   opts:["A student uprising in Kraków","A miners' strike in Silesia",
+         "A shipyard strike in Gdańsk","A church campaign in Warsaw"],
+   a:2, note:"A strike at the Gdańsk shipyard in 1980, which became the first independent trade union in the Soviet bloc. The Kraków option is the plausible trap, and the district you visit on the second day was one of the movement's strongholds."},
+  {q:"What happened to Poland in September 1939?",
+   opts:["It stayed neutral throughout","It was invaded by Germany alone",
+         "It was invaded by Germany, then by the Soviet Union two weeks later","It allied with Germany against the Soviet Union"],
+   a:2, note:"Both. Germany invaded on 1 September, the Soviet Union on 17 September, under a pact the two had signed in August. Being crushed from both sides at once shapes how Poland remembers the war, and the assumption that it was Germany alone is the commonest outside mistake."},
+  {q:"Three of these are Polish dishes. Which one is not?",
+   opts:["Bigos, a slow-cooked cabbage and meat stew","Goulash, a paprika beef stew",
+         "Żurek, a sour soup made from fermented rye","Pierogi, filled dumplings"],
+   a:1, note:"Goulash is Hungarian, though you will find it on menus here. Żurek is the one that sounds invented and is not: the soup is genuinely soured with fermented rye flour, and it is often served in a hollowed-out loaf."}
+ ]},
+
+{id:"q-rich", round:"Rich list", kind:"rich",
+ blurb:"Sixty seconds per category. Write down as many as you can, however you like: one list between you, or everyone racing separately. Tap start when you have a pen.",
+ items:[
+  {prompt:"Things Poland gave the world.",
+   list:["Marie Curie, and two Nobel prizes","Copernicus, and the Earth going round the sun","Chopin","Joseph Conrad, writing in English","The Enigma code, first broken by Polish mathematicians","Vodka, disputed with Russia","Pierogi","Bagels, descended from Kraków's obwarzanek","Solidarity, the first free trade union in the Eastern bloc","Pope John Paul II","Stanisław Lem, the most translated Polish author","The kerosene lamp"],
+   note:"Twelve on the list. Anything defensible counts, so argue the marginal ones out."},
+  {prompt:"Polish foods and drinks.",
+   list:["Pierogi, the dumplings","Bigos, the hunter's stew","Żurek, the sour rye soup","Barszcz, the beetroot soup","Obwarzanek, the ring bread","Zapiekanka, the toasted baguette","Kompot, stewed fruit juice","Oranżada, the fizzy orange drink","Miód pitny, or mead","Kiełbasa, the sausage","Placki ziemniaczane, potato pancakes","Sernik, the cheesecake","Rosół, the clear chicken broth"],
+   note:"Thirteen. You will eat or drink at least five of these over three days."},
+  {prompt:"Polish cities.",
+   list:["Warsaw, the capital","Kraków","Gdańsk, on the Baltic, where Solidarity began","Wrocław","Poznań","Łódź","Katowice","Lublin","Szczecin","Białystok","Toruń, where Copernicus was born","Zakopane, in the mountains"],
+   note:"Twelve. Most people get three and stall, which is the fun of it."}
+ ]}
+];
+/* ===== food and drink: what it is, and how it became Polish ===== */
+const FOOD=[
+{group:"Five worth prioritising", note:"If you eat nothing else from this list.",
+ items:[
+ {n:"Żurek", d:"Sour rye soup, and the one nobody in the group will have met before. It explains Polish cooking better than any other single dish.", src:[["Saveur: what Polish food actually was before potatoes","https://www.saveur.com/culture/new-polish-cuisine"]]},
+ {n:"Kremówka", d:"A vanilla slice with a papal endorsement. The story is better than the cake, and the cake is very good.", src:[["VisitMałopolska: what the pope actually said, in 1999","https://visitmalopolska.pl/en_GB/kuchnia-regionalna"],["The Viennese confectioner who baked the originals","https://annainthekitchen.com/polish-papal-cream-cake/"]]},
+ {n:"Kompot", d:"Stewed fruit juice, poured from a jug, included with every milk bar lunch. Different every time, so it can be collected.", src:[["Culture.pl: milk bars, where you will meet it","https://culture.pl/en/article/milk-bars-a-taste-of-poland"]]},
+ {n:"Bigos", d:"The national dish, and the one carrying the most history per mouthful. If one person orders it, everyone should taste it.", src:[["Wikipedia: Bigos","https://en.wikipedia.org/wiki/Bigos"]]},
+ {n:"Oscypek", d:"Grilled sheep's cheese from a street stall, protected by European law, stamped with the shepherd's own pattern. The most distinctive flavour in the country.", src:[["The history and the PDO status","https://cheesescientist.com/trivia/oscypek/"],["VisitMałopolska: regional cuisine","https://visitmalopolska.pl/en_GB/kuchnia-regionalna"]]}]},
+
+{group:"Soups", note:"Poland takes soup more seriously than anywhere else in Europe.",
+ more:[["Culture.pl: ten meals from ten Polish regions","https://culture.pl/en/article/ten-meals-from-ten-polish-regions"]], items:[
+ {n:"Żurek", d:"Sour rye soup, made by fermenting rye flour and water for several days until it turns sharp. Peasants kept a jar of the starter permanently going, which meant a hot meal from almost nothing. Served with white sausage and half a boiled egg, sometimes inside a hollowed-out loaf.", src:[["Saveur: what Polish food actually was before potatoes","https://www.saveur.com/culture/new-polish-cuisine"]]},
+ {n:"Barszcz czerwony", d:"Clear beetroot soup, deep red, sour and faintly sweet. Beetroot grows in poor soil and stores through a long winter, which is how it became a fixture. At Christmas it arrives with tiny mushroom dumplings floating in it.", src:[["Culture.pl: ten meals from ten regions","https://culture.pl/en/article/ten-meals-from-ten-polish-regions"]]},
+ {n:"Rosół", d:"Clear chicken broth with noodles, the Sunday soup of every Polish household. The name shares a root with the word for brine. Poles treat it as medicine, comfort, and the correct opening to any large family lunch.", src:[["Wikipedia: Polish cuisine","https://en.wikipedia.org/wiki/Polish_cuisine"]]},
+ {n:"Flaki", d:"Tripe soup seasoned with marjoram, and genuinely popular rather than a curiosity. The classic hangover cure, which is how it survived into the modern menu.", src:[["Wikipedia: Polish cuisine","https://en.wikipedia.org/wiki/Polish_cuisine"]]}]},
+
+{group:"The famous ones", note:"What Poles cook when they are cooking for other Poles.",
+ more:[["Culture.pl: Pierogi and Other Stories","https://culture.pl/en/pierogi-other-stories"]], items:[
+ {n:"Pierogi", d:"Filled dumplings, boiled and sometimes fried afterwards. The classic fillings are ruskie, potato and curd cheese, named for the Ruthenian lands rather than Russia; then meat, sauerkraut and mushroom, and sweet ones with blueberries. Legend credits a 13th-century Kraków bishop with bringing them back from the east, though historians treat that as invention. They spread because they stretch a little filling across a great deal of cheap flour.", src:[["Culture.pl: Pierogi and Other Stories","https://culture.pl/en/pierogi-other-stories"],["Wikipedia: Pierogi","https://en.wikipedia.org/wiki/Pierogi"]]},
+ {n:"Bigos", d:"Hunter's stew of sauerkraut, fresh cabbage, several meats, mushrooms and sometimes prunes, cooked and reheated over days until everything collapses together. It suited hunting parties and long winters, improves every time it is warmed, and appears in Poland's national epic poem, which sealed its reputation.", src:[["Wikipedia: Bigos","https://en.wikipedia.org/wiki/Bigos"]]},
+ {n:"Gołąbki", d:"Cabbage leaves rolled round minced meat and rice, baked in tomato sauce. The name means little pigeons. Legend has a Polish king feeding his army on them before a battle with the Teutonic Knights, which is almost certainly invented, and tells you exactly how Poles like their food stories.", src:[["Wikipedia: Gołąbki","https://en.wikipedia.org/wiki/Go%C5%82%C4%85bki"]]},
+ {n:"Kotlet schabowy", d:"Breaded pork cutlet, beaten thin and fried. Austrian schnitzel arrived through Galicia in the 19th century, when Kraków sat under Viennese rule, and Poland kept it. The Sunday dinner of the communist decades, and still the default order.", src:[["Wikipedia: Kotlet schabowy","https://en.wikipedia.org/wiki/Kotlet_schabowy"]]},
+ {n:"Placki ziemniaczane", d:"Potato pancakes, grated and fried crisp. Eaten plain with sour cream, or po zbójnicku, bandit style, buried under goulash. The bandit version comes down from the Tatra highlands and defeats most people.", src:[["Culture.pl: ten meals from ten regions","https://culture.pl/en/article/ten-meals-from-ten-polish-regions"]]},
+ {n:"Golonka", d:"Pork knuckle, slow-cooked and often braised in beer, served with horseradish and mustard. Beer-hall food. One portion feeds two."}]},
+
+{group:"Kraków's own", note:"Things you will struggle to find properly outside this city.",
+ more:[["VisitMałopolska: regional cuisine","https://visitmalopolska.pl/en_GB/kuchnia-regionalna"]], items:[
+ {n:"Obwarzanek krakowski", d:"The braided ring bread, boiled and then baked, first recorded in the royal accounts on 2 March 1394 as an item bought for the queen. It received European protected status in 2010, and only bakers in Kraków and two neighbouring districts may legally use the name. The twist down the side is what separates it from a bagel.", src:[["The Living Obwarzanek Museum","https://www.muzeumobwarzanka.com/historia-obwarzanka/?lang=en"],["The legal specification that defines one","https://assets.publishing.service.gov.uk/media/6772c4bd2554737c528474f2/Product_specification_Obwarzanek_krakowski_wniosek_EN.docx.pdf"]]},
+ {n:"Maczanka krakowska", d:"Slow-braised pork neck in a soft roll, dunked in its own gravy. It fed the cab drivers waiting on the ranks in the 19th century, faded almost to extinction under communism, and has been revived over the last decade by a handful of bars and food trucks.", src:[["VisitMałopolska: regional cuisine","https://visitmalopolska.pl/en_GB/kuchnia-regionalna"]]},
+ {n:"Zapiekanka", d:"Half a baguette with mushrooms and cheese, grilled and finished with ketchup. A creature of the 1970s, designed around scarcity: no meat, no plate, no cutlery, eaten standing up. It should have died with the shortage economy and instead became a national comfort food with a nostalgic edge.", src:[["In Your Pocket: Plac Nowy and the rotunda","https://www.inyourpocket.com/krakow/plac-nowy_21423v"]]},
+ {n:"Kiełbasa lisiecka", d:"A protected sausage from Liszki, just west of the city, made from coarsely chopped ham and heavily peppered. Genuinely local, and worth asking for by name rather than accepting whatever sausage appears."},
+ {n:"Jagodzianka", d:"A sweet yeast bun crammed with blueberries until it stains your fingers, sold everywhere through the summer. Poles queue for good ones and argue at length about which bakery makes the best."}]},
+
+{group:"Cold plates and preserved things", note:"The Polish larder, built for winter.",
+ more:[["Saveur: the new face of Polish cooking","https://www.saveur.com/culture/new-polish-cuisine"]], items:[
+ {n:"Śledź", d:"Herring, served in oil with onion, or in cream with apple. Baltic fish that kept through the winter once salted, and traditionally eaten with a glass of very cold vodka rather than as a course on its own.", src:[["Saveur: fasting, fish and the Polish table","https://www.saveur.com/culture/new-polish-cuisine"]]},
+ {n:"Smalec", d:"Rendered pork fat with crackling and pieces of apple, spread on dark bread and eaten with pickles. Often arrives free on the table in beer halls. Absurdly good, and best not thought about too carefully."},
+ {n:"Oscypek", d:"Smoked sheep's cheese from the Tatra mountains, pressed in carved wooden moulds into a spindle shape, then smoked over a fire. It carries European protected status, and the pattern on the surface identifies the shepherd who made it. Sold grilled with cranberry from street stalls.", src:[["The history and the PDO status","https://cheesescientist.com/trivia/oscypek/"],["VisitMałopolska: regional cuisine","https://visitmalopolska.pl/en_GB/kuchnia-regionalna"]]},
+ {n:"Ogórki kiszone", d:"Fermented cucumbers, sour rather than vinegary, which is the whole difference from a British gherkin. Poland ferments where Britain pickles, and the leftover brine turns into soup.", src:[["Saveur: why Poland ferments rather than pickles","https://www.saveur.com/culture/new-polish-cuisine"]]}]},
+
+{group:"Sweet things", note:"Poland's cake culture runs deeper than its reputation suggests.",
+ more:[["VisitMałopolska: the papal cream cake","https://visitmalopolska.pl/en_GB/kuchnia-regionalna"]], items:[
+ {n:"Kremówka", d:"A vanilla slice: two sheets of pastry around a thick custard cream. It became nationally famous in 1999 when John Paul II publicly reminisced about eating them as a schoolboy in Wadowice, and Poland promptly began calling it kremówka papieska, the papal cream cake.", src:[["VisitMałopolska: what the pope actually said, in 1999","https://visitmalopolska.pl/en_GB/kuchnia-regionalna"],["The Viennese confectioner who baked the originals","https://annainthekitchen.com/polish-papal-cream-cake/"]]},
+ {n:"Sernik", d:"Baked cheesecake made with twaróg, a dry curd cheese, which gives a denser and far less sweet result than the American version. The Kraków variant is often studded with raisins.", src:[["Culture.pl: Pierogi and Other Stories","https://culture.pl/en/pierogi-other-stories"]]},
+ {n:"Szarlotka", d:"Apple pie with a crumbly shortcrust base and a mountain of apple on top, served warm, sometimes with cream. Poland grows apples in enormous quantities and a great many of them end up here."},
+ {n:"Pączki", d:"Doughnuts, traditionally filled with rose petal jam rather than fruit. Eaten in vast quantities on Fat Thursday before Lent, when the country gets through hundreds of millions of them in a single day.", src:[["What to eat in Kraków","https://krakvel.com/en/travel-guide/what-to-eat-in-krakow-traditional-polish-dishes-to-try"]]},
+ {n:"Makowiec", d:"Poppy seed roll, a dark spiral running through sweet yeast dough. Poppy seeds carried old associations with sleep, wealth and the dead, which is why the cake belongs to Christmas."}]},
+
+{group:"Alcoholic drinks", note:"Most of these are meant to be drunk with food, not instead of it.",
+ more:[["Tasting Poland: mead, and how it lost to vodka","https://www.tastingpoland.com/food/polish_mead_miod.html"]], items:[
+ {n:"Wódka", d:"Poland and Russia both claim the invention and neither can settle it. Polish written records of production run to the early 1400s, and Poland's case rests on that documentation. Historically distilled from rye or potato, served very cold, neat, in one go, and traditionally alongside food.", src:[["Wikipedia: Polish cuisine","https://en.wikipedia.org/wiki/Polish_cuisine"]]},
+ {n:"Żubrówka", d:"Bison grass vodka, flavoured with a blade of grass from the Białowieża forest where Europe's last wild bison live. Every bottle contains a single stalk. Mixed with apple juice it becomes a szarlotka, named after the apple pie.", src:[["Wikipedia: Żubrówka","https://en.wikipedia.org/wiki/%C5%BBubr%C3%B3wka"]]},
+ {n:"Miód pitny", d:"Mead, Poland's oldest alcoholic drink, made from honey and water and graded by dilution: półtorak is the strongest and sweetest, trójniak the lightest. It predates the Polish state and appears in the earliest chronicles.", src:[["Wikipedia: Mead in Poland","https://en.wikipedia.org/wiki/Mead_in_Poland"],["A Kraków meadery, and a dragon who served mead","https://freewalkingtour.com/blog/mead-and-poland-a-bit-of-history-and-a-few-tips-on-which-polish-meads-to-try/"]]},
+ {n:"Śliwowica", d:"Plum brandy, and the fierce one. The version from Łącko, south of Kraków, is famous, frequently home-made, and can run well past fifty per cent. Usually offered after dinner by somebody quietly testing you."},
+ {n:"Nalewki", d:"Home-infused liqueurs, made by steeping cherries, plums, quince or walnuts in spirit for months. Every family had its own recipe, and a number of restaurants still make their own rather than buying in.", src:[["Tasting Poland: meads, nalewki and the rest","https://www.tastingpoland.com/food/polish_mead_miod.html"]]},
+ {n:"Piwo", d:"Beer, and what Poles actually drink most. Order piwo z sokiem, beer with a shot of raspberry syrup, and watch the older members of the group react.", src:[["Wikipedia: Polish cuisine","https://en.wikipedia.org/wiki/Polish_cuisine"]]}]},
+
+{group:"Non-alcoholic drinks", note:"Where Poland differs most from British habits.",
+ more:[["Culture.pl: Milk Bars, a Taste of Poland","https://culture.pl/en/article/milk-bars-a-taste-of-poland"],["Rick Steves on the milk bar subsidy","https://www.ricksteves.com/watch-read-listen/read/articles/nostalgia-in-a-polish-milk-bar"]], items:[
+ {n:"Kompot", d:"Fruit cooked in water with a little sugar and drunk cool: apples, plums, cherries, rhubarb, whatever the orchard produced. It exists because families preserved fruit and needed to use it up, and it remains the default drink in every milk bar.", src:[["Culture.pl: milk bars, where you will meet it","https://culture.pl/en/article/milk-bars-a-taste-of-poland"]]},
+ {n:"Oranżada", d:"Fizzy orange drink, sold through the communist decades in bottles with ceramic swing tops, and now sold on nostalgia at least as much as on taste.", src:[["Saveur: a milk bar crawl through Kraków","https://www.saveur.com/culture/best-milk-bars-krakow/"]]},
+ {n:"Herbata", d:"Tea, drunk black with lemon rather than milk, and often served in a glass rather than a cup. Adding milk reads as distinctly strange here. Ask for herbata z cytryną."},
+ {n:"Kawa po turecku", d:"Turkish coffee, meaning grounds with boiling water poured straight over them in a glass, with no filter at all. The default coffee for decades, and still what an older Pole may put in front of you at home."},
+ {n:"Wedel hot chocolate", d:"Thick drinking chocolate from a Warsaw company founded in 1851 that survived partition, war and nationalisation. Closer to melted chocolate than to cocoa."}]}
+];
+const DAYS=[
+ {id:"d1", title:"The City That Made Itself Up",
+  blurb:"A trumpet legend invented in 1925, a clock built in 2000, a painting that falsifies its own square, a monument rebuilt from scrap, and a bronze antiquity from 1999. Plus one altarpiece that is exactly what it claims.",
+  segs:["Out on the square","Indoors, and split if you like"]},
+ {id:"d2", title:"The City They Built to Replace This One",
+  blurb:"A mound nobody can date, a steelworks meant to cancel Kraków, a church built by hand from two million stones, and a writer who imagined his way out.",
+  segs:["Before lunch","After lunch"]},
+ {id:"d3", title:"Kings, Silence, and a Hill Nobody Can Date",
+  blurb:"A courtyard built at the height of Polish confidence, a square where nobody scores points, and the oldest thing in the city, which refuses to give its age.",
+  segs:["Up the hill, or out to the park","Across the river"]}
+];
+
+const STOPS=[
+/* ================= DAY ONE ================= */
+{id:"collegium", addr:"ul. Jagiellońska 15, 31-010 Kraków", day:"d1", seg:0, ord:1, tag:"all", svg:"clock",
+ title:"Collegium Maius", sub:"Who got to learn", era:"1364 onwards",
+ story:[
+ "Kraków holds the second-oldest university in central Europe, and this arcaded courtyard was its original heart. King Casimir the Great founded the school in 1364, then died, and the funding collapsed with him. Queen Jadwiga left money to revive it, and her husband spent the bequest on this corner house in 1400.",
+ "Nicolaus Copernicus enrolled here in 1491 and studied four years, learning the mathematics that let him later argue the Earth moves round the sun. He walked in through the front gate.",
+ "Around the same decades a young woman wanted the same education and could not have it. So she cut her hair, took a man's name, and lied her way in. Nawojka studied two years before anyone noticed, and her teachers rated her a serious scholar. One version ends with a bucket of water thrown over her in the street, soaking the loose gown and revealing the shape beneath. Asked why she had done it, she answered: for the will of learning. Judges sent her to a convent, where she taught, and eventually ran the place as abbess."],
+ why:"The courtyard shows both halves of one question: who did Kraków let learn, and who had to steal an education? The university admitted women openly in 1897, roughly five centuries after Nawojka.",
+ look:["The clock hangs on the south wall beside an ornate late-Gothic doorway. Look up and to your left as you come in. Six carved figures emerge and circle the dial at nine, eleven, one, three and five: two royal founders, a professor the church later made a saint, an eighteenth-century reformer, the first rector, and the porter who once led every academic procession.",
+ "A well sits in the middle of the yard. The arcades overhead carry crystal vaulting, a folded stone pattern worth a look upward. The oldest buildings around you exist because a queen left her jewels to pay for them."],
+ guesses:[
+ {q:"When did the university first admit women openly?", a:"1897, roughly five centuries after Nawojka talked her way in disguised as a man.", src:"here"},
+ {q:"Count the arches running round this courtyard at ground level. Guess the number first.", a:"Count them together and settle it on the spot. The arcade runs round three sides.", src:"away"}],
+ act:{type:"timeline", kind:"Timeline", prompt:"Tap these into order, earliest first.",
+  opts:[{l:"Casimir the Great founds the university",v:1364},{l:"A queen's jewels pay to restart it",v:1400},
+        {l:"Copernicus enrols",v:1491},{l:"Women admitted openly",v:1897},{l:"The present clock installed",v:2000}],
+  note:"1364, 1400, 1491, 1897, 2000. Five hundred years pass between a woman funding the place and women being allowed to study in it."},
+ verdict:{answer:"A fake", note:"The clock looks medieval and dates from 2000. Ask the group to guess before you tell them, and remember what they said, because this question comes back all day."},
+ links:[["Jagiellonian University Museum","https://maius.uj.edu.pl/"]],
+ kids:{who:"all", do:"Wait for the clock, then count the carved figures as they come out and walk round. Wave at each one.", find:"The well in the middle of the courtyard.", how:"You are in a stone courtyard with covered walkways on all sides and a well in the middle. The clock hangs high on the wall to your left as you come in through the passage. IMPORTANT: it only plays on ODD hours — 9, 11, 1, 3 and 5. If you arrive at 10 or 12 there is nothing to watch, so check a watch before you promise the children anything. When it does play, a small door opens and carved figures come out one at a time and go round. Six of them. Music plays throughout, about a minute. The well is a low stone circle in the middle of the yard, easy to miss."},
+ sources:[["Kraków Travel: Collegium Maius","https://krakow.travel/en/17706-krakow-collegium-maius-and-the-jagiellonian-university"],["Kraków Travel: the legend of Nawojka","https://krakow.travel/en/artykul/107/the-legend-of-nawojka"]]},
+
+{id:"planty", addr:"Barbakan, ul. Basztowa, 31-134 Kraków", day:"d1", seg:0, ord:0, tag:"all", svg:"barbican",
+ title:"The Planty and the Barbican", sub:"A city that sold its walls and bought a park", era:"1810 onwards",
+ story:[
+ "Kraków sold its walls and bought a park. The city had no wall at all as late as the 13th century, which ended badly when a Tatar raid destroyed it. Building then ran until the early 1300s, with the Barbican added at the end of the 1400s. Seven gates led in, all closed at night.",
+ "By the early 19th century, under Austrian rule, roughly two kilometres of circuit with 47 towers and 8 gates stood in poor repair. In 1810 the Emperor ordered the walls demolished and the moat filled, hoping for a modern open city, and the decision caused a furious row.",
+ "One professor from the university, sitting in the city senate, fought to save part of it. His winning argument was not military history. He claimed the remaining walls sheltered the city from winds that would otherwise lift the dresses of respectable Kraków ladies. It worked. The gate, the Barbican and three towers survive because of that speech."],
+ why:"Between 1822 and 1830 gardeners planted the cleared strip and made a green ring four kilometres round, enclosing the whole centre. No other European city sits inside a park where its walls used to be. You cross it repeatedly over three days, and it explains the shape of everything else: the Old Town ends where the trees begin, and that line is the medieval boundary. It is also the smoothest pram route in the city.",
+ look:["The Barbican is a circular brick fortress with walls three metres thick, and counts as the best preserved example in Europe. Only three such outposts survive anywhere.",
+ "East of it, three medieval towers still stand among the gardens, named after the guilds that once defended them: the joiners, the haberdashers and the carpenters. Walk through St Florian's Gate into the Old Town rather than round it. Many of the trees date from the 1820s planting, so some of what shades you was put in by the people who pulled the walls down."],
+ guesses:[
+ {q:"How many towers stood on the medieval city wall?", a:"Forty-seven, plus eight gates. Two kilometres of circuit, all of it pulled down in a decade.", src:"here"},
+ {q:"How many arrow loops pierce the Barbican?", a:"One hundred and thirty, through walls three metres thick. It was built to be shot out of from every angle at once.", src:"away"}],
+ act:{type:"truefalse", kind:"True or false",
+  prompt:"True or false: the Barbican survives because a professor argued the walls protected Kraków's women from having their dresses blown up by the wind.",
+  answer:true, note:"True, and it is the reason the best-preserved barbican in Europe still stands. He knew a military argument would not move the Austrians, so he made a decency argument instead."},
+ verdict:{answer:"Older than it looks", note:"The trees and paths date from the 1820s. The shape they trace is 13th century, and the two stone fragments are the real thing."},
+ links:[["Kraków Travel: the city walls","https://krakow.travel/en/470-krakow-city-walls"]],
+ kids:{who:"all", do:"Count the pointed tower tops on the round fort. There are more than you think.", find:"An arrow slit low enough to look through at their own height.", how:"You are standing at the Barbican, a round brick fort with a pointed roof, just outside St Florian's Gate on the north edge of the Old Town. The turrets are the little pointed spikes round the top of the wall: there are seven. Count them together out loud. For the hunt, walk round the outside at child height and look for a narrow vertical slot in the brickwork, wider inside than out. Some sit low enough for a four-year-old to put an eye to. Expect ten minutes."},
+ sources:[["Kraków Travel: city walls and the dress argument","https://krakow.travel/en/470-krakow-city-walls"],["Wikipedia: Planty Park","https://en.wikipedia.org/wiki/Planty_Park_(Krak%C3%B3w)"]]},
+
+{id:"adalbert", addr:"Kościół św. Wojciecha, Rynek Główny 3, 31-042 Kraków", day:"d1", seg:0, ord:2, tag:"all", svg:"adalbert",
+ title:"St Adalbert's", sub:"The church that predates the square", era:"11th century",
+ story:[
+ "Adalbert died badly, and Poland gained enormously from the death. A Czech nobleman born around 956, he became bishop of Prague at twenty-seven, then lost the job twice for pushing reforms his own clergy resented. He travelled north to convert the pagan Prussians on the Baltic coast, and on 23 April 997 a group of them ambushed him after Mass and killed him.",
+ "Duke Bolesław the Brave bought the body back for its weight in gold and enshrined it at Gniezno. Rome declared Adalbert a saint within two years, and the tomb drew a Holy Roman Emperor on pilgrimage in the year 1000. Poland gained its own archbishop and its own martyr. A young Christian kingdom with borrowed priests answered to the German church. A kingdom with a shrine of its own answered to nobody.",
+ "Tradition claims Adalbert preached on this exact spot before leaving on that final journey."],
+ why:"Standing here you stand at the point where Poland stopped counting as somebody else's mission field. The building also tells the square's whole history in one wall: a wooden church in the late 900s, rough limestone in the 1000s, neat blocks around 1100, then the city grid laid around it in 1257, then centuries of repaving that drowned it.",
+ look:["The church sits at a stubborn angle to everything else, because it was already here when the square was laid out around it in 1257. Repaving lifted the ground by two to two and a half metres, so in the 1600s builders raised the whole structure about four metres, added brick, cut the round windows and capped the nave with a dome.",
+ "Find the steps going down. Original stonework and a doorway survive almost two metres below today's paving. The circular windows belong to the 17th-century raising, not the medieval church, so you are looking at two eras in one wall."],
+ guesses:[
+ {q:"How far has the ground level of this square risen in a thousand years?", a:"Two to two and a half metres, which is why the church looks sunk.", src:"here"},
+ {q:"How many steps lead down to the original medieval doorway?", a:"Count them as you go down. The old floor sits almost two metres below the paving you are standing on.", src:"away"}],
+ act:{type:"label", kind:"Diagram labelling", prompt:"Tap each number on the drawing, then choose what it is.",
+  svg:"adalbert",
+  pins:[{x:200,y:60,a:"17th-century dome, added when the church was raised"},
+        {x:176,y:104,a:"Round window, cut in the 1600s"},
+        {x:200,y:128,a:"Today's paving level"},
+        {x:200,y:186,a:"Ground level around the year 1000"}],
+  note:"The whole building is a Romanesque church wearing a Baroque hat, hoisted bodily out of a rising square."},
+ verdict:{answer:"Older than it looks", note:"Older, and physically higher, than it was ever meant to be."},
+ links:[["VisitMałopolska: St Adalbert's","https://visitmalopolska.pl/en_GB/obiekt/-/poi/kosciol-pw-sw-wojciecha-w-krakowie"]],
+ kids:{who:"all", do:"Count the steps going down into the sunken church, out loud, together.", find:"The round window high in the wall.", how:"The smallest church on the Main Square, white, with a dome, sitting at a funny angle in the corner nearest Grodzka Street. It looks sunk into the ground because it is. Go round to the entrance and you will find steps leading DOWN into it: count them on the way in, out loud, and again on the way out to check. The round window is high on the outside wall, circular rather than pointed, and there are two. Inside is tiny and takes two minutes."},
+ sources:[["Polish History: Saint Adalbert","https://polishhistory.pl/saint-adalbert-martyr-and-patron-saint-of-poland/"],["Kraków Travel","https://krakow.travel/en/355-krakow-kosciol-sw-wojciecha"]]},
+
+{id:"homage", addr:"Rynek Główny (paving by the Town Hall Tower), 31-042 Kraków", day:"d1", seg:0, ord:4, tag:"all", svg:"sukiennice",
+ title:"The Prussian Homage plaque", sub:"The enemy who knelt", era:"1525",
+ story:[
+ "A crusading order of German warrior-monks spent three centuries as Poland's most dangerous enemy, and on this spot the last of them knelt. Founded in the Holy Land in 1190, the Teutonic Knights moved to the Baltic in the 1230s, backed by pope and emperor, to conquer the pagan Prussians. The Knights kept the land, built a state of their own, and cut Poland off from the sea. A Polish-Lithuanian army broke them at Grunwald in 1410.",
+ "On 10 April 1525, on this square, Albrecht Hohenzollern, the last Grand Master, dissolved the order's state, knelt before King Sigismund the Old, and received the new Duchy of Prussia back as a hereditary fief. The enemy became a tenant.",
+ "Three centuries later the story curdled. Prussia grew into the kingdom that helped erase Poland from the map in 1795, and by the 1880s governed a large slice of Polish territory while stamping out the Polish language there. Poles under occupation reached for 1525 as proof the arrangement had once run the other way."],
+ why:"Jan Matejko, born in Kraków in 1838 and known ever since as the painter of Polish history, put that idea in front of them. Cheap prints of his work hung in Polish homes across all three occupied zones and taught a generation their own past. He funded the failed 1863 uprising out of his own pocket. When his huge canvas of this scene first hung at Wawel, the Austrian garrison allowed a fortnight, then stopped the show, because Poles kept arriving and treating the viewing as a patriotic rally.",
+ look:["The plaque is set into the paving near the Town Hall Tower. Stand on it, then look around at the square Matejko painted, and note what he changed. He drew the Cloth Hall in its later Renaissance form and St Mary's tower as remodelled in 1529, neither correct for 1525, so that 19th-century Poles would recognise the square as their own.",
+ "You see the painting itself this afternoon, if it is hanging. Two faces in it are Matejko's own: the architect standing bottom left holding a sealed document, and the court jester. That jester recurs across his work as the fool who grasps the coming catastrophe while the court celebrates."],
+ guesses:[
+ {q:"In what year did a Polish-Lithuanian army finally break the Teutonic Knights?", a:"1410, at Grunwald, still one of the largest battles of medieval Europe.", src:"here"},
+ {q:"How wide is Matejko's canvas of this scene?", a:"Just under eight metres, 785cm by 388cm. It needs a wall, not a room.", src:"away"}],
+ act:{type:"mcq", kind:"Multiple choice",
+  prompt:"Matejko painted the buildings on this square wrong on purpose. Why?",
+  opts:["He had never seen the square himself","So 19th-century Poles would recognise it as their own square","The Austrian censor demanded changes","He was copying an older painting"],
+  answer:1, note:"He drew the buildings as they looked in his own century, not in 1525. The point was recognition, not accuracy."},
+ verdict:{answer:"A fake", note:"The event is real and dated. The painting deliberately falsifies its own architecture, and the fake is the point."},
+ links:[["National Museum: catalogue entry","http://www.imnk.pl/gallerybox.php?dir=SU321&lang=EN"]],
+ kids:{who:"parallel", do:"Nothing here for them. This is a plaque in the paving, so send them fifty metres to the giant bronze head while the adults read it.", find:"Nothing. Bank the scale at the Head instead.", how:"A metal plaque set flat into the paving stones near the Town Hall Tower — the tall lone brick tower on the square. Nothing for children here. Point them at the giant bronze head instead, which sits about fifty metres away on the same side, and swap an adult over."},
+ sources:[["History Today: the Teutonic Knights","https://www.historytoday.com/archive/battle-grunwald"],["Polish History: Matejko","https://polishhistory.pl/jan-matejko-the-painter-of-polish-history/"]]},
+
+{id:"head", addr:"Eros Bendato, Rynek Główny (by the Town Hall Tower), 31-042 Kraków", day:"d1", seg:0, ord:5, tag:"all", svg:"head",
+ title:"The Head", sub:"A bronze antiquity from 1999", era:"1999",
+ story:[
+ "A giant bronze head lies on its side in the middle of a medieval square, bandaged across the eyes, hollow enough to climb inside. Igor Mitoraj cast it in 1999 and titled it Eros Bendato, meaning Eros bound. He had studied at the Kraków School of Art in the 1960s.",
+ "An exhibition of fourteen of his monumental works filled the Rynek from October 2003 to January 2004, and he gave this one to the city, which promptly started an argument about where to put it. Officials first assigned it to the space outside a shopping centre. Mitoraj objected to having his work stand in front of a commercial building. Historians and many locals protested against the square. The square won."],
+ why:"Kraków argued in public about whether this belonged here, and the argument was really about what a medieval square is for. Historians and many residents said a working monument to the city's past should not host a modern sculpture. The artist refused to let his work stand outside a shopping centre. The square won, and the head now sits fifty metres from a plaque marking a king receiving homage in 1525. A city that makes its living from its own antiquity had to decide whether it was a museum or a place where people still make things. It chose both.",
+ look:["Children go inside, and the open eyes frame a view out across the square.",
+ "Send the small ones in and have them describe what they can see from within, while the adults read the Prussian Homage plaque fifty metres away. Mitoraj worked throughout his career on fragmented and damaged human forms, mixing classical sculpture with modern ideas of pain and decay."],
+ guesses:[
+ {q:"In what year was this made?", a:"1999, and gifted to the city after an exhibition filled the square in 2003.", src:"here"},
+ {q:"How much does it weigh?", a:"1,900 kilograms. It is 370cm long, 290 wide and 225 high.", src:"away"}],
+ act:{type:"truefalse", kind:"True or false",
+  prompt:"True or false: this sculpture is a Roman original, excavated and brought to the square.",
+  answer:false, note:"False, and almost nobody guesses 1999 unprompted. It was designed to look broken and ancient. The bandaging that reads as archaeological repair is part of the sculpture."},
+ verdict:{answer:"A fake", note:"Deliberately so, and the artist would not object to the word."},
+ links:[["In Your Pocket: Eros Bendato","https://www.inyourpocket.com/krakow/eros-bendato_58845v"]],
+ kids:{who:"all", do:"Climb inside and look out through an eye. Shout what you can see to whoever is outside.", find:"The bandage wrapped across the eyes.", how:"A huge bronze head, taller than an adult, lying on its side on the paving near the Town Hall Tower. It is hollow: there is an opening at the back and children climb in and stand up inside. Adults should stay outside and look through the eye holes from the front while the children look out. Ask them what they can see. The bandage is the band of bronze wrapped across where the eyes should be, which makes it look broken and mended. Very popular, so expect to queue behind other children."},
+ sources:[["History Hit","https://www.historyhit.com/locations/eros-bendato-sculpture/"],["ITS Poland: dimensions","https://its-poland.com/attraction/eros-bendato-monument"]]},
+
+{id:"mickiewicz", addr:"Pomnik Adama Mickiewicza, Rynek Główny, 31-042 Kraków", day:"d1", seg:0, ord:3, tag:"all", svg:"mickiewicz",
+ title:"The Mickiewicz monument", sub:"A statue to a poet who never came here", era:"1898, rebuilt 1955",
+ story:[
+ "Poles built a ten-metre monument to a poet who never once set foot in this city. Adam Mickiewicz died in 1855 and had never visited Kraków alive. Thirty-five years later his remains came from Paris and went into the crypt under Wawel Cathedral, which partly prompted university students to demand a statue.",
+ "Getting one built took three separate competitions, because the occupying powers disliked monuments to Polish patriots and because no design felt adequate to the man. The winning entry lost. Teodor Rygier's design came second, and the public demanded it be built anyway. Workers unveiled it in June 1898, the centenary of his birth, to considerable criticism.",
+ "On 17 August 1940 the Germans destroyed it. Poles recovered the pieces in 1946 from a scrapyard in Hamburg and rebuilt the monument, unveiling it again on 26 November 1955, the centenary of his death."],
+ why:"Three men invented Poland between them, and this completes the set. Długosz wrote the history in his house on Kanonicza. Matejko painted it on the canvas in the Cloth Hall. Mickiewicz wrote the feeling, and his poems fed every 19th-century rising against the empires that had partitioned the country out of existence. Conrad's parents named their son after one of his heroes.",
+ look:["Four allegorical figures sit on the steps below the poet: the Motherland, Science, Poetry and Courage. One holds a plaque with an inscription meaning he loved the nation. Walk round all four before anyone guesses which is which.",
+ "Kraków calls the whole thing Adaś, a diminutive of Adam, and there is usually a pigeon on his head. This is the city's default meeting point, so use it as your rendezvous if the group splits. Every December the szopki competition, the UNESCO-listed nativity towers, sets up at its foot, which is the one thing September denies you."],
+ guesses:[
+ {q:"How many design competitions were held before anyone agreed on a monument?", a:"Three, and the design that got built had come second.", src:"here"},
+ {q:"The Germans blew it up in 1940. How many years passed before it stood here again?", a:"Fifteen. Rebuilt from parts found in a Hamburg scrapyard and unveiled in 1955, the centenary of his death.", src:"away"}],
+ act:{type:"timeline", kind:"Timeline", prompt:"Tap these into order, earliest first.",
+  opts:[{l:"Mickiewicz dies in Paris, never having seen Kraków",v:1855},{l:"His remains arrive and go under Wawel Cathedral",v:1890},
+        {l:"The monument is unveiled",v:1898},{l:"The Germans destroy it",v:1940},
+        {l:"Rebuilt from parts found in a Hamburg scrapyard",v:1955}],
+  note:"1855, 1890, 1898, 1940, 1955. A hundred years from death to the statue standing as it does now."},
+ verdict:{answer:"A fake", note:"It reads as 1898 and dates from 1955, though much of the bronze is original, salvaged from a German scrapyard. Worth arguing about, because the group will split on whether recovered parts make it genuine."},
+ links:[["krakow.wiki: the three competitions","https://krakow.wiki/adam-mickiewicz-monument/"]],
+ kids:{who:"all", do:"Four stone people sit on the steps below the poet. Find the one holding a book.", find:"A pigeon on his head. There is nearly always one.", how:"The big dark bronze statue in the middle of the Main Square, on a tall stone base with steps. A man stands on top; four seated figures sit at his feet, one on each side. Walk right round the base to see all four. One of them holds an open book across her lap. There is nearly always a pigeon somewhere on the statue, often on his head or shoulder. This is where everyone in Kraków agrees to meet, so it is also your rendezvous if you split up."},
+ sources:[["Wikipedia","https://en.wikipedia.org/wiki/Adam_Mickiewicz_Monument,_Krak%C3%B3w"],["In Your Pocket","https://www.inyourpocket.com/krakow/adam-mickiewicz-monument_31309v"]]},
+
+{id:"hejnal", addr:"Bazylika Mariacka, plac Mariacki 5, 31-042 Kraków", day:"d1", seg:0, ord:8, tag:"all", svg:"stmary",
+ title:"The hejnał", sub:"The best story in Kraków, invented in 1925", era:"1392 onwards",
+ story:[
+ "Every hour a trumpeter leans out of the taller tower of St Mary's and plays five notes, four times, once to each point of the compass. The noon call goes out live on national radio across Poland. And every time, the melody stops dead mid-phrase.",
+ "Everyone will tell you why. In 1241 a watchman spotted the Tatars coming, sounded the alarm, and an arrow took him in the throat before he could finish.",
+ "That story is about a hundred years old, not eight hundred. In 1925 an American came to Kraków to lecture at the university and asked his guide why the tune broke off. She invented the trumpeter on the spot. He published a children's book called The Trumpeter of Krakow in 1928, and the legend was born. No source records it before then."],
+ why:"Poland treats this as one of its oldest living traditions, and it is: the pay records go back to 1392 and the noon call is broadcast on national radio to the whole country every day. But the explanation everybody gives, the arrow in the throat, was invented in 1925 and adopted so completely that it is now taught to Polish schoolchildren. That is a country doing openly what every country does quietly, which is furnishing a genuinely old custom with a better story. Poles know the legend is modern and tell it anyway, because the tune breaking off does need explaining, and a wounded watchman explains it beautifully.",
+ look:["Watch which window opens. The trumpeter plays four times, turning between each, and waves at the end. The two towers are deliberately unequal, the taller one 82 metres.",
+ "The earliest written mention of the call comes in civic pay records of 1392, and the real origin is unknown. The name comes from the Hungarian word for dawn, pointing at an origin under a Hungarian king of Poland or his daughter. Its original jobs were announcing the opening and closing of the city gates and raising the alarm."],
+ guesses:[
+ {q:"In what year is the trumpet call first mentioned in writing?", a:"1392, in the city's pay records. Nobody knows who wrote the tune.", src:"here"},
+ {q:"Time it. How many seconds from the first note until it cuts off?", a:"Usually a little over ten seconds. Guess first, then count.", src:"away"}],
+ act:{type:"truefalse", kind:"True or false",
+  prompt:"True or false: the trumpet call stops mid-note to commemorate a trumpeter shot by a Tatar arrow in 1241.",
+  answer:false, note:"False, and almost everyone gets this wrong. A Kraków guide invented the story in 1925 to answer an American tourist's question, and put it in a children's book in 1928. The city adopted it wholesale."},
+ verdict:{answer:"Older than it looks", note:"The tune is genuinely medieval, recorded in 1392. The famous explanation for it is younger than the Eiffel Tower."},
+ links:[["VisitMałopolska: the full debunking","https://visitmalopolska.pl/en_GB/-/hejnal"]],
+ kids:{who:"all", do:"Point in each of the four directions as the trumpeter turns. Wave at the end, because he waves back.", find:"The window that opens in the taller tower.", how:"Stand on the Main Square looking at St Mary's church, the big brick one with two unequal towers. The trumpet plays from the TALLER tower, every hour, on the hour. Watch the small window near the top: it opens just before. He plays the same short tune four times, turning to a different direction each time, so the children should turn and point with him. It stops suddenly mid-note, which is the whole joke. He waves at the end, so wave first. Get there two or three minutes early."},
+ sources:[["VisitMałopolska","https://visitmalopolska.pl/en_GB/-/hejnal"],["Google Arts & Culture","https://artsandculture.google.com/story/st-mary-s-trumpet-call-international-cultural-centre/2QWRZuvR-VhHvg?hl=en"]]},
+
+{id:"altar", addr:"Bazylika Mariacka, plac Mariacki 5, 31-042 Kraków", day:"d1", seg:0, ord:9, tag:"all", svg:"altar",
+ title:"The Veit Stoss altarpiece", sub:"Twelve years of carving, then branded as a criminal", era:"1477–1489",
+ story:[
+ "A German sculptor spent twelve years carving the largest Gothic altarpiece in the world, then went home and got branded on the face as a criminal. Veit Stoss ran a workshop in Nuremberg when the townspeople of Kraków offered him the commission in 1477. He brought his young family, set up a new workshop, hired sculptors and apprentices, and took the Polish version of his name, Wit Stwosz. He stayed twenty years, living on Grodzka Street.",
+ "Back in Nuremberg in 1503 he forged a document trying to recover money lost to a fraudster. The court sentenced him to death, an emperor intervened, and the sentence became branding on both cheeks with hot irons. Barred from leaving the city, he tried to escape, was caught and imprisoned, and won a pardon in 1506. He died in 1533 during a plague, probably blind by then.",
+ "In 1941 the Governor-General of occupied Poland ordered the altarpiece dismantled and shipped to Germany. The justification rested on the sculptor's German birth, which let the occupiers claim a Polish national treasure as German property despite five centuries in this church. Polish prisoners held at Nuremberg Castle got word to the resistance that it was hidden there, and a Polish officer found it in 1946 in the basement of the bombed castle. It came home and returned to this church in 1957."],
+ why:"Ownership of a carving became an argument about who a country belongs to. Note also that the townspeople paid for it, not the king, which tells you how rich this city was in the 1470s.",
+ look:["It stands 13 metres high and 11 wide, holds over 200 figures, and takes the form of five panels. The largest figures reach 2.7 metres, and each one was carved from a single tree trunk. Most is limewood, the decoration oak, the background fine larch.",
+ "Look at the faces rather than the gold. They are individual rather than idealised, with real jaws, real hands and visible age. Matejko, who painted this morning's canvas, also decorated this church's interior between 1890 and 1891, so the walls around the altarpiece come from the same hand as the Prussian Homage."],
+ guesses:[
+ {q:"How many years did the carving take?", a:"Twelve, from 1477 to 1489.", src:"here"},
+ {q:"Each of the largest figures was carved from a single tree. Roughly how many trees?", a:"Dozens. The biggest figures alone stand 2.7 metres, and every one needed a trunk that size.", src:"away"}],
+ act:{type:"label", kind:"Diagram labelling", prompt:"Tap each number on the drawing, then choose what it is.",
+  svg:"altar",
+  pins:[{x:200,y:120,a:"Central panel, figures up to 2.7m, each from one tree"},
+        {x:98,y:134,a:"Outer wing, folds shut over the middle"},
+        {x:200,y:26,a:"Eleven metres wide"},
+        {x:356,y:140,a:"Thirteen metres high"}],
+  note:"A pentaptych: five panels, hinged so the wings close. The opening of the wings is a daily ceremony worth timing your visit around."},
+ verdict:{answer:"As old as it looks", note:"Genuinely finished in 1489, and one of the few things on this trip that is exactly what it claims. The wrinkle is that it spent 1941 to 1957 somewhere else entirely."},
+ practical:"The wings are opened ceremonially once a day and that is the thing to catch. Check the current time at the door, since it shifts. Visitors enter through a separate side entrance from worshippers and pay a small fee.",
+ links:[["Daily Art Magazine: the fraud and the branding","https://www.dailyartmagazine.com/veit-stoss-altarpiece/"]],
+ kids:{who:"all", do:"I spy, whispered: a baby, a beard, a red cloak, something gold. Four things to find in one carving.", find:"A gold star.", how:"Inside St Mary's, at the far end, behind the altar: an enormous carved and painted wooden screen, gold, covered in life-sized figures. You enter through a side door and pay a small fee. It is dark, so let eyes adjust. Turn the hunt into a whisper game because it is a working church: find a baby, find a beard, find a red cloak, find something gold. All four are there. The star is up in the top section. Ten minutes, quiet voices."},
+ sources:[["Wikipedia: the altarpiece","https://en.wikipedia.org/wiki/Veit_Stoss_altarpiece_in_Krak%C3%B3w"],["Independent Catholic News: the wartime recovery","https://www.indcatholicnews.com/news/30988"]]},
+
+{id:"skrzynecki", addr:"Pomnik Piotra Skrzyneckiego, Rynek Główny 29, 31-010 Kraków", day:"d1", seg:0, ord:6, tag:"all", svg:null,
+ title:"Skrzynecki's bronze table", sub:"Joking under surveillance", era:"1956–1997",
+ story:[
+ "Piotr Skrzynecki spent forty years running a cabaret that mocked the Polish communist state from a cellar fifty metres from here. He founded it in 1956, months after Stalin's death loosened the grip, and gathered poets and singers who took apart the absurdities of the system through satire. The cabaret outlasted the regime and still performs.",
+ "The secret police watched constantly. Historians have since written a whole book from the surveillance files.",
+ "Skrzynecki compèred until his death in 1997, always in hat and suit, always carrying fresh flowers, notorious for his birthday parties. The bronze sits at his own small table outside Vis à Vis, a spot the living man favoured, and someone replaces the flowers in his hand every day."],
+ why:"A state can ban a newspaper. Banning a joke told in a cellar to two hundred people turns out to be much harder, and the cellar outlived the state.",
+ look:["Sit down next to him. Check whether today's flowers are fresh, because somebody replaces them daily and has done since 2000.",
+ "Security police closed the cellar in 1961 citing breaches of fire regulations, because a state that could not admit to censoring found other paperwork instead. For years the performers were banned from appearing anywhere in Poland outside Kraków. They played Paris regardless."],
+ guesses:[
+ {q:"In what year did the cabaret open in the cellar behind you?", a:"1956, months after Stalin's death loosened the grip.", src:"here"},
+ {q:"The performers were banned from appearing anywhere in Poland outside Kraków. For how many years?", a:"Ten, from 1964. They played Paris during the ban, which the authorities could do nothing about.", src:"away"}],
+ act:{type:"mcq", kind:"Multiple choice",
+  prompt:"The authorities shut the cabaret in 1961. What reason did the paperwork give?",
+  opts:["Insulting the Party","Breaches of fire regulations","Unpaid taxes","Performing without a licence"],
+  answer:1, note:"Fire regulations. The state could not admit that censorship existed, so it reached for other paperwork. A censor elsewhere once struck the word 'censorship' from a script on the grounds that censorship did not exist and the constitution guaranteed free speech."},
+ verdict:{answer:"Older than it looks", note:"The statue went up in 2000. The cellar behind it has run since 1956, and the building held a tavern in the 1400s where the great writers of the Polish Renaissance drank."},
+ links:[["Piwnica pod Baranami","https://piwnicapodbaranami.pl/muzyka"]],
+ kids:{who:"all", do:"Sit down next to him at his little table. Check whether today's flowers are fresh.", find:"His hat.", how:"A life-sized bronze man sitting at a small round bronze table, on the edge of the Main Square outside a café called Vis à Vis. There is an empty chair, so children can sit down next to him. He wears a wide-brimmed hat and has a beard. Somebody puts real flowers in his bronze hand every day, so the hunt is to check whether today's are fresh or drooping. Good photo, takes two minutes."},
+ sources:[["Nasza Historia: the security services","https://naszahistoria.pl/67-lat-temu-otwarto-piwnice-pod-baranami-artysci-jawnie-kpili-z-wladz-komunistycznej-polski-jak-sluzby-na-to-reagowaly/ar/c1-17577729"],["Kraków Heritage","https://krakowheritage.com/en/intangible-heritage/gastronomy/cafes/"]]},
+
+{id:"obwarzanek", addr:"Rynek Główny, 31-042 Kraków (carts on every corner)", day:"d1", seg:0, ord:7, tag:"food", svg:"obwarzanek",
+ title:"The obwarzanek cart", sub:"Sold here since 1394, protected by law since 2010", era:"1394 onwards",
+ story:[
+ "On 2 March 1394 a clerk keeping the royal court accounts wrote down a payment: for the Queen, for rings, one grosz. That is the same bread, in the same city, 632 years ago.",
+ "The name comes from a verb meaning to parboil. The dough is boiled before baking, which gives the chewy inside and the glossy crust.",
+ "In 1496 the king gave Kraków's bakers a monopoly on white bread including these, confirmed by every Polish king for the next two centuries. At first they could only be baked during Lent, by bakers specially designated for the job."],
+ why:"Kraków has been eating this since before Poland had a permanent capital, and defending it for nearly as long. A royal monopoly in 1496, confirmed by king after king, then a European protected status in 2010 that fixes the size, the method and who may legally bake one. Almost nothing else you will meet this weekend is simultaneously medieval, edible and still sold on a street corner for small change.",
+ look:["Look at the side of the ring. Two strands twisted together give a visible braid, and that is the quickest way to tell a real one from a bagel, which is a single untwisted rope.",
+ "Turn it over. A genuine one carries lengthwise marks on the base from the baking tray. Size is fixed by an EU certificate that only bakers in Kraków and two neighbouring districts may use."],
+ guesses:[
+ {q:"In what year does the first written record of the obwarzanek appear?", a:"1394, in the royal accounts: one grosz, for rings, for the queen.", src:"here"},
+ {q:"How wide may a legal obwarzanek be?", a:"Twelve to seventeen centimetres across, and two to four thick. The European certificate fixes it.", src:"away"}],
+ act:{type:"sort", kind:"Categorise", prompt:"Tap each item, then say whether it describes the obwarzanek or the bagel.",
+  buckets:["Obwarzanek","Bagel"],
+  opts:[{l:"Two strands twisted together",b:0},{l:"A single untwisted rope",b:1},
+        {l:"Boiled before baking",b:0},{l:"Also boiled before baking",b:1},
+        {l:"Protected by EU law since 2010",b:0},{l:"Marks on the base from the tray",b:0}],
+  note:"Both are boiled, which is the trap. The braid is the real difference, and only one of them has a legal specification."},
+ verdict:{answer:"Older than it looks", note:"A street snack with a legal specification and a paper trail to 1394."},
+ links:[["The official EU product specification","https://assets.publishing.service.gov.uk/media/6772c4bd2554737c528474f2/Product_specification_Obwarzanek_krakowski_wniosek_EN.docx.pdf"]],
+ kids:{who:"all", do:"Count the twists in the braid before eating it. Then eat it.", find:"A blue cart. They are all over the square.", how:"The blue-and-glass carts on wheels, parked on nearly every corner around the Main Square, selling rings of bread from a stack. Buy one each. Before eating, hold it up and look at the side: two ropes of dough twisted round each other, so you can count the twists as they spiral round. Ten to fourteen usually. Ask for one with poppy seeds or salt. Costs a few złoty."},
+ sources:[["Living Obwarzanek Museum","https://www.muzeumobwarzanka.com/historia-obwarzanka/?lang=en"],["Wikipedia","https://en.wikipedia.org/wiki/Obwarzanek_krakowski"]]},
+
+{id:"sukiennice", addr:"Galeria Sztuki Polskiej XIX w. w Sukiennicach, Rynek Główny 3, 31-042 Kraków", day:"d1", seg:1, tag:"split", svg:"sukiennice",
+ title:"Sukiennice Gallery", sub:"Building a nation without a country", era:"1879",
+ story:[
+ "Poland vanished from the map in 1795, carved up by Russia, Prussia and Austria, and stayed gone for 123 years. Kraków fell into the Austrian share, which turned out lucky, because Vienna permitted Polish schools, theatre and publishing that Berlin and St Petersburg crushed. Kraków became the place where Poles kept the nation alive as a culture while lacking one as a state.",
+ "In 1879 the city threw a party here for a much-loved novelist. Mid-ceremony the painter Henryk Siemiradzki stood up and handed his vast canvas to the public. That gift seeded a collection, and the council voted on 7 October the same year to found Poland's first national museum.",
+ "Poles who could not build an army built institutions instead: a museum, a gallery, a canon of paintings that told them who they had been."],
+ why:"Walk the four rooms in order and you watch a country die, then watch its painters argue for a century about who counts as Polish. Kings, then soldiers, then peasants and Jews, then a scandalous nude with nothing to do with the nation at all.",
+ look:["The first painting you meet shows Poland's last king in his coronation robes. He signed the country away, and everything after hangs in the shadow of that failure.",
+ "In the Romanticism room, find the cavalry charge at Somosierra, where Polish horsemen fighting for Napoleon took an artillery pass at a gallop. The same room hangs portraits of Jewish neighbours, peasants and children, which marks the moment 'the nation' stopped meaning the nobility.",
+ "The last room holds the picture everybody remembers: a naked woman clinging to a rearing black horse. Twelve thousand people queued for it in Warsaw in 1894, and on the thirty-sixth morning the painter walked in, asked for a ladder, and slashed his own canvas in front of the visitors. Worth flagging the nudity before anyone turns the corner."],
+ guesses:[
+ {q:"How many years was Poland absent from the map of Europe?", a:"One hundred and twenty-three, from 1795 to 1918.", src:"here"},
+ {q:"How old was the painter who slashed his own canvas when he died?", a:"Twenty-eight, of tuberculosis. Restorers repaired the painting after his death and it hangs here.", src:"away"}],
+ act:{type:"order", kind:"Ordering", prompt:"The four rooms run in sequence. Tap them into the order you walk them.",
+  opts:[{l:"Enlightenment: the last king, in coronation robes",v:1},{l:"Romanticism: a cavalry charge, and portraits of neighbours",v:2},
+        {l:"History painting: the past used to argue about the present",v:3},{l:"Realism and the first impressionists: the scandalous nude",v:4}],
+  note:"A country loses its state, then spends a century arguing about who belongs to it. By the last room the painters have stopped asking."},
+ verdict:{answer:"Older than it looks", note:"The gallery dates from 1879, but the hall around it began as a 13th-century cloth market, went Gothic in the 1300s and Renaissance in the mid-1500s."},
+ practical:"Tue to Sun, 10:00 to 18:00, closed Monday, last admission 20 minutes before closing. 35 PLN normal, 25 reduced, 70 family, and 1 PLN for ages 7 to 26. Lift to the gallery and terrace, no thresholds between halls, changing table in the accessible toilet. Ask at the desk whether the Prussian Homage is hanging before you promise anyone they will see it.",
+ links:[["MNK Sukiennice","https://mnk.pl/en/branches/mnk-sukiennice/"]],
+ kids:{who:"skip", do:"Not a stop for them. The younger group is at the obwarzanek workshop while this happens.", find:"Nothing here. They earn their scale at the workshop.", how:"Not for them. The gallery is upstairs, quiet, and full of large paintings including a nude. The younger group is at the obwarzanek workshop while this happens, so swap an adult over and meet afterwards at the Mickiewicz statue."},
+ sources:[["MNK Sukiennice: official","https://mnk.pl/en/branches/mnk-sukiennice/"],["Museums.EU: the slashing","http://museums.eu/article/details/120982/scandal-in-warsaw-podkowiskis-frenzy-and-the-birth-of-young-poland"]]},
+
+{id:"workshop", addr:"Żywe Muzeum Obwarzanka, ul. Podwale 6, 31-118 Kraków", day:"d1", seg:1, tag:"food", svg:"obwarzanek",
+ title:"Living Obwarzanek Museum", sub:"Roll your own", era:"A medieval craft, a modern workshop",
+ story:[
+ "The children get to do with their hands what the adults are reading about in the gallery. Bakers here have twisted these rings since at least 1394, and the twist is the whole trick: two strands rolled together, joined into a circle, boiled, then baked.",
+ "The braid separates the real thing from a bagel. A bagel is one rope. This is two, wound round each other, which is why a genuine one shows a spiral down its side."],
+ why:"Kraków's bakers held a royal monopoly on this bread from 1496, defended it through four centuries of kings, and their successors went to the European Union in 2010 to defend it again. The city treats a cheap street snack as heritage worth legal protection, and the twist in the dough is the thing being protected.",
+ look:["Compare your own with one bought from a cart. Whose braid is tighter, and can you see the spiral running down the side?",
+ "Look at the base of the shop-bought one for the lengthwise marks left by the tray."],
+ guesses:[
+ {q:"In what year does the obwarzanek first appear in writing?", a:"1394. The technique in your hands has a paper trail older than most European nations.", src:"here"},
+ {q:"Count the carts you passed on the way here. Closest guess picks the topping.", a:"Whatever you counted. Kraków has hundreds of them, all selling the same protected ring.", src:"away"}],
+ act:{type:"match", kind:"Matching", prompt:"Tap a step, then tap what it does.",
+  pairs:[["Twisting two strands","Creates the braid you can see down the side"],
+         ["Boiling before baking","Gives the glossy crust and chewy inside"],
+         ["The tray","Leaves lengthwise marks on the base"],
+         ["The EU certificate","Fixes the size and bans outside bakers from the name"]],
+  note:"Four steps, four consequences. Every one of them is visible on the thing in your hand."},
+ verdict:{answer:"Older than it looks", note:"A children's craft workshop, teaching a technique with a paper trail back to 1394."},
+ links:[["Living Obwarzanek Museum","https://www.muzeumobwarzanka.com/historia-obwarzanka/?lang=en"]],
+ kids:{who:"all", do:"Roll and braid their own obwarzanek, then compare it with one bought from a cart.", find:"Their own finished ring, coming out of the oven.", how:"An indoor workshop where each child gets dough and is shown how to roll two ropes, twist them together and join them into a ring. Staff do the boiling and baking. Book ahead, because sessions run to a timetable and fill up. Allow about an hour. They keep what they make, which becomes the hunt: spotting their own coming out of the oven."},
+ sources:[["Living Obwarzanek Museum","https://www.muzeumobwarzanka.com/historia-obwarzanka/?lang=en"]]},
+
+{id:"noworolski", addr:"Kawiarnia Noworolski, Rynek Główny 1/3, 31-042 Kraków", day:"d1", seg:1, tag:"food", svg:null,
+ title:"Café Noworolski", sub:"One family, two confiscations", era:"1912 onwards",
+ story:[
+ "Four generations of one family have run this café, losing it twice to two different dictatorships. Jan Noworolski trained as a pastry chef in Lwów, did a stint at Sacher in Vienna, bought this failing shop in 1910 and reopened it in 1912 as a Viennese-style café under his own name.",
+ "German occupiers seized it in 1940 and ran it as a bar marked 'Germans only'. He recovered it in 1945 and saved the fittings from looting. Three years later the communist security police threw him out during a national campaign against private business. The paperwork claimed the square held too many similar cafés. The real motive was a demonstration of who now held power.",
+ "Aged seventy-seven, he never entered the room again, and died of a brain haemorrhage the following year. His son recovered the café in 1992. A great-grandson runs it today."],
+ why:"Lenin read the papers here. Then the Nazi elite drank here. Then the communists took the keys. One room, four regimes, and the same family name over the door at the end of it.",
+ look:["Ask for the White Room, which keeps its original 1912 fittings: cream panelling with little columns, mirrors, narrow sofas in red plush.",
+ "Look up for the painted birds resembling peacocks, each holding a gold ring in its beak. One room banned smoking from the start, which is why locals called it the ladies' boudoir."],
+ guesses:[
+ {q:"How many regimes have held the keys to this room?", a:"Four: Austrian Galicia, independent Poland, the German occupation, then the communists.", src:"here"},
+ {q:"The communists seized it in 1948. How many years before the family got it back?", a:"Forty-four. The son recovered it in 1992, and a great-grandson runs it now.", src:"away"}],
+ act:{type:"timeline", kind:"Timeline", prompt:"Tap these into order, earliest first.",
+  opts:[{l:"A pastry chef from Lwów buys the shop",v:1910},{l:"German occupiers seize it, 'Germans only'",v:1940},
+        {l:"Recovered, and the fittings saved from looting",v:1945},{l:"Communist security police evict the founder",v:1948},
+        {l:"The family gets it back",v:1992}],
+  note:"1910, 1940, 1945, 1948, 1992. Eighty-two years from buying it to holding it securely."},
+ verdict:{answer:"As old as it looks", note:"Genuinely 1912, and one room still carries its original fittings."},
+ links:[["Noworolski: the family's own history","http://www.noworolski.com.pl/page/index.html"]],
+ kids:{who:"all", do:"Order a hot chocolate and rate it out of five. Serious business, requires discussion.", find:"A painted bird with a gold ring in its beak. Look up.", how:"An old café inside the Cloth Hall, the long yellow building in the middle of the Main Square. Grand, mirrored, quite formal, so it suits sitting down rather than running. Order hot chocolate and have them mark it out of five. For the hunt, look UP at the painted ceiling and walls for birds that look like peacocks, each holding a gold ring in its beak."},
+ sources:[["Kraków Travel","https://krakow.travel/39919-krakow-kawiarnia-noworolski"],["Małopolska Institute of Culture","https://dnidziedzictwa.pl/kawiarnia-noworolski-w-krakowie/"]]},
+
+{id:"franciscan", addr:"Bazylika św. Franciszka z Asyżu, plac Wszystkich Świętych 5, 31-004 Kraków", day:"d1", seg:1, tag:"all", svg:null,
+ title:"Franciscan Church", sub:"The artist who painted flowers instead of saints", era:"1897–1904",
+ story:[
+ "Stanisław Wyspiański won a commission to decorate this Gothic church in the 1890s and horrified the friars who hired him. Churches then expected gold, saints and solemnity. He covered the walls with plants: stylised flowers, geometric patterns, motifs lifted from Polish folk embroidery. The friars objected that the scheme looked too plain and too strange for a church.",
+ "He argued back that Francis of Assisi had loved created things above all, so flowers belonged on the walls better than gilding did.",
+ "He won the argument, kept the murals, and then received the far larger commission for the windows. He designed the great window over the west end in 1902 and the glaziers finished it in 1904. It shows God making the world, holding the four elements: fire, water, air and earth."],
+ why:"Poles now rate this the finest Art Nouveau glass in the country, and the friars who nearly cancelled the whole thing sit in the middle of it.",
+ look:["Turn round at the far end and look back over the entrance. The window stands 8.46 metres tall. The interior is very dark, which makes the glass carry the whole room, so give your eyes a minute before judging.",
+ "Scan the walls for plants rather than saints. The flowers come from ordinary Polish gardens. The friary dates from 1269 and housed the first Franciscans in Poland, and Karol Wojtyła prayed here privately in the years before he became Pope John Paul II."],
+ guesses:[
+ {q:"How tall is the great window over the entrance?", a:"8.46 metres, and it fills the whole west wall.", src:"here"},
+ {q:"How many separate kinds of flower can you pick out on the walls?", a:"Count what you can find. They are ordinary Polish garden plants, which was the entire scandal.", src:"away"}],
+ act:{type:"match", kind:"Matching", prompt:"Tap an objection, then tap Wyspiański's answer to it.",
+  pairs:[["Too plain for a church","Francis loved created things more than gold"],
+         ["Flowers are not sacred subjects","He preached to birds and called the sun his brother"],
+         ["Folk embroidery belongs on a peasant's shirt","So does the faith of the people in the pews"],
+         ["Where are the saints?","Look up at the window instead"]],
+  note:"He won every round, kept the murals, and then got the far bigger commission for the glass."},
+ verdict:{answer:"Older than it looks", note:"A 13th-century Gothic church wearing a 1900s interior that scandalised its own owners."},
+ links:[["MNK Wyspiański","https://mnk.pl/en/wystawy/mnk-the-wyspianski/"]],
+ kids:{who:"all", do:"Tick off every colour they can find in the big window. It is very dark, so give their eyes a minute.", find:"The colour blue in the glass.", how:"A dark Gothic church a few minutes south-west of the Main Square. Walk in, go to the far end, then TURN ROUND and look back above the door: an enormous stained glass window fills the wall. It is very dark inside, so stand still for a minute and let eyes adjust before asking anything. Then tick off the colours they can find. Blue is there but takes hunting. The walls are painted with flowers rather than saints, which is worth pointing out. Free, and quiet."},
+ sources:[["Guide-Cracow: the commission and the row","https://www.guide-cracow.com/cracow/cracow-franciscan-church-art-nouveau-wyspianski.php"],["Wikipedia: God the Father, Arise","https://en.wikipedia.org/wiki/God_the_Father_-_Arise"]]},
+
+{id:"conrad", addr:"ul. Poselska 12, 31-002 Kraków", day:"d1", seg:1, tag:"all", svg:null,
+ title:"Poselska 12", sub:"The boy who became Joseph Conrad", era:"1869",
+ story:[
+ "An eleven-year-old walked behind his father's coffin through these streets, and grew up to write Heart of Darkness in his third language.",
+ "Apollo Korzeniowski, Joseph Conrad's father, brought his sick son to Kraków on 20 February 1869 and died of tuberculosis three months later, leaving the boy an orphan. Conrad's mother had already died of the same disease during the family's exile. Russian authorities had earlier sentenced the father to internal exile over a thousand miles away for organising a secret Polish independence committee, and marched the whole family there under armed guard.",
+ "The Kraków funeral turned into a mass patriotic demonstration, with writers, intellectuals and ordinary citizens filling the procession. His parents had christened him after his two grandfathers, then called him Konrad instead, borrowing the name from the hero of two poems by Adam Mickiewicz, whose statue you stood at this morning."],
+ why:"His parents named him for a resistance hero. He grew up to write in English, and Poles have argued ever since about whether that counts as desertion.",
+ look:["The plaque sits on the wing of the city offices facing the street. It records that the son of a wandering poet spent his youth in a house that once stood here, which means the building itself has gone.",
+ "The English text on it is Conrad's own: the old royal and academic city was where he stopped being a child. He was eleven when he arrived."],
+ guesses:[
+ {q:"How old was Conrad when his father died and left him an orphan?", a:"Eleven, three months after the two of them arrived in Kraków.", src:"here"},
+ {q:"How old was he when he left Kraków for good?", a:"Sixteen, in 1874. He went to sea, and wrote his novels in a language he had not yet learned.", src:"away"}],
+ act:{type:"order", kind:"Ordering", prompt:"Tap these into order, earliest first.",
+  opts:[{l:"His father organises a secret independence committee",v:1},{l:"The family is marched into exile under guard",v:2},
+        {l:"His mother dies of tuberculosis in exile",v:3},{l:"Father and son arrive in Kraków",v:4},
+        {l:"The funeral becomes a patriotic demonstration",v:5},{l:"Conrad leaves Kraków for good",v:6}],
+  note:"Six steps from a political meeting in Warsaw to an orphan on a ship. He was sixteen at the end of it."},
+ verdict:{answer:"As old as it looks", note:"A modest plaque on an office wall, and the house it describes no longer exists."},
+ links:[["Conrad Festival: in his footsteps","https://en.conradfestival.pl/p/81,in-the-footsteps-of-conrad-conrad-year"]],
+ kids:{who:"all", do:"Find the plaque on the wall. That is the whole task, and it takes thirty seconds.", find:"The name Conrad, hiding in the Polish text.", how:"A small plaque on the wall of the city offices on Poselska, a narrow quiet street. Thirty seconds. The task is simply to spot it, then find the name Conrad in the Polish text. Good one to give a child who wants a job while the adults read."},
+ sources:[["Conrad Festival","https://en.conradfestival.pl/p/81,in-the-footsteps-of-conrad-conrad-year"],["Duke University: Conrad exhibition","https://exhibits.library.duke.edu/exhibits/show/josephconrad/borderlands"]]},
+/* ================= DAY TWO ================= */
+{id:"wanda", addr:"Kopiec Wandy, ul. Ujastek Mogilski, 31-752 Kraków", day:"d2", seg:0, tag:"all", svg:"mound",
+ title:"Wanda Mound", sub:"Nobody knows who built it", era:"600s? 700s? Nobody can say",
+ story:[
+ "A grass hill sits beside Europe's ugliest steelworks, and nobody knows who built it or why.",
+ "Legend hands the mound to Wanda, daughter of the prince who supposedly founded Kraków. A German knight demanded her hand. She refused, and rather than expose her people to the invasion that would follow, she threw herself into the Vistula. The river carried her body downstream, and villagers here recovered it. People raised the mound over the spot where the river gave her back.",
+ "Archaeology declines to confirm any of that. Nobody has ever excavated the mound properly, and digs at its sister mound across the city turned up no human remains at all. Written records mention the hill from 1222, when a bishop gave the surrounding village to monks and described the land as lying beside the mound. Those earliest documents say nothing whatever about Wanda."],
+ why:"Poles have spent eight hundred years telling stories about a lump of earth precisely because the truth stays out of reach. The oldest visible human work in this part of Kraków sits next to the newest, and neither one means what its builders intended.",
+ look:["A monument crowns the summit: an eagle with folded wings facing west, put up in 1890 and designed by the painter behind yesterday's Prussian Homage. Look for the word Wanda, two swords and a distaff carved into the plinth.",
+ "Diggers have sampled only the top 30 centimetres of soil, so what fills the inside remains unknown. Enthusiasts claim the mound aligns with its sister across the city so the sun rises over one and sets over the other on old Celtic festival dates. Treat that as a lovely idea rather than a proven fact."],
+ guesses:[
+ {q:"How much of this mound has ever been excavated?", a:"The top thirty centimetres. What fills the inside is still unknown.", src:"here"},
+ {q:"How high is it?", a:"Roughly fourteen metres, raised by hand, by people nobody can identify, for reasons nobody can establish.", src:"away"}],
+ act:{type:"sort", kind:"Categorise", prompt:"Tap each statement, then decide whether archaeology supports it or not.",
+  buckets:["Evidence for it","Story only"],
+  opts:[{l:"A mound stood here by 1222",b:0},{l:"Wanda drowned herself in the Vistula",b:1},
+        {l:"Nobody has found human remains",b:0},{l:"Villagers recovered her body here",b:1},
+        {l:"The top 30cm has been sampled",b:0},{l:"It aligns with its sister mound at solstice",b:1}],
+  note:"Three facts, three stories. Poles have known the difference for eight hundred years and told the stories anyway."},
+ verdict:{answer:"Older than it looks", note:"And nobody can say how much older. The honest answer is the interesting one."},
+ links:[["Archaeological Museum of Kraków","https://ma.krakow.pl/1-2/"]],
+ kids:{who:"all", do:"Climb up. Roll down. Repeat until an adult stops it.", find:"The eagle standing on top.", how:"A large grass hill in the middle of Nowa Huta, with a path spiralling up. The climb takes a few minutes and is fine for small legs. At the top there is a stone block with a bronze eagle on it, wings folded. Rolling down the side is the point of the whole stop. Grass may be damp, so bring a change of clothes or accept the consequences."},
+ sources:[["City of Kraków: Wanda Mound","https://www.krakow.pl/instcbi/1302,inst,11061,821,instcbi.html"],["Niezwykła Małopolska","https://niezwyklamalopolska.pl/kopiec-wandy/"]]},
+
+{id:"milkbar", addr:"Bar mleczny, os. Centrum, Plac Centralny, 31-931 Kraków", day:"d2", seg:1, tag:"food", svg:"tray",
+ title:"The milk bar", sub:"Kraków invented it, as propaganda", era:"1948 onwards",
+ story:[
+ "Poland's first milk bar opened on the Main Market Square on 30 May 1948. Nobody could buy a hot meal there. Customers came to drink milk, served in a quarter-litre glass with a straw, part of a government campaign to shift the nation from moonshine to dairy while a milk surplus sat unsold.",
+ "Meat carried a ration card and a price, so the early menus ran on eggs, cheese and flour. The state then nationalised the restaurants and opened milk bars in their place, and some workers received their lunches as part of their wages.",
+ "Subsidies kept prices absurd, which turned the milk bar into a lifeline for pensioners and the unemployed, and keeps it one today. A government attempt to withdraw the subsidy in 2011 produced public protest, and the money stayed."],
+ why:"Poland kept this after 1989 when it demolished most of what communism left behind, and kept it deliberately. Milk bars feed pensioners, students and people out of work at prices nobody else offers, which is why an attempt to end the subsidy in 2011 ran into public protest and failed. A country that spent forty years resenting state provision decided this particular piece of it was worth paying for, and the milk bar has outlived the system that scaled it up.",
+ look:["Take a tray, walk the counter, point, pay at the till, find a seat. No table service, mismatched plates, and the menu on the board above the counter. Brief the children before you go in, because the queue moves fast.",
+ "Order kompot, a lightly sweetened drink of cooked fruit, which comes as standard. The children can collect the flavours across three days. Soup, a main and a drink runs roughly 25 to 40 PLN."],
+ guesses:[
+ {q:"In what year did the first milk bar open anywhere in Poland?", a:"1896, in Warsaw, opened by a dairy farmer. Half a century before communism.", src:"here"},
+ {q:"Guess the total bill for the whole group before you order, then check the till.", a:"Soup, a main and a drink runs roughly 25 to 40 złoty a head, which is about five to eight pounds.", src:"away"}],
+ act:{type:"sort", kind:"Categorise", prompt:"Tap each item, then decide whether communism invented it or inherited it.",
+  buckets:["Invented by the state","Older than the state"],
+  opts:[{l:"The milk bar format",b:1},{l:"Subsidised prices for everyone",b:0},
+        {l:"Kompot as the default drink",b:1},{l:"Lunches paid as part of wages",b:0},
+        {l:"Milk served with a straw to fight moonshine",b:0}],
+  note:"The thing that looks most Soviet in the room, the format itself, dates from 1896 and the partitions."},
+ verdict:{answer:"Older than it looks", note:"Looks communist. Invented under the Tsars by a dairy farmer with too much milk."},
+ links:[["Alimentarium: why they survive","https://www.alimentarium.org/en/story/bary-mleczne"]],
+ kids:{who:"all", do:"Carry their own tray along the counter and point at what they want. Then rate the kompot out of five.", find:"The menu board above the counter.", how:"A canteen, not a restaurant. There is a counter with a lit board above it listing dishes in Polish. Take a tray from the stack, walk along, point at what you want, pay at the till at the end, then find your own table. Let the children carry their own trays. Kompot is the pinkish fruit drink, poured from a jug: have them mark it out of five. The board is the hunt — ask them to find the price of the cheapest thing on it."},
+ sources:[["In Your Pocket: Kraków milk bars","https://www.inyourpocket.com/krakow/krakow-milk-bars_73733f"],["Wikipedia: bar mleczny","https://en.wikipedia.org/wiki/Bar_mleczny"]]},
+
+{id:"plac", addr:"Plac Centralny im. Ronalda Reagana, 31-931 Kraków", day:"d2", seg:1, tag:"all", svg:"plac",
+ title:"Plac Centralny", sub:"A city built to cancel a city", era:"1949–1956",
+ story:[
+ "Poland's communist government looked at Kraków, saw a place stuffed with priests, professors and aristocrats, and decided to build a rival.",
+ "Work began in 1949 on the site of two medieval villages. The plan centred on a vast steelworks, a gift from the Soviet Union, surrounded by housing for the workers who would run it. Planners intended a workers' paradise, a laboratory for socialism, and assumed the residents would grow up atheist. Only one other fully planned socialist realist city exists anywhere, in the Russian Urals.",
+ "Designers laid the streets in a sunburst radiating from this square, built for a hundred thousand people, and dressed the whole thing in a style borrowing Renaissance elegance and stretching it to Soviet scale."],
+ why:"The plan failed in the way that matters. Nowa Huta became a stronghold of the independent trade union movement that helped bring the system down. A government spent a fortune manufacturing a loyal working class, and manufactured its own opposition instead.",
+ look:["Look at the ground-floor arcades running round the square, the deliberate touch of Renaissance decoration softening the authority above. Then look at the scale of what sits on top of them.",
+ "The avenues are cut wide to stop fires spreading, and planners claimed the avenue trees would absorb the blast from a nuclear weapon. Tunnels and bunkers run beneath, sized to shelter the whole population, and the street grid lets the district convert into a fortress. The pavements are also far smoother than the Old Town cobbles, which matters if you have a pram."],
+ guesses:[
+ {q:"How many residents was Nowa Huta designed to hold?", a:"One hundred thousand. It now holds well over twice that.", src:"here"},
+ {q:"How many other fully planned socialist realist cities exist anywhere in the world?", a:"One, in the Russian Urals. This is one of only two ever completed.", src:"away"}],
+ act:{type:"mcq", kind:"Multiple choice",
+  prompt:"Nowa Huta was built to dilute Catholic, intellectual Kraków with loyal steelworkers. What happened?",
+  opts:["It worked, and the district stayed loyal","It became a stronghold of the opposition that helped end the system",
+        "The steelworks was never finished","The population refused to move in"],
+  answer:1, note:"It backfired completely. The workers built a church by hand, went on strike, and the square is now named after an American president."},
+ verdict:{answer:"A fake", note:"Renaissance arcades poured in the 1950s, on a plan that doubles as a fortress."},
+ links:[["Atlas Obscura: Nowa Huta","https://atlasobscura.com/places/nowa-huta"]],
+ kids:{who:"all", do:"Count the arches running round the square. Split the sides between them so nobody has to count past twenty.", find:"A star shape somewhere on a building.", how:"An enormous open square in Nowa Huta with matching stone buildings all round it. Along the ground floor of each runs a covered walkway held up by arches. Give each child one side of the square to count so nobody has to count past twenty, then add them up. For the star, look up at the tops of the buildings and the decoration: there are red communist stars worked into the stonework in places."},
+ sources:[["Britannica: Nowa Huta","https://www.britannica.com/place/Nowa-Huta"],["In Your Pocket","https://www.inyourpocket.com/poland/krakow/articles/nowa-huta-krakows-socialist-realism-suburb"]]},
+
+{id:"arka", addr:"Arka Pana, ul. Obrońców Krzyża 1, 31-831 Kraków", day:"d2", seg:1, tag:"all", svg:"arka",
+ title:"Arka Pana", sub:"Two million stones", era:"1960–1977",
+ story:[
+ "Residents of the atheist city spent twenty years fighting for a church, and won by hand.",
+ "People raised money and planted a wooden cross in 1957 on the plot promised for a church. Authorities then reassigned the plot to a school and ordered the cross removed. Workers arrived on the morning of 27 April 1960 to take it down, and passers-by stopped them. A crowd gathered through the day. Militia came with truncheons and tear gas, protesters answered with stones, and a pitched battle ran until nightfall. The party leader afterwards called the defenders scum and troublemakers, and police drew up a list of more than two hundred people to jail, fine or sack. The cross stayed up.",
+ "Permission arrived in 1965, for a different site. Then the authorities supplied nothing, no materials and no equipment, inside an economy where the state controlled all supply. So residents mixed their own cement, made their own bricks, and collected roughly two million polished stones from Poland's rivers to face the walls. Ten years of volunteer labour finished the job."],
+ why:"The local archbishop who forced the permit through, said Mass in the freezing open field and consecrated the finished church in 1977 became Pope John Paul II a year later. Nowa Huta made him.",
+ look:["Put your hand on the wall. Two million river stones cover the exterior, and every one arrived in somebody's pocket or bag.",
+ "The building takes the shape of an ark, a vessel carrying people out of a ruined world, and the timber lining inside suggests the hull of a boat. The cornerstone came from Rome, a fragment given by the pope of the day and taken from the basilica over St Peter's tomb. The street outside carries the name Defenders of the Cross."],
+ guesses:[
+ {q:"How many river stones cover the outside of this church?", a:"Roughly two million, every one carried here by hand because the state supplied nothing.", src:"here"},
+ {q:"Builders found a wartime ammunition dump under the site. How many mines and shells came out?", a:"Around five thousand, cleared before work could even begin.", src:"away"}],
+ act:{type:"timeline", kind:"Timeline", prompt:"Tap these into order, earliest first.",
+  opts:[{l:"A wooden cross planted on the promised plot",v:1957},{l:"Militia and crowds fight all day over the cross",v:1960},
+        {l:"Permission granted, for a different site",v:1965},{l:"The finished church consecrated",v:1977},
+        {l:"The archbishop who consecrated it becomes pope",v:1978}],
+  note:"1957, 1960, 1965, 1977, 1978. Twenty years of refusal, then the man who forced it through went to Rome."},
+ verdict:{answer:"As old as it looks", note:"1977, the newest building on the trip, and the hardest won."},
+ links:[["Atlas Obscura: building without supplies","https://www.atlasobscura.com/places/lords-ark"]],
+ kids:{who:"all", do:"Put both hands flat on the wall and hunt for the smoothest stone in reach.", find:"The boat shape. Step back far enough to see the whole church at once.", how:"A large modern church shaped like an upturned boat, in Nowa Huta. The outside walls are covered in small smooth river stones, all different. Let them put both hands flat on the wall and hunt for the smoothest one they can reach. To see the boat shape they need to walk back thirty metres and look at the whole roof. Inside is dark and lined with timber like a hull."},
+ sources:[["VisitMałopolska","https://visitmalopolska.pl/obiekt/-/poi/kosciol-matki-bozej-krolowej-polski-arka-pana-w-krakowie"],["In Your Pocket","https://www.inyourpocket.com/krakow/the-lords-ark_55453v"]]},
+
+{id:"lem", addr:"Ogród Doświadczeń im. Stanisława Lema, al. Pokoju 68, 31-564 Kraków", day:"d2", seg:1, tag:"all", svg:"lem",
+ title:"Lem's Garden of Experiments", sub:"The man who imagined his way out", era:"Post-war onwards",
+ story:[
+ "Stanisław Lem wrote about thinking oceans and philosophical robots, and did so because reality had already proved unbearable.",
+ "Born in 1921 in Lwów, a Polish city now inside Ukraine, Lem came from a Jewish family who avoided the ghetto by living on forged papers. Most of his relatives died in the Holocaust. He survived the occupation working as a car mechanic and welder under a false name. Soviet annexation of his home city then pushed the family west, and Lem arrived in Kraków to resume medical studies at the university you visited on the first day.",
+ "He deliberately failed his final exam, partly to dodge conscription as an army doctor, partly because passing required him to give answers matching official Soviet biology. He then spent fifty years writing science fiction in a country where the censors read everything, and got away with it, because a story set on another planet says nothing a censor can point at."],
+ why:"Lem is the most translated Polish writer who has ever lived, and he did it from inside a censored state, which is why Poles treat him as more than a novelist. Writing about distant planets let him publish arguments about power, bureaucracy and truth that would have been cut from a realist novel. His readers understood exactly what the robots and the thinking oceans were standing in for, and so, probably, did the censors, who could do nothing about it. The garden bearing his name teaches physics to children in the district built by the same government he was writing around.",
+ look:["Everything here is outdoors and hands-on, so the season runs April to October. Find the whisper dish, the see-saw and the sand planet. A hedge maze carries quotations from Lem, and separate areas cover rocks and smells.",
+ "Let the small children run. This is the one stop on the whole trip designed to be touched rather than looked at."],
+ guesses:[
+ {q:"In what year did Lem publish the book describing virtual reality, artificial intelligence and nanotechnology?", a:"1964, from a flat in a city where the censors read everything.", src:"here"},
+ {q:"Count how many of the exhibits here the children try before they stop. Guess first.", a:"Whatever it turns out to be. Everything is outdoors and meant to be handled.", src:"away"}],
+ act:{type:"sort", kind:"Categorise", prompt:"Tap each item, then decide whether Lem described it decades early or not.",
+  buckets:["Lem predicted it","Not his"],
+  opts:[{l:"The internet",b:0},{l:"Ebooks and search engines",b:0},
+        {l:"Virtual reality",b:0},{l:"The telephone",b:1},
+        {l:"Nanotechnology",b:0},{l:"The printing press",b:1}],
+  note:"Four out of six, and the two he missed had already been invented. He was writing this in the 1950s and 60s from a flat in Kraków."},
+ verdict:{answer:"As old as it looks", note:"The newest thing on the trip, built to demonstrate the oldest laws."},
+ links:[["Kraków Travel: the Garden of Experiments","https://krakow.travel/428-krakow-ogrod-doswiadczen-im-stanislawa-lema"]],
+ kids:{who:"all", do:"Whisper into the dish and make somebody hear it from the other side. Then run everywhere else.", find:"The sand planet.", how:"An outdoor science park with metal and wooden equipment spread over grass. The whisper dish is a large curved dish on a stand: one child speaks quietly into the middle while another stands at a second dish some distance away and hears it. Needs two children and an adult to position them. Everything else is free running. Allow at least an hour and let them lead."},
+ sources:[["Wikipedia: Stanisław Lem","https://en.wikipedia.org/wiki/Stanis%C5%82aw_Lem"],["Encyclopedia of Science Fiction","https://sf-encyclopedia.com/entry/lem_stanislaw"]]},
+
+/* ================= DAY THREE ================= */
+{id:"wawel", addr:"Zamek Królewski na Wawelu, Wawel 5, 31-001 Kraków", day:"d3", seg:0, tag:"split", svg:"wawel",
+ title:"Wawel courtyard", sub:"A king who imported the Renaissance", era:"1517–1536",
+ story:[
+ "Sigismund the Old had seen Italy, and decided Poland should look like it. Fire damaged the medieval castle, and between 1517 and 1536 he rebuilt the place in a style barely seen north of the Alps. Work began under a Florentine architect, continued under a second Florentine after the first died, and ran alongside a local master builder.",
+ "A royal marriage sealed the taste. Sigismund married a princess from Milan in 1518, and Italian craftsmen followed her north.",
+ "The result surrounds you: open galleries on slender columns, letting the court move freely between apartments and state rooms without going outside. The yard itself became the stage. Kings held tournaments and jousts here, staged theatre and masques, received foreign envoys in front of an audience arranged along the galleries above, and used the whole enclosure as a display of how a Polish court could match anything in Italy. The galleries were the seating. Everyone watching stood where you are looking now.",
+ "That use outlasted the kings. After the court left for Warsaw in 1596 the castle slid into decline, and Austrian troops later turned the whole hill into a barracks, bricking up arcades and using the royal rooms as a military hospital and stores. The courtyard spent much of the nineteenth century as a parade ground. Poles bought the Austrians out and began restoring it from 1905, which is why what you see reads as Renaissance again rather than as a barracks yard."],
+ why:"This completes an argument you started on the first day. The plaque on the Rynek marks the year a Polish king held Prussia in his hand. This courtyard shows what he spent the confidence on.",
+ look:["Look up. Two lower storeys carry regular arcades, and the top storey uses columns of double height, which gives the yard its stretched, light proportion. Count the storeys before you look, then check.",
+ "One side has no arcades at all. Occupying German forces rebuilt that wing during the Second World War, over the site of the royal kitchens. Find the odd side out.",
+ "The hill, the outer yards and this courtyard cost nothing to walk. The interiors need separate timed tickets."],
+ guesses:[
+ {q:"In what year did the royal court leave Kraków for Warsaw?", a:"1596. Kraków has now spent over four centuries as a former capital.", src:"here"},
+ {q:"Count the columns on the top storey of one side of the courtyard. Guess first.", a:"Count them and settle it. The top storey uses columns of double height, which is the trick that makes the whole yard feel light.", src:"away"}],
+ act:{type:"label", kind:"Diagram labelling", prompt:"Tap each number on the drawing, then choose what it is.",
+  svg:"wawel",
+  pins:[{x:76,y:64,a:"Top storey: columns of double height, which stretches the whole facade"},
+        {x:76,y:110,a:"Middle gallery, regular arcades"},
+        {x:76,y:160,a:"Ground arcade, where the court moved between rooms"},
+        {x:200,y:32,a:"Steep roof, a northern habit on an Italian design"}],
+  note:"The doubled top columns are the trick. They make a heavy building look light, and Polish builders copied it for generations."},
+ verdict:{answer:"As old as it looks", note:"Genuinely 1517 to 1536, apart from one wing rebuilt under German occupation."},
+ links:[["Wawel Royal Castle","https://wawel.krakow.pl/en/information-about-museum"]],
+ kids:{who:"split", do:"Only the youngest is up here, in the sling. Point out the arches and let her look up.", find:"The one side of the courtyard with no arches at all.", how:"Only the youngest is up here in the sling. It is a large open stone courtyard surrounded by three tiers of arches. Hold her facing outward and point up at the arches, which are the most striking thing about it."},
+ sources:[["Wawel Royal Castle: official","https://wawel.krakow.pl/en/information-about-museum"],["In Your Pocket: the courtyard","https://www.inyourpocket.com/krakow/arcaded-renaissance-courtyard_170717v"]]},
+
+{id:"dragon", addr:"Smok Wawelski, Bulwar Czerwieński, 31-001 Kraków", day:"d3", seg:0, tag:"split", svg:"dragon",
+ title:"The dragon and the chakra stone", sub:"Two kinds of magic, fifty metres apart", era:"Legend from the 1200s",
+ story:[
+ "Kraków's founding myth stars a shoemaker who beat a monster with chemistry. A dragon lived in the cave under this hill, eating livestock and, in some tellings, young women handed over as tribute. The king promised his daughter to whoever killed it. Knights failed. A cobbler named Skuba stuffed a lamb with sulphur and left it outside the cave. The dragon ate, the sulphur burned, and the beast ran to the Vistula and drank until it burst.",
+ "A bishop of Kraków wrote the tale down as history in the early 1200s. It probably reaches further back into Slavic oral tradition, possibly explaining fossil bones or gas seeping from the cave.",
+ "Fifty metres uphill sits a rival kind of magic. A twentieth-century Polish writer merged Slavic folklore with Hindu teaching and declared Wawel one of the earth's seven great energy centres, a stone left by Shiva. Visitors press their palms to a wall, and the church that owns the wall has never enjoyed the arrangement."],
+ why:"Kraków sells two competing kinds of magic from the same hill, and the city has never resolved which one it believes. The dragon is official: it appears on souvenirs, in children's books and on the city's own tourist material, a founding myth in which the ordinary townsman outwits the monster that defeated the knights. The chakra stone is unofficial and faintly embarrassing, a 1930s invention that draws quiet visitors to press their hands against a cathedral wall the church would rather they left alone. Both are stories Poles tell about the same fifty metres of rock, and watching which one a Kraków guide chooses to mention tells you a great deal about how the city sees itself.",
+ look:["Wait for the flame. Natural gas fuels it, a text message triggers it, and the service handles at least 2,500 requests a day. It cannot fire more often than every fifteen seconds, and somebody has clearly tested that.",
+ "Up by the cathedral door, look for old bones hanging on chains, long treated as the dragon's remains. Research identified them as rhinoceros, whale and mammoth."],
+ guesses:[
+ {q:"How many text messages does the dragon receive in a day?", a:"At least 2,500. Each one asks it to breathe fire, and it cannot oblige more than once every fifteen seconds.", src:"here"},
+ {q:"How tall is the statue?", a:"Six metres, cast in 1969 by a sculptor working in a country that had no interest in dragons.", src:"away"}],
+ act:{type:"mcq", kind:"Multiple choice",
+  prompt:"Bones hang chained beside the cathedral door, long said to be the dragon's. What are they really?",
+  opts:["Cattle and horse bones","Rhinoceros, whale and mammoth","Carved wood painted to look like bone","Nobody has ever tested them"],
+  answer:1, note:"An ice-age collection, hung up as proof of a dragon, and left hanging long after anyone believed it."},
+ verdict:{answer:"A fake", note:"The legend runs to the 1200s. The statue dates from 1969 and the chakra from the 1930s."},
+ links:[["Kraków Booking: Wawel legends","https://krakowbooking.com/blog/the-wawel-dragon-and-other-legends-of-the-krakow-castle"]],
+ kids:{who:"split", do:"Worth bringing the older two across for, even if the groups have split. Wait for the flame, then count out loud how long until the next one.", find:"The mouth of the cave the dragon supposedly lived in.", how:"Down at the foot of the castle hill by the river, a six-metre bronze dragon on a rock. It breathes real fire at intervals — a proper burst of flame, loud enough to startle a small child, so warn them first. Count out loud between bursts. Behind it is the mouth of the cave the dragon supposedly lived in. Worth bringing the older two across for even if the groups have split."},
+ sources:[["Wikipedia: the dragon statue","https://en.wikipedia.org/wiki/Wawel_Dragon_(statue)"],["Kraków Booking","https://krakowbooking.com/blog/the-wawel-dragon-and-other-legends-of-the-krakow-castle"]]},
+
+{id:"dlugosz", addr:"Dom Długosza, ul. Kanonicza 25, 31-002 Kraków", day:"d3", seg:0, tag:"split", svg:null,
+ title:"Kanonicza 25", sub:"The house where Poland got its history", era:"1455–1480",
+ story:[
+ "Jan Długosz spent twenty-five years in this house writing the book that told Poles who they were. A canon of Kraków and a diplomat, he produced the first full history of Poland, a work that gave Poles pride in their past and improved how educated Europe regarded the country.",
+ "He started in 1455 and kept writing until the last weeks of his life. He hunted his sources properly, using older chronicles, papal registers, royal charters, inscriptions on monuments, coins and the testimony of people who had witnessed the events.",
+ "The king also handed him his sons to tutor, so the man writing the national history taught the next king in person. Nearly everything Poles believe about their earliest centuries, including the dragon and the mounds, passed through this building."],
+ why:"Three men invented Poland between them. Długosz wrote the history here, Matejko painted it, and Mickiewicz wrote the feeling that made people willing to die for it. You have now stood in front of all three.",
+ look:["The oldest part dates from the early 1300s and held the royal bathhouse, fed with water from a river that once ran along the street behind. Legend claims courtiers of the teenage queen hid here to spy on the man she was about to marry, the same queen who funded the university.",
+ "Look at the front for two large Gothic windows and a smaller 15th-century one above, plus a 16th-century doorway carrying an inscription meaning that nothing in a man surpasses reason."],
+ guesses:[
+ {q:"How many years did Długosz spend writing his history in this house?", a:"Twenty-five, from 1455 until weeks before his death in 1480.", src:"here"},
+ {q:"How many books does the finished history run to?", a:"Twelve, covering everything from the legendary founders to his own lifetime.", src:"away"}],
+ act:{type:"match", kind:"Matching", prompt:"Tap a man, then tap what he gave Poland.",
+  pairs:[["Długosz, in this house","The written history, and the legends we now repeat"],
+         ["Matejko, on the square","The pictures that taught it to people who could not read"],
+         ["Mickiewicz, on his plinth","The feeling that made people willing to die for it"],
+         ["Conrad, on a plaque nearby","A refusal to stay, and a career in another language"]],
+  note:"Four men, four ways of making a country exist when it has no state. You have stood in front of all four in three days."},
+ verdict:{answer:"Older than it looks", note:"A modest canon's house, and the oldest part of it was a bath."},
+ links:[["Britannica: Jan Długosz","https://www.britannica.com/biography/Jan-Dlugosz"]],
+ kids:{who:"split", do:"Prettiest door competition, running the length of the street. Everyone picks one and defends it.", find:"A door knocker they can reach.", how:"A narrow cobbled street of old houses running down from the castle, quiet and very pretty. Everyone picks the door they like best and has to say why. Look for carved stone frames, old numbers, iron knockers and studded wood. Let each child choose one they can actually reach and touch."},
+ sources:[["Britannica","https://www.britannica.com/biography/Jan-Dlugosz"],["Kraków Travel: Kanonicza Street","https://krakow.travel/en/17719-krakow-kanonicza-street"]]},
+
+{id:"jordana", addr:"Park im. dr. Henryka Jordana, al. 3 Maja 11, 30-062 Kraków", day:"d3", seg:0, tag:"split", svg:null,
+ title:"Park Jordana", sub:"The doctor who invented the playground", era:"1889",
+ story:[
+ "A Kraków doctor looked at industrial city children and prescribed grass. Henryk Jordan opened this park in 1889 on former cattle pasture, the first public playground in Poland and the first of its kind in Europe, fitted with exercise apparatus copied from American models.",
+ "He provided a swimming pool, twelve pitches, running tracks, changing rooms and showers, plus indoor facilities from 1906 for bad weather. He also fed the children free.",
+ "His argument sounded radical then: supervised, organised play counted as a medical necessity for healthy development rather than mere entertainment, and every social class deserved access. The idea spread across Poland, other cities copied it, and by 1928 a national society existed to build such places everywhere."],
+ why:"This park was an argument about who cities are built for. Kraków in the 1880s was crowded, industrialising and unhealthy, and Jordan argued that working-class children were growing up physically ruined by it. His answer, that supervised play is a medical necessity rather than a charity, and that every class has a right to it, was genuinely radical, and Poland adopted it. Cities across the country copied the model, a national society formed to build more, and the type is still called a Jordan garden in Polish. A doctor in a partitioned country with no government of its own invented a piece of public policy and exported it.",
+ look:["Jordan set 45 busts of famous Poles among the paths from 1907. Wartime destruction hit the park hard, and one man saved a fraction of them plus the founder's monument.",
+ "Among the busts of famous Poles stands a monument to a bear who served as a soldier. Find that one and you win the round. Asphalt paths, pram access, playgrounds, toilets and a café, open 6:00 to 22:00."],
+ guesses:[
+ {q:"How many busts of famous Poles did the founder set among these paths?", a:"Forty-five, installed from 1907 onwards.", src:"here"},
+ {q:"How many of them survived the war?", a:"Twenty-two. One man saved those and the founder's monument. Count how many the children can find.", src:"away"}],
+ act:{type:"truefalse", kind:"True or false",
+  prompt:"True or false: among the busts of famous Poles in this park, there is a monument to a bear.",
+  answer:true, note:"True. A bear who served as a soldier. Set the children hunting for it before you reveal this."},
+ verdict:{answer:"Older than it looks", note:"1889, and the original of the type. Every playground your children have used descends from this field."},
+ links:[["Trasa dla Bobasa: pram access","https://www.trasadlabobasa.pl/en/tab/parks/jordan_park/2"]],
+ kids:{who:"all", do:"Find the bear. There is a monument to a bear who was a soldier, hiding among the busts of famous people.", find:"Three stone heads on the paths, any three.", how:"A large park west of the Old Town with paths, playgrounds and rows of stone busts on plinths along the walkways. Most are famous Poles. Somewhere among them is a monument to a bear who served as a soldier, which is the prize find. Set them hunting for three heads first as a warm-up, then reveal the bear. Toilets and a café on site."},
+ sources:[["Wikipedia: Henryk Jordan Park","https://en.wikipedia.org/wiki/Henryk_Jordan_Park"],["In Your Pocket","https://www.inyourpocket.com/krakow/dr-h-jordan-park_21372v"]]},
+
+{id:"pharmacy", addr:"Apteka pod Orłem, plac Bohaterów Getta 18, 30-547 Kraków", day:"d3", seg:1, tag:"all", svg:"chairs", solemn:true,
+ title:"Plac Bohaterów Getta and the Eagle Pharmacy", sub:"One pharmacist stayed", era:"1941–1943",
+ story:[
+ "German authorities enclosed this district as a ghetto in 1941. The three other Gentile-owned pharmacies inside accepted the offer to relocate outside the walls. Tadeusz Pankiewicz bribed officials for permission to remain, and kept working.",
+ "He and three colleagues handed out scarce medicines, usually refusing payment, and turned the shop into a crossing point for people, food and news between the sealed district and the city outside. The staff obtained forged papers, traded people's valuables for food, carried messages to relatives in hiding, and concealed people inside the pharmacy during round-ups.",
+ "Two details recur in his own account. Hair dye let older people look young enough to escape selection for deportation. Sedatives kept hidden children quiet, and therefore alive, during raids. He also hid Torah scrolls that families left with him, and people recovered them after the war. Doing any of this carried a death sentence.",
+ "The memorial outside takes its idea directly from his memoir, where he described an incalculable quantity of wardrobes, tables and sideboards left rotting on the square. Thirty-three large chairs stand in rows suggesting roll-calls, facing the pharmacy. Thirty-seven smaller ones around the edges are meant to be sat on. A paved line across the square marks where the ghetto boundary ran."],
+ why:null,
+ look:["Deportations gathered here. During the final liquidation on 13 and 14 March 1943, guards shot the elderly, the ill and children in the street before the trains.",
+ "Occupiers stripped Polish signs from the district. The one over this pharmacy door stayed. Two dates appear on the old bus station building: 1941 and 1943.",
+ "Pankiewicz published his account in 1947 and later gave evidence against Nazi war criminals. Jewish survivors invited him to Israel in 1957 as their guest, and Yad Vashem named him Righteous Among the Nations in 1983."],
+ guesses:[],
+ act:null,
+ verdict:null,
+ practical:"Wed to Sun, 9:00 to 17:00, closed Monday and Tuesday, free on Wednesday. Last entry 30 minutes before closing, so be inside by 16:00. 22 PLN normal, 16 reduced, 44 family. Allow 45 minutes to an hour and a quarter. Not a stop for the youngest children.",
+ links:[["Polscy Sprawiedliwi: Pankiewicz's story","https://sprawiedliwi.org.pl/en/stories-of-rescue/story-tadeusz-pankiewicz"]],
+ kids:{who:"skip", do:"Not a stop for them, and not one to bring them to. Take the children to the playground on Rynek Podgórski and swap over.", find:"Nothing here.", how:"Not a stop for them, and not one to bring them to. Take them to the playground on Rynek Podgórski, a few minutes away, and swap adults over so everyone who wants to see the pharmacy can."},
+ sources:[["Polscy Sprawiedliwi","https://sprawiedliwi.org.pl/en/stories-of-rescue/story-tadeusz-pankiewicz"],["Silent Heroes Memorial Centre","https://www.gedenkstaette-stille-helden.de/en/silent-heroes/biographies/biographie/detail-281"]]},
+
+{id:"krakus", addr:"Kopiec Krakusa, ul. Maryewskiego, 30-543 Kraków", day:"d3", seg:1, tag:"all", svg:"mound",
+ title:"Krakus Mound", sub:"The last climb", era:"Unknown, and that is the point",
+ story:[
+ "Kraków ends where it began, on a hill nobody can date. Krakus Mound counts as the oldest human-made structure in the city, and its summit is the highest point anywhere in Kraków.",
+ "Tradition puts the mythical founder's body inside. Excavations across the mid-1930s found a solid wooden core packed with soil and turf, artefacts from the 8th to 10th centuries, and no human remains whatever. Diggers recovered an 8th-century Avar belt fitting and 10th-century Czech coins, which pushed most historians towards a date between the 8th and 10th centuries. A competing theory hands the mound to Celts and dates it to the second or first century BC.",
+ "The work covered only about 4% of the site and stopped for lack of money after the war. Nobody has finished the job since."],
+ why:"Poles built their founding myth on top of a hill they cannot date. Tradition says Krak, the legendary prince who gave the city its name, lies inside, and his daughter Wanda lies in the mound out east. Those two names are the beginning of the Polish story: a founder, a dragon, a daughter who drowns herself rather than marry a German. Długosz wrote it all down in the 1400s in the house on Kanonicza, and Poles have repeated it ever since. And the actual mound stays silent. Diggers found no body, only a wooden core, a nomad's belt buckle and some foreign coins. The country's oldest structure will not confirm the country's oldest story, and after eight hundred years Poland has decided it does not need it to.",
+ look:["Turn all the way round. Point out Nowa Huta's chimneys on the eastern horizon, Wawel and St Mary's towers to the north, the Vistula, and Podgórze directly below. The sister mound is away to the east, near where you ran.",
+ "Legend says grieving subjects built the mound by carrying earth in their sleeves, and the old name for it translates as sleeve. Until the 1830s people gathered here after Easter to roll eggs down the slope, until Austrian authorities seized the land for fortifications and shut the festival down."],
+ guesses:[
+ {q:"How much of this mound has been excavated?", a:"About four per cent. The work stopped for lack of money after the war and nobody has finished it.", src:"here"},
+ {q:"How high is it, and where does it rank in the city?", a:"Sixteen metres, and the summit is the highest point anywhere in Kraków.", src:"away"}],
+ act:{type:"reflect", kind:"Last word",
+  prompt:"Three days, twenty-seven stops. Go round the group: what has stuck with you, and why that one?",
+  note:"No right answer and no scoring against each other. Award the points to whoever gives the answer the group likes best, or split them. If it helps, prompts: which story would you repeat to someone at home, which thing looked oldest and was not, and which one you would come back for."},
+ verdict:{answer:"Older than it looks", note:"The honest answer is that nobody knows, which makes it the right last card in the game."},
+ links:[["Hidden Europe: Kraków's mounds","https://www.hiddeneurope.eu/the-magazine/issues/hidden-europe-59/mystery-and-memory-exploring-krakows-suburban-mounds/"]],
+ kids:{who:"all", do:"At the top, point to four places they have already been. Then roll down the side.", find:"The whole city. This is the last scale, so it gets the big sticker.", how:"A grass hill across the river in Podgórze, steeper than the first one, with a path to the top. From the summit you can see the whole city. Point out the castle, the two church towers on the Main Square, the river, and the chimneys of Nowa Huta on the far horizon. Then let them point at things they recognise. Rolling down is expected. This is the last scale, so bring the big sticker."},
+ sources:[["Wikipedia: Krakus Mound","https://en.wikipedia.org/wiki/Krakus_Mound"],["History Hit","https://www.historyhit.com/locations/krakus-mound/"]]},
+
+{id:"zapiekanka", addr:"Okrąglak, plac Nowy 1, 31-056 Kraków", day:"d3", seg:1, tag:"food", svg:"rotunda",
+ title:"Zapiekanka at Plac Nowy", sub:"One rotunda, three lives", era:"1900 onwards",
+ story:[
+ "A round brick building has fed this neighbourhood for 126 years and changed what it means twice. Builders raised the twelve-sided rotunda in 1900 as a market hall in the Jewish quarter. The city leased it to the Jewish community in 1927 for use as a ritual poultry slaughterhouse, and the occupation closed that down.",
+ "Hatches ring the outer wall. After the war emptied the district, those windows turned to selling a baked half-baguette, and have done so for decades. The snack itself dates from the lean 1970s, with toppings multiplying after 1989.",
+ "The neighbourhood declined badly, renovation started only after 1989, and picked up speed once a famous film shot here in 1993.",
+ "The food itself has a history worth knowing. The zapiekanka arrived in Poland in the 1970s, under a government that was borrowing heavily from the West and letting a little private enterprise back in. It was designed around scarcity: half a baguette, mushrooms, cheap cheese, a grill, no meat required, no plate, no cutlery, no table. Poles ate them from hatches and kiosks through the shortages of the 1980s, when queues and ration cards made a hot meal you could buy immediately and eat standing up genuinely valuable. Ketchup on top became the signature and remains non-negotiable for purists.",
+ "After 1989 it should have died out along with the rest of the shortage economy, and instead it went the other way. Toppings multiplied absurdly, prices stayed low, and the thing turned into a national comfort food with a nostalgic edge, the taste of a childhood spent under communism for anyone now in their fifties. Kraków claims the best ones, and this rotunda is where that claim is made."],
+ why:"Kraków's Jewish quarter emptied, then filled again with a different crowd. The building did not change. Every layer of the district survives in one rotunda, and the last one tastes of melted cheese.",
+ look:["Walk right round the outside and count the hatches. Most people never realise the outer ring hides a historic hall inside.",
+ "Locals called this the Jewish Square for generations. Poland listed the building as a historic monument in 2008, and the Jewish Culture Festival stages concerts on its roof."],
+ guesses:[
+ {q:"In what year was this rotunda built?", a:"1900, as a market hall for the Jewish quarter around it.", src:"here"},
+ {q:"How long can a single zapiekanka be?", a:"Up to fifty centimetres. Split one between two children unless they have earned it.", src:"away"}],
+ act:{type:"timeline", kind:"Timeline", prompt:"Tap these into order, earliest first.",
+  opts:[{l:"The rotunda built as a market hall",v:1900},{l:"Leased as a kosher poultry slaughterhouse",v:1927},
+        {l:"The occupation ends that use",v:1940},{l:"The hatches start selling baked baguettes",v:1970},
+        {l:"A famous film shoots in the district",v:1993}],
+  note:"1900, 1927, 1940, the 1970s, 1993. One building, and each generation gave it a completely different job."},
+ verdict:{answer:"Older than it looks", note:"The building 1900, the food the 1970s, the fame the 1990s."},
+ links:[["In Your Pocket: Plac Nowy","https://www.inyourpocket.com/krakow/plac-nowy_21423v"]],
+ kids:{who:"all", do:"Walk right round the outside of the round building, counting the serving hatches.", find:"The roof. Ask them why a building would be round.", how:"A round brick building in the middle of Plac Nowy with serving hatches all the way round the outside, each one selling toasted baguettes. Walk the whole way round counting hatches before choosing one. Let them pick their own toppings. Eaten standing up, no plates, so expect mess."},
+ sources:[["In Your Pocket","https://www.inyourpocket.com/krakow/plac-nowy_21423v"],["Voicemap: the Okrąglak","https://voicemap.me/tour/krakow/the-world-that-no-longer-exists-krakow-s-kazimierz-district/sites/okraglak-building"]]}
+];
+/* ===================== state ===================== */
+let db={players:[],log:[],done:{},verdicts:{},skipped:{},fs:1,pins:{}};
+try{const r=localStorage.getItem("krk3");if(r)db=Object.assign(db,JSON.parse(r));}catch(e){}
+function save(){try{localStorage.setItem("krk3",JSON.stringify(db));}catch(e){}}
+document.documentElement.style.setProperty("--fs",db.fs);
+
+const app=document.getElementById("app"), barTitle=document.getElementById("barTitle"),
+      backBtn=document.getElementById("back"), boardEl=document.getElementById("board");
+let view={n:"home"}, stack=[];
+
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+/* plain shuffle, only guaranteeing the original order is broken */
+const shuffled=arr=>{const a=arr.map((v,i)=>({v,i}));
+  for(let n=0;n<30;n++){shuffle(a);if(!a.every((x,i)=>x.i===i))break;}
+  return a;};
+/* for ordering rounds: no item may sit in its correct final position, so the
+   layout never hints at the answer and the first item is never the first item */
+const scrambled=arr=>{
+  const rank=arr.map((o,i)=>i).sort((x,y)=>arr[x].v-arr[y].v); // rank[pos]=index
+  const target={}; rank.forEach((idx,pos)=>target[idx]=pos);
+  const a=arr.map((v,i)=>({v,i}));
+  let best=null;
+  for(let n=0;n<80;n++){
+    shuffle(a);
+    const fixed=a.reduce((c,x,pos)=>c+(target[x.i]===pos?1:0),0);
+    if(fixed===0)return a.slice();
+    if(best===null||fixed<best.f)best={f:fixed,a:a.slice()};
+  }
+  return best.a;};
+const stop=id=>STOPS.find(s=>s.id===id);
+const day=id=>DAYS.find(d=>d.id===id);
+const totals=()=>{const t={};db.players.forEach(p=>t[p.id]=0);db.log.forEach(e=>{if(t[e.pid]!=null)t[e.pid]+=e.points;});return t;};
+const scorable=STOPS.filter(s=>!s.solemn).length;
+
+function drawBoard(){
+  if(!db.players.length){boardEl.innerHTML='<span class="chip empty">No players yet &mdash; tap Players to add some</span>';return;}
+  const t=totals();
+  boardEl.innerHTML=db.players.slice().sort((a,b)=>t[b.id]-t[a.id])
+    .map(p=>`<span class="chip">${esc(p.name)}<b>${t[p.id]}</b></span>`).join("");
+}
+
+/* ===================== scoring ===================== */
+function award(key,label,meta,points,host){
+  const box=host.querySelector(".win");
+  const already=()=>db.log.filter(x=>x.key===key);
+  let sel=new Set();
+
+  const paint=()=>{
+    const won=already();
+    if(won.length){
+      const names=won.map(e=>e.name);
+      const list=names.length===1?names[0]
+        :names.slice(0,-1).join(", ")+" and "+names[names.length-1];
+      box.innerHTML=`<div class="done">&#10003; ${points} point${points===1?"":"s"} each to ${esc(list)}</div>`;
+      return;
+    }
+    if(db.skipped[key]){
+      box.innerHTML=`<div class="done skipped">Nobody got this one</div>`;
+      return;
+    }
+    if(!db.players.length){
+      box.innerHTML=`<div class="lab">Who got it?</div><button class="ghost" data-goplayers="1">Add players first</button>`;
+      box.querySelector("[data-goplayers]").onclick=()=>go({n:"players"});
+      return;
+    }
+    box.innerHTML=`<div class="lab">Who got it? Tap everyone who did.</div>
+      <div class="who">`+db.players.map(p=>
+        `<button data-p="${p.id}"${sel.has(p.id)?' class="on"':''}>${esc(p.name)}</button>`).join("")+`</div>
+      <div class="winact">
+        <button class="solid go"${sel.size?"":" disabled"}>Award ${points} to ${sel.size||"..."}</button>
+        <button class="ghost none">Nobody</button>
+      </div>`;
+    box.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{
+      const id=b.dataset.p;
+      if(sel.has(id))sel.delete(id); else sel.add(id);
+      paint();
+    });
+    box.querySelector(".go").onclick=()=>{
+      if(!sel.size)return;
+      const t=new Date().toISOString();
+      db.players.filter(p=>sel.has(p.id)).forEach(p=>{
+        db.log.push({key,pid:p.id,name:p.name,points,label,...meta,t});
+      });
+      save();paint();drawBoard();
+    };
+    box.querySelector(".none").onclick=()=>{
+      db.skipped[key]=1;save();paint();
+    };
+  };
+  paint();
+}
+const settled=key=>db.log.some(x=>x.key===key)||!!db.skipped[key];
+const winBox=()=>`<div class="win"></div>`;
+
+/* ===================== activities ===================== */
+function activity(a,host,key,meta){
+  const el=host, note=t=>`<div class="answer"><strong>Answer</strong>${esc(t)}</div>`;
+  let html=`<div class="kind">${esc(a.kind)}</div><div class="prompt">${esc(a.prompt)}</div>`;
+
+  if(a.type==="mcq"||a.type==="truefalse"){
+    const opts=a.type==="truefalse"?["True","False"]:a.opts;
+    html+=`<div class="optlist">`+opts.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o)}</button>`).join("")+`</div><div class="ansbox"></div>`+winBox();
+    el.innerHTML=html;
+    el.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+      const right=a.type==="truefalse"?(a.answer?0:1):a.answer;
+      el.querySelectorAll(".opt").forEach((x,i)=>{x.disabled=true;
+        if(i===right)x.classList.add("right");else if(x===b)x.classList.add("wrong");});
+      el.querySelector(".ansbox").innerHTML=note((a.type==="mcq"?a.opts[a.answer]+". ":"")+a.note);
+      award(key,a.kind,meta,10,el);
+    });
+  }
+
+  else if(a.type==="order"||a.type==="timeline"){
+    const picked=[], disp=scrambled(a.opts);
+    html+=`<div class="optlist">`+disp.map((o,i)=>`<button class="opt" data-i="${i}"><span class="num">&middot;</span>${esc(o.v.l)}</button>`).join("")+
+      `</div><div class="row"><button class="ghost undo">Undo last</button><button class="solid chk" disabled>Check the order</button></div><div class="ansbox"></div>`+winBox();
+    el.innerHTML=html;
+    const btns=[...el.querySelectorAll(".opt")], chk=el.querySelector(".chk");
+    const paint=()=>{btns.forEach((b,i)=>{const p=picked.indexOf(i);
+      b.querySelector(".num").textContent=p<0?"\u00b7":(p+1);
+      b.classList.toggle("pick",p>=0);b.disabled=p>=0;});
+      chk.disabled=picked.length!==a.opts.length;};
+    btns.forEach((b,i)=>b.onclick=()=>{picked.push(i);paint();});
+    el.querySelector(".undo").onclick=()=>{picked.pop();paint();};
+    chk.onclick=()=>{
+      // rank of each displayed item by its true value
+      const order=disp.map((o,i)=>i).sort((x,y)=>disp[x].v.v-disp[y].v.v);
+      let hits=0;
+      picked.forEach((idx,pos)=>{const ok=order[pos]===idx;if(ok)hits++;
+        btns[idx].classList.remove("pick");btns[idx].classList.add(ok?"right":"wrong");
+        btns[idx].querySelector(".num").textContent=(order.indexOf(idx)+1);});
+      btns.forEach(b=>b.disabled=true);chk.disabled=true;
+      el.querySelector(".ansbox").innerHTML=`<div class="answer"><strong>${hits} of ${a.opts.length} in the right place</strong>${esc(a.note)}</div>`;
+      award(key,a.kind,meta,10,el);
+    };
+  }
+
+  else if(a.type==="sort"){
+    let sel=null,solved=0; const disp=shuffled(a.opts).map(x=>x.v);
+    html+=`<div class="optlist">`+disp.map((o,i)=>`<button class="opt" data-i="${i}">${esc(o.l)}</button>`).join("")+
+      `</div><div class="buckets">`+a.buckets.map((b,i)=>`<button data-b="${i}">${esc(b)}</button>`).join("")+
+      `</div><div class="ansbox"></div>`+winBox();
+    el.innerHTML=html;
+    const items=[...el.querySelectorAll(".opt")], bks=[...el.querySelectorAll("[data-b]")];
+    items.forEach((b,i)=>b.onclick=()=>{items.forEach(x=>x.classList.remove("pick"));
+      b.classList.add("pick");sel=i;});
+    bks.forEach(bb=>bb.onclick=()=>{
+      if(sel==null)return;
+      const o=disp[sel], ok=o.b===+bb.dataset.b, node=items[sel];
+      node.classList.remove("pick");node.classList.add(ok?"right":"wrong");node.disabled=true;
+      node.insertAdjacentHTML("beforeend",`<span class="cat">${esc(a.buckets[o.b])}</span>`);
+      sel=null;solved++;
+      if(solved===disp.length){
+        el.querySelector(".ansbox").innerHTML=note(a.note);award(key,a.kind,meta,10,el);
+      }
+    });
+  }
+
+  else if(a.type==="match"){
+    const left=a.pairs.map((p,i)=>({t:p[0],i})), right=a.pairs.map((p,i)=>({t:p[1],i}))
+      .sort(()=>Math.random()-.5);
+    let sel=null,solved=0;
+    html+=`<div class="howto">Two lists. Tap something in the top list, then tap its partner in the bottom list. Correct pairs turn green and lock. Wrong ones flash red, so keep trying.</div>
+      <div class="collab">Top list</div>
+      <div class="lcol">`+left.map(x=>`<button class="opt" data-l="${x.i}">${esc(x.t)}</button>`).join("")+`</div>
+      <div class="collab">Bottom list &mdash; tap the partner</div>
+      <div class="rcol">`+right.map(x=>`<button class="opt" data-r="${x.i}">${esc(x.t)}</button>`).join("")+`</div><div class="ansbox"></div>`+winBox();
+    el.innerHTML=html;
+    const L=[...el.querySelectorAll("[data-l]")], R=[...el.querySelectorAll("[data-r]")];
+    L.forEach(b=>b.onclick=()=>{L.forEach(x=>x.classList.remove("pick"));b.classList.add("pick");sel=b;});
+    R.forEach(b=>b.onclick=()=>{
+      if(!sel)return;
+      if(sel.dataset.l===b.dataset.r){
+        sel.classList.remove("pick");sel.classList.add("right");b.classList.add("right");
+        sel.disabled=true;b.disabled=true;solved++;
+        if(solved===a.pairs.length){el.querySelector(".ansbox").innerHTML=note(a.note);award(key,a.kind,meta,10,el);}
+      }else{
+        b.classList.add("wrong");setTimeout(()=>b.classList.remove("wrong"),600);
+      }
+      sel.classList.remove("pick");sel=null;
+    });
+  }
+
+  else if(a.type==="reflect"){
+    html+=`<button class="ghost rev">Show the prompt notes</button><div class="ansbox"></div>`+winBox();
+    el.innerHTML=html;
+    el.querySelector(".rev").onclick=()=>{
+      el.querySelector(".rev").disabled=true;
+      el.querySelector(".ansbox").innerHTML=`<div class="answer"><strong>No wrong answers</strong>${esc(a.note)}</div>`;
+      award(key,a.kind,meta,10,el);
+    };
+  }
+
+  else if(a.type==="label"){
+    let solved=0, sel=null;
+    const order=shuffled(a.pins).map(x=>x.v);
+    html+=`<div class="howto">Tap a label below, then tap the numbered point on the drawing that it belongs to. Wrong pairs flash red and you can try again.</div>
+      <div class="illus dg">${S[a.svg]||""}</div>
+      <div class="lcol">`+order.map((p,i2)=>`<button class="opt" data-lab="${a.pins.indexOf(p)}">${esc(p.a)}</button>`).join("")+
+      `</div><div class="ansbox"></div>`+winBox();
+    el.innerHTML=html;
+    const svg=el.querySelector(".dg svg"), ns="http://www.w3.org/2000/svg";
+    const labs=[...el.querySelectorAll("[data-lab]")];
+    labs.forEach(b=>b.onclick=()=>{if(b.disabled)return;
+      labs.forEach(x=>x.classList.remove("pick"));b.classList.add("pick");sel=b;});
+    a.pins.forEach((p,i2)=>{
+      const g=document.createElementNS(ns,"g");g.style.cursor="pointer";
+      const c=document.createElementNS(ns,"circle");
+      c.setAttribute("cx",p.x);c.setAttribute("cy",p.y);c.setAttribute("r",14);
+      c.setAttribute("fill","var(--blue)");c.setAttribute("stroke","#fff");c.setAttribute("stroke-width","2.5");
+      const t=document.createElementNS(ns,"text");
+      t.setAttribute("x",p.x);t.setAttribute("y",p.y+5);t.setAttribute("text-anchor","middle");
+      t.setAttribute("font-size","15");t.setAttribute("fill","#fff");t.setAttribute("font-family","sans-serif");
+      t.setAttribute("font-weight","bold");t.textContent=i2+1;
+      g.appendChild(c);g.appendChild(t);
+      g.onclick=()=>{
+        if(!sel||g.dataset.done)return;
+        if(+sel.dataset.lab===i2){
+          g.dataset.done="1";c.setAttribute("fill","var(--green)");
+          sel.classList.remove("pick");sel.classList.add("right");
+          sel.insertAdjacentHTML("beforeend",`<span class="cat">${i2+1}</span>`);
+          sel.disabled=true;sel=null;solved++;
+          if(solved===a.pins.length){
+            el.querySelector(".ansbox").innerHTML=`<div class="answer"><strong>All ${a.pins.length} placed</strong>${esc(a.note)}</div>`;
+            award(key,a.kind,meta,10,el);
+          }
+        } else {
+          c.setAttribute("fill","var(--red)");
+          setTimeout(()=>{if(!g.dataset.done)c.setAttribute("fill","var(--blue)");},550);
+        }
+      };
+      svg.appendChild(g);
+    });
+  }
+
+}
+
+/* ===================== stop page ===================== */
+function renderStop(s){
+  barTitle.textContent=s.title;
+  const d=day(s.day);
+  const tagHtml=s.tag==="split"?'<span class="tag split">Group may split here</span>'
+    :s.tag==="food"?'<span class="tag food">Food stop</span>':'<span class="tag all">Everyone</span>';
+  app.innerHTML=`
+    <p class="eyebrow" style="margin-top:22px">${esc(d.title)} &middot; ${esc(s.era)}</p>
+    <h2>${esc(s.title)}</h2>
+    <p class="lede">${esc(s.sub)}</p>
+    <div>${tagHtml}</div>
+    ${s.solemn?"":""}
+    <div class="addr" id="addr"><span class="a">${esc(s.addr)}</span><button id="cp">Copy</button></div>
+    ${s.svg&&S[s.svg]?`<figure class="illus">${S[s.svg]}</figure>`:""}
+    <div class="card story">${s.story.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+    ${s.why?`<div class="why"><p class="eyebrow">Why it matters</p><p>${esc(s.why)}</p></div>`:""}
+    <div class="look"><p class="eyebrow">Look for</p>${s.look.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+    ${s.kids?`<h3>For the children</h3>
+      <div class="kids${s.kids.who==="skip"?" skip":""}">
+        <p class="eyebrow">${s.kids.who==="skip"?"Not one for them"
+          :s.kids.who==="parallel"?"Send them next door"
+          :s.kids.who==="split"?"If the groups have split"
+          :"All three of them"}</p>
+        <p><span class="lab">To do:</span> ${esc(s.kids.do)}</p>
+        <p><span class="lab">To find:</span> ${esc(s.kids.find)}</p>
+        ${s.kids.how?`<div class="how"><b>What you are looking at</b>${esc(s.kids.how)}</div>`:""}
+        ${s.kids.who==="skip"||s.kids.who==="parallel"?""
+          :`<div class="scale">${S.scale}${s.id==="krakus"?"Last scale &mdash; the big sticker":"One sticker, one scale"}</div>`}
+      </div>`:""}
+    ${s.practical?`<h3>Before you go</h3><div class="card"><p style="margin:0">${esc(s.practical)}</p></div>`:""}
+    ${s.guesses&&s.guesses.length?`<h3>Can you guess?</h3><p class="note">Two rounds. The first answer is hiding somewhere on this page. The second is not, so just take a punt. Closest wins either way.</p><div id="guesses"></div>`:""}
+    ${s.act?`<h3>Activity</h3><div class="act" id="act"></div>`:""}
+    ${s.verdict?`<h3>The verdict</h3>
+      <div class="verdict" id="verdict">
+        <p class="eyebrow">Commit before you reveal</p>
+        <p style="margin-bottom:12px">Older than it looks, exactly as old as it looks, or a fake?</p>
+        <div class="vrow" id="vrow">${VERD.map(v=>`<button data-v="${esc(v)}">${esc(v)}</button>`).join("")}</div>
+        <div id="stampwrap"></div>${winBox()}
+      </div>`:""}
+    ${s.links&&s.links.length?`<h3>Look it up later</h3>
+      <p class="sources">${s.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join(" &middot; ")}</p>`:""}
+    <h3>Sources</h3>
+    <p class="sources">${s.sources.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join(" &middot; ")}</p>`;
+
+  const cp=app.querySelector("#cp");
+  cp.onclick=()=>{
+    const t=s.addr;
+    const done=()=>{cp.textContent="Copied";setTimeout(()=>{cp.textContent="Copy";},1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,fallback);}
+    else fallback();
+    function fallback(){
+      const ta=document.createElement("textarea");ta.value=t;ta.setAttribute("readonly","");
+      ta.style.position="absolute";ta.style.left="-9999px";document.body.appendChild(ta);
+      ta.select();try{document.execCommand("copy");done();}catch(e){
+        const sp=app.querySelector("#addr .a");sp.contentEditable="true";sp.focus();
+        cp.textContent="Select it";}
+      ta.remove();}
+  };
+  const meta={day:d.title,stopId:s.id,stop:s.title};
+  if(s.guesses&&s.guesses.length){
+    const g=app.querySelector("#guesses");
+    s.guesses.forEach((q,i)=>{
+      const box=document.createElement("div");box.className="guess";
+      box.innerHTML=`<span class="gsrc ${q.src==="here"?"here":"away"}">${q.src==="here"?"The answer is somewhere on this page":"Not on this page &mdash; just guess"}</span>
+        <div class="q">${esc(q.q)}</div><button class="ghost">Reveal</button><div class="ans"></div>${winBox()}`;
+      g.appendChild(box);
+      const gkey=s.id+"-g"+i;
+      const reveal=()=>{
+        box.querySelector(".ans").innerHTML=`<div class="answer"><strong>Answer</strong>${esc(q.a)}</div>`;
+        box.querySelector(".ghost").disabled=true;
+        award(gkey,"Guess round "+(i+1),meta,5,box);
+      };
+      box.querySelector(".ghost").onclick=reveal;
+      if(settled(gkey))reveal();
+    });
+  }
+  if(s.act){
+    const akey=s.id+"-act";
+    const host=app.querySelector("#act");
+    if(settled(akey)){
+      host.innerHTML=`<div class="kind">${esc(s.act.kind)}</div>
+        <div class="prompt">${esc(s.act.prompt)}</div>
+        <div class="answer"><strong>Already played</strong>${esc(s.act.note||"")}</div>
+        <button class="ghost again">Play it again</button>`+winBox();
+      award(akey,s.act.kind,meta,10,host);
+      host.querySelector(".again").onclick=()=>{
+        db.log=db.log.filter(x=>x.key!==akey);delete db.skipped[akey];save();drawBoard();render();
+      };
+    } else activity(s.act,host,akey,meta);
+  }
+  if(s.verdict){
+    const host=app.querySelector("#verdict"), wrap=app.querySelector("#stampwrap"), row=app.querySelector("#vrow");
+    const paint=()=>{
+      const ch=db.verdicts[s.id];
+      row.querySelectorAll("button").forEach(b=>{b.classList.toggle("on",b.dataset.v===ch);b.disabled=!!ch;});
+      if(ch){
+        const right=ch===s.verdict.answer;
+        wrap.innerHTML=`<div class="stamp"${right?' style="border-color:var(--emerald);color:var(--emerald)"':''}>
+          <span>${right?"Called it":"The answer is"}</span>${esc(s.verdict.answer)}</div>
+          <p class="verdict-note note">${esc(s.verdict.note)}</p>`;
+        award(s.id+"-v","Verdict card",meta,5,host);
+      }
+    };
+    row.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+      if(db.verdicts[s.id])return;db.verdicts[s.id]=b.dataset.v;db.done[s.id]=1;save();paint();
+    });
+    paint();
+  }
+}
+const VERD=["Older than it looks","As old as it looks","A fake"];
+
+/* ===================== quiz ===================== */
+function renderQuizRound(r){
+  barTitle.textContent=r.round;
+  app.innerHTML=`<p class="eyebrow" style="margin-top:22px">Before you go</p><h2>${esc(r.round)}</h2>
+    <p class="lede">${esc(r.blurb)}</p><div id="items"></div>`;
+  const host=app.querySelector("#items");
+
+  r.items.forEach((it,i)=>{
+    const box=document.createElement("div");box.className="act";box.style.borderTopColor="var(--brass)";
+    host.appendChild(box);
+    const meta={day:"Opening quiz",stopId:r.id,stop:r.round};
+    const key=r.id+"-"+i;
+
+    if(r.kind==="order"){
+      box.innerHTML=`<div class="hostslot"></div>`;
+      activity({type:"order",kind:"Size matters",prompt:it.prompt,opts:it.opts,note:it.note},box.querySelector(".hostslot"),key,meta);
+    }
+
+    if(r.kind==="mcq"){
+      box.innerHTML=`<div class="kind" style="color:var(--gold)">Multiple choice</div>
+        <div class="prompt">${esc(it.q)}</div>
+        <div class="optlist">`+it.opts.map((o,j2)=>`<button class="opt" data-o="${j2}">${esc(o)}</button>`).join("")+
+        `</div><div class="ans"></div>${winBox()}`;
+      box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+        box.querySelectorAll(".opt").forEach((x,j2)=>{x.disabled=true;
+          if(j2===it.a)x.classList.add("right");else if(x===b)x.classList.add("wrong");});
+        box.querySelector(".ans").innerHTML=`<div class="answer"><strong>${esc(it.opts[it.a])}</strong>${esc(it.note)}</div>`;
+        award(key,"Polish general knowledge",meta,5,box);
+      });
+    }
+    if(r.kind==="tf"){
+      box.innerHTML=`<div class="kind" style="color:var(--brass)">True or false</div>
+        <div class="prompt">${esc(it.s)}</div>
+        <div class="tfrow"><button class="opt" data-t="1">True</button><button class="opt" data-t="0">False</button></div>
+        <div class="ans"></div>${winBox()}`;
+      box.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+        box.querySelectorAll(".opt").forEach(x=>{x.disabled=true;
+          x.classList.add((x.dataset.t==="1")===it.a?"right":"wrong");});
+        box.querySelector(".ans").innerHTML=`<div class="answer"><strong>${it.a?"True":"False"}</strong>${esc(it.note)}</div>`;
+        award(key,"True or false",meta,5,box);
+      });
+    }
+
+    if(r.kind==="rich"){
+      box.innerHTML=`<div class="kind" style="color:var(--gold)">Rich list</div><div class="prompt">${esc(it.prompt)}</div>
+        <p class="note">Sixty seconds. Write down as many as you can, one list between you or everyone racing separately.</p>
+        <div class="timer">1:00</div><div class="timerbar"><i></i></div>
+        <div class="row"><button class="solid start">Start the clock</button>
+          <button class="ghost rev" disabled>Reveal the list</button></div>
+        <div class="ans"></div>${winBox()}`;
+      const tEl=box.querySelector(".timer"), bar=box.querySelector(".timerbar i"),
+            st=box.querySelector(".start"), rv=box.querySelector(".rev");
+      let left=60, iv=null;
+      const show=()=>{tEl.textContent="0:"+String(left).padStart(2,"0");
+        if(left<=10)tEl.classList.add("low");
+        bar.style.width=(left/60*100)+"%";};
+      st.onclick=()=>{
+        if(iv)return;
+        st.disabled=true;st.textContent="Running";
+        iv=setInterval(()=>{left--;show();
+          if(left<=0){clearInterval(iv);iv=null;tEl.textContent="Time";st.textContent="Time up";rv.disabled=false;}},1000);
+      };
+      rv.onclick=()=>{
+        if(iv){clearInterval(iv);iv=null;}
+        rv.disabled=true;st.disabled=true;
+        box.querySelector(".ans").innerHTML=`<div class="answer"><strong>${it.list.length} on the list</strong>${
+          it.list.map(esc).join(" &middot; ")}<br><br>${esc(it.note)}</div>`;
+        award(key,"Rich list",meta,5,box);
+      };
+      show();
+    }
+  });
+}
+
+/* ===================== players & export ===================== */
+function renderFood(){
+  barTitle.textContent="Food and drink";
+  app.innerHTML=`<h1>Food and drink</h1>
+    <p class="lede">Forty things Poland eats and drinks, and how each one came to be Polish. Nothing here is a plan. It is a list to point at when a menu arrives in a language nobody can read.</p>`+
+    FOOD.map((g,i)=>`
+      <h3>${esc(g.group)}</h3>
+      <div class="fgroup${i===0?" top":""}">
+        ${g.note?`<p class="gnote">${esc(g.note)}</p>`:""}
+        ${g.items.map(it=>`<div class="fitem"><div class="fn">${esc(it.n)}</div><div class="fd">${esc(it.d)}</div>${
+          it.src?`<div class="fsrc">${it.src.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join(" &middot; ")}</div>`:""
+        }</div>`).join("")}
+        ${g.more?`<p class="fmore"><span>Further reading</span> ${g.more.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join(" &middot; ")}</p>`:""}
+      </div>`).join("")+
+    `<hr class="rule"><p class="note">Every link above opens a page about the food itself: where it came from, who ate it and why it survived. They need signal, so they are better read over coffee than in a queue.</p>`;
+}
+
+function renderPlayers(){
+  barTitle.textContent="Players";
+  const t=totals();
+  app.innerHTML=`<h1>Players</h1>
+    <p class="lede">Add whoever is playing, however you like: one name each, or two team names, or three. Points get awarded to whoever is on this list, so set it up on the day and change it whenever you want.</p>
+    <div id="list"></div>
+    <div class="row" style="margin:16px 0">
+      <input type="text" id="nm" placeholder="Name or team" maxlength="24" style="flex:1;min-width:180px">
+      <button class="solid" id="add">Add</button>
+    </div>
+    <hr class="rule">
+    <h3>Export the scores</h3>
+    <p class="note">One tap makes a spreadsheet file of every round played, who won it and when. Open it in Excel, or attach it to an email yourself. Works offline.</p>
+    <div class="row"><button class="solid" id="csv">Download the scores</button>
+      <button class="ghost" id="mail">Open in email instead</button></div>
+    <p class="note" id="expnote" style="margin-top:10px">${db.log.length} rounds recorded so far.</p>
+    <hr class="rule">
+    <h3>Start over</h3>
+    <div id="resetzone"><button class="ghost warn" id="rs">Reset everything</button></div>`;
+
+  const list=app.querySelector("#list");
+  list.innerHTML=db.players.length?db.players.map(p=>
+    `<div class="player"><span class="nm">${esc(p.name)}</span><span class="pts">${t[p.id]}</span>
+     <button data-del="${p.id}" aria-label="Remove ${esc(p.name)}">&times;</button></div>`).join("")
+    :`<p class="note">Nobody yet.</p>`;
+  list.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{
+    db.players=db.players.filter(p=>p.id!==b.dataset.del);save();renderPlayers();drawBoard();});
+
+  const addNow=()=>{
+    const v=app.querySelector("#nm").value.trim();
+    if(!v)return;
+    db.players.push({id:uid(),name:v});save();renderPlayers();drawBoard();
+    setTimeout(()=>{const n=app.querySelector("#nm");if(n)n.focus();},0);
+  };
+  app.querySelector("#add").onclick=addNow;
+  app.querySelector("#nm").addEventListener("keydown",e=>{if(e.key==="Enter")addNow();});
+  app.querySelector("#csv").onclick=exportCSV;
+  app.querySelector("#mail").onclick=exportMail;
+
+  /* two-tap reset, no browser dialogue */
+  const zone=app.querySelector("#resetzone");
+  app.querySelector("#rs").onclick=()=>{
+    zone.innerHTML=`<div class="solemn-note" style="margin-bottom:10px">This clears every score, every verdict and the whole export. It cannot be undone.</div>
+      <div class="row"><button class="ghost warn" id="yes">Yes, reset everything</button><button class="solid" id="no">Keep it</button></div>`;
+    zone.querySelector("#no").onclick=()=>renderPlayers();
+    zone.querySelector("#yes").onclick=()=>{
+      db.log=[];db.done={};db.verdicts={};db.skipped={};db.pins={};save();drawBoard();renderPlayers();
+    };
+  };
+}
+
+function csvText(){
+  const rows=[["Day","Stop","Round","Winner","Points","Time"]];
+  db.log.forEach(e=>rows.push([e.day||"",e.stop||"",e.label||"",e.name||"",e.points,(e.t||"").replace("T"," ").slice(0,19)]));
+  const t=totals();
+  rows.push([]);rows.push(["TOTALS"]);
+  db.players.slice().sort((a,b)=>t[b.id]-t[a.id]).forEach(p=>rows.push(["","",p.name,"",t[p.id],""]));
+  return rows.map(r=>r.map(c=>{const s=String(c==null?"":c);
+    return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;}).join(",")).join("\r\n");
+}
+function download(name,text,mime){
+  const blob=new Blob(["\ufeff"+text],{type:mime});
+  const url=URL.createObjectURL(blob), a=document.createElement("a");
+  a.href=url;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},400);
+}
+function exportCSV(){
+  if(!db.log.length){app.querySelector("#expnote").textContent="Nothing recorded yet, so there is nothing to export.";return;}
+  download("krakow-scores.csv",csvText(),"text/csv;charset=utf-8");
+  app.querySelector("#expnote").textContent="Downloaded krakow-scores.csv with "+db.log.length+" rounds. Open it in Excel.";
+}
+function exportMail(){
+  const t=totals();
+  const body="Kraków scores\n\n"+db.players.slice().sort((a,b)=>t[b.id]-t[a.id])
+    .map(p=>p.name+": "+t[p.id]).join("\n")+"\n\n"+db.log.length+" rounds played.\n\n"+
+    db.log.map(e=>[e.day,e.stop,e.label,e.name,e.points].join(" | ")).join("\n");
+  location.href="mailto:?subject="+encodeURIComponent("Kraków scores")+"&body="+encodeURIComponent(body.slice(0,1800));
+}
+
+/* ===================== lists ===================== */
+function renderHome(){
+  barTitle.textContent="As Old As It Looks";
+  app.innerHTML=`<h1>As Old As It Looks</h1>
+    <p class="lede">Three days arguing with Kraków about what is genuinely ancient, what is younger than it pretends, and what somebody simply made up. Here's to Paul reaching the end of the alphabet.</p>
+    <h3>Do this one first</h3>
+    ${QUIZ.map(q=>`<button class="btn quiz" data-q="${q.id}">${esc(q.round)}<small>${esc(q.blurb.split(".")[0])}.</small></button>`).join("")}
+    <h3>Then, in this order</h3>
+    ${DAYS.map(d=>{
+      const n=STOPS.filter(s=>s.day===d.id).length;
+      return `<button class="btn" data-d="${d.id}">${esc(d.title)}<small>${n} stops. ${esc(d.blurb)}</small></button>`;
+    }).join("")}
+    <h3>Anytime</h3>
+    <button class="btn quiz" data-food="1">Food and drink<small>Forty things worth eating and drinking, and how each one became Polish.</small></button>
+    <hr class="rule">
+    <div class="row"><button class="solid" id="pl">Players and scores</button></div>`;
+  app.querySelector("[data-food]").onclick=()=>go({n:"food"});
+  app.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>go({n:"quiz",id:b.dataset.q}));
+  app.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>go({n:"day",id:b.dataset.d}));
+  app.querySelector("#pl").onclick=()=>go({n:"players"});
+}
+
+function renderDay(d){
+  barTitle.textContent=d.title;
+  const mine=STOPS.filter(s=>s.day===d.id);
+  app.innerHTML=`<h1>${esc(d.title)}</h1><p class="lede">${esc(d.blurb)}</p>`+
+    d.segs.map((seg,si)=>{
+      const list=mine.filter(s=>s.seg===si).sort((a,b)=>(a.ord==null?99:a.ord)-(b.ord==null?99:b.ord));
+      if(!list.length)return "";
+      return `<h3>${esc(seg)}</h3>`+list.map(s=>{
+        const tag=s.tag==="split"?'<span class="tag split">May split</span>'
+          :s.tag==="food"?'<span class="tag food">Food</span>':'<span class="tag all">Everyone</span>';
+        return `<button class="btn${db.done[s.id]?" done":""}${s.solemn?" solemn":""}" data-s="${s.id}">
+          ${tag}<br>${esc(s.title)}<small>${esc(s.sub)}</small></button>`;}).join("");
+    }).join("");
+  app.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>go({n:"stop",id:b.dataset.s}));
+}
+
+/* ===================== chrome ===================== */
+function go(v){stack.push(view);view=v;render();}
+function armsHeadings(){
+  app.querySelectorAll("h3").forEach(h=>{if(!h.querySelector(".arms"))h.insertAdjacentHTML("afterbegin",S.arms);});
+}
+function render(){
+  drawBoard();
+  backBtn.classList.toggle("hide",view.n==="home");
+  if(view.n==="home")renderHome();
+  else if(view.n==="day")renderDay(day(view.id));
+  else if(view.n==="stop")renderStop(stop(view.id));
+  else if(view.n==="quiz")renderQuizRound(QUIZ.find(q=>q.id===view.id));
+  else if(view.n==="players")renderPlayers();
+  else if(view.n==="food")renderFood();
+  armsHeadings();
+  window.scrollTo(0,0);
+}
+backBtn.onclick=()=>{view=stack.pop()||{n:"home"};render();};
+document.getElementById("fs").onclick=()=>{
+  const steps=[1,1.15,1.3,1.5];
+  db.fs=steps[(steps.indexOf(db.fs)+1)%steps.length];
+  document.documentElement.style.setProperty("--fs",db.fs);save();
+};
+render();
+</script>
+</body>
+</html>
