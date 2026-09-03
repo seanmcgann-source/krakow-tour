@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>As Old As It Looks — Kraków</title>
+<title>A Weekend in Krakow - As Old As It Looks</title>
 <style>
 :root{
   /* Polish flag: white above, crimson below. Kraków's arms: blue wall, gold-crowned white eagle. */
@@ -169,6 +169,38 @@ hr.rule:after{content:"";display:block;height:3px;
 .howto{font-size:calc(14px*var(--fs));color:var(--ink-soft);background:#FBF6E9;border-left:3px solid var(--gold);
   padding:9px 12px;border-radius:3px;margin-bottom:14px}
 
+/* the parkrun stop: intro, family memories, photographs */
+.intro-note{background:#FBF6E9;border:1px solid var(--gold);border-left:5px solid var(--gold);
+  border-radius:5px;padding:16px 18px;margin-bottom:18px;font-size:calc(17px*var(--fs));line-height:1.5}
+.intro-note .eyebrow{color:var(--gold)}
+.intro-note p{margin:0}
+.memory{background:var(--card);border:1px solid var(--rule);border-left:5px solid var(--blue-dim);
+  border-radius:5px;padding:15px 18px;margin-bottom:10px}
+.memory p{margin:0 0 9px;font-size:calc(16px*var(--fs));line-height:1.55}
+.memory .who{margin:0;font-family:var(--display);font-size:calc(15px*var(--fs));color:var(--blue);font-style:italic}
+.memory .who:before{content:"\2014\00a0"}
+.memory.short p{font-family:var(--display);font-size:calc(24px*var(--fs));margin-bottom:6px}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:16px}
+@media (max-width:520px){.gallery{grid-template-columns:1fr}}
+.gallery.solo{grid-template-columns:1fr;margin:0 0 18px}
+
+/* the headline block on the front page */
+.feature{background:linear-gradient(180deg,#FFFDF5,#FBF3E2);
+  border:2px solid var(--gold);border-left:9px solid var(--red);border-radius:6px;
+  padding:18px 20px 16px;margin:20px 0 30px;box-shadow:0 3px 10px rgba(26,26,32,.09)}
+.feature{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.feature:active{background:linear-gradient(180deg,#FBF3E2,#F6EAD2)}
+.feature:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.feature .eyebrow{color:var(--red)}
+.feature-title{font-family:var(--display);font-size:calc(29px*var(--fs));line-height:1.12;margin:0 0 6px}
+.feature-sub{margin:0 0 14px;color:var(--ink-soft);font-size:calc(16px*var(--fs))}
+.feature-link{margin:0;font-size:calc(15px*var(--fs))}
+.feature-link a{color:var(--blue);font-weight:600}
+.gallery figure{margin:0;background:var(--card);border:1px solid var(--rule);border-radius:5px;padding:8px}
+.gallery img{display:block;width:100%;height:auto;border-radius:3px;background:#EDE8E2}
+.gallery figcaption{font-size:calc(13px*var(--fs));color:var(--ink-soft);line-height:1.4;
+  padding:8px 4px 2px;font-style:italic}
+
 /* countdown */
 .timer{font-family:var(--display);font-size:calc(40px*var(--fs));text-align:center;color:var(--blue);
   padding:6px 0 2px;letter-spacing:.02em}
@@ -256,7 +288,7 @@ footer{margin:36px 0 10px;font-size:calc(13px*var(--fs));color:var(--ink-soft);t
 <div class="bar">
   <div class="bar-in">
     <button id="back" class="hide">&larr; Back</button>
-    <div class="bar-title" id="barTitle">As Old As It Looks</div>
+    <div class="bar-title" id="barTitle">A Weekend in Krakow - As Old As It Looks</div>
     <button id="fs">A<sup>+</sup></button>
   </div>
   <div class="board" id="board"></div>
@@ -546,7 +578,21 @@ S.scale=`<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden
 </svg>`;
 /* ===== the opener: four rounds, all guessable without knowing anything ===== */
 const QUIZ=[
-{id:"q-size", round:"Size matters", kind:"order",
+{id:"q-rich", round:"60 Seconds", kind:"rich",
+ blurb:"Sixty seconds per category. Write down as many as you can, however you like: one list between you, or everyone racing separately. Tap start when you have a pen.",
+ items:[
+  {prompt:"Things Poland gave the world.",
+   list:["Marie Curie, and two Nobel prizes","Copernicus, and the Earth going round the sun","Chopin","Joseph Conrad, writing in English","The Enigma code, first broken by Polish mathematicians","Vodka, disputed with Russia","Pierogi","Bagels, descended from Kraków's obwarzanek","Solidarity, the first free trade union in the Eastern bloc","Pope John Paul II","Stanisław Lem, the most translated Polish author","The kerosene lamp"],
+   note:"Twelve on the list. Anything defensible counts, so argue the marginal ones out."},
+  {prompt:"Polish foods and drinks.",
+   list:["Pierogi, the dumplings","Bigos, the hunter's stew","Żurek, the sour rye soup","Barszcz, the beetroot soup","Obwarzanek, the ring bread","Zapiekanka, the toasted baguette","Kompot, stewed fruit juice","Oranżada, the fizzy orange drink","Miód pitny, or mead","Kiełbasa, the sausage","Placki ziemniaczane, potato pancakes","Sernik, the cheesecake","Rosół, the clear chicken broth"],
+   note:"Thirteen. You will eat or drink at least five of these over three days."},
+  {prompt:"Polish cities.",
+   list:["Warsaw, the capital","Kraków","Gdańsk, on the Baltic, where Solidarity began","Wrocław","Poznań","Łódź","Katowice","Lublin","Szczecin","Białystok","Toruń, where Copernicus was born","Zakopane, in the mountains"],
+   note:"Twelve. Most people get three and stall, which is the fun of it."}
+ ]},
+
+{id:"q-size", round:"Order Five", kind:"order",
  blurb:"Tap the items into order. You are scored on how many land in the right position, so nobody scores zero. Nobody expects you to know these.",
  items:[
   {prompt:"Five moments from Polish history. Tap them into order, earliest first.",
@@ -584,7 +630,7 @@ const QUIZ=[
  ]},
 
 {id:"q-mcq", round:"Polish general knowledge", kind:"mcq",
- blurb:"Six questions, four answers each, and a plausible wrong answer hiding in every one. Argue it out before anybody taps.",
+ blurb:"Seven questions, four answers each, and a plausible wrong answer hiding in every one. Argue it out before anybody taps.",
  items:[
   {q:"Three of these four are Polish. Which one is not?",
    opts:["Marie Curie, who won two Nobel prizes","Joseph Conrad, who wrote Heart of Darkness",
@@ -601,28 +647,17 @@ const QUIZ=[
    opts:["A student uprising in Kraków","A miners' strike in Silesia",
          "A shipyard strike in Gdańsk","A church campaign in Warsaw"],
    a:2, note:"A strike at the Gdańsk shipyard in 1980, which became the first independent trade union in the Soviet bloc. The Kraków option is the plausible trap, and the district you visit on the second day was one of the movement's strongholds."},
-  {q:"What happened to Poland in September 1939?",
-   opts:["It stayed neutral throughout","It was invaded by Germany alone",
-         "It was invaded by Germany, then by the Soviet Union two weeks later","It allied with Germany against the Soviet Union"],
-   a:2, note:"Both. Germany invaded on 1 September, the Soviet Union on 17 September, under a pact the two had signed in August. Being crushed from both sides at once shapes how Poland remembers the war, and the assumption that it was Germany alone is the commonest outside mistake."},
+  {q:"When was Poland invaded by Germany in WW2?",
+   opts:["March 1938","September 1939",
+         "November 1939","May 1940"],
+   a:1, note:"1 September 1939, and the date the war is usually said to start. The Soviet Union invaded from the east on 17 September under a pact the two had signed in August, so Poland was crushed from both sides within a fortnight, which is why Poles remember the war differently from the British. March 1938 is the German annexation of Austria and May 1940 is the invasion of France and the Low Countries, both close enough to catch anyone whose dates have blurred."},
   {q:"Three of these are Polish dishes. Which one is not?",
    opts:["Bigos, a slow-cooked cabbage and meat stew","Goulash, a paprika beef stew",
          "Żurek, a sour soup made from fermented rye","Pierogi, filled dumplings"],
-   a:1, note:"Goulash is Hungarian, though you will find it on menus here. Żurek is the one that sounds invented and is not: the soup is genuinely soured with fermented rye flour, and it is often served in a hollowed-out loaf."}
- ]},
-
-{id:"q-rich", round:"Rich list", kind:"rich",
- blurb:"Sixty seconds per category. Write down as many as you can, however you like: one list between you, or everyone racing separately. Tap start when you have a pen.",
- items:[
-  {prompt:"Things Poland gave the world.",
-   list:["Marie Curie, and two Nobel prizes","Copernicus, and the Earth going round the sun","Chopin","Joseph Conrad, writing in English","The Enigma code, first broken by Polish mathematicians","Vodka, disputed with Russia","Pierogi","Bagels, descended from Kraków's obwarzanek","Solidarity, the first free trade union in the Eastern bloc","Pope John Paul II","Stanisław Lem, the most translated Polish author","The kerosene lamp"],
-   note:"Twelve on the list. Anything defensible counts, so argue the marginal ones out."},
-  {prompt:"Polish foods and drinks.",
-   list:["Pierogi, the dumplings","Bigos, the hunter's stew","Żurek, the sour rye soup","Barszcz, the beetroot soup","Obwarzanek, the ring bread","Zapiekanka, the toasted baguette","Kompot, stewed fruit juice","Oranżada, the fizzy orange drink","Miód pitny, or mead","Kiełbasa, the sausage","Placki ziemniaczane, potato pancakes","Sernik, the cheesecake","Rosół, the clear chicken broth"],
-   note:"Thirteen. You will eat or drink at least five of these over three days."},
-  {prompt:"Polish cities.",
-   list:["Warsaw, the capital","Kraków","Gdańsk, on the Baltic, where Solidarity began","Wrocław","Poznań","Łódź","Katowice","Lublin","Szczecin","Białystok","Toruń, where Copernicus was born","Zakopane, in the mountains"],
-   note:"Twelve. Most people get three and stall, which is the fun of it."}
+   a:1, note:"Goulash is Hungarian, though you will find it on menus here. Żurek is the one that sounds invented and is not: the soup is genuinely soured with fermented rye flour, and it is often served in a hollowed-out loaf."},
+  {q:"What year did Poland join the EU?",
+   opts:["1995","2001","2004","2007"],
+   a:2, note:"1 May 2004, when ten countries joined at once and Poland was much the largest of them. The other three are all real dates attached to something else. 1995 is the enlargement that took in Austria, Finland and Sweden, while Poland was only three years into its application. 2001 falls in the middle of the accession negotiations, which ran from 1998 to the end of 2002 and were followed by a Polish referendum in 2003. And 2007 is when Poland entered the Schengen area and the border checks actually disappeared, which is the one most likely to catch somebody who was here at the time."}
  ]}
 ];
 /* ===== food and drink: what it is, and how it became Polish ===== */
@@ -696,7 +731,7 @@ const DAYS=[
   blurb:"A trumpet legend invented in 1925, a clock built in 2000, a painting that falsifies its own square, a monument rebuilt from scrap, and a bronze antiquity from 1999. Plus one altarpiece that is exactly what it claims.",
   segs:["Out on the square","Indoors, and split if you like"]},
  {id:"d2", title:"The City They Built to Replace This One",
-  blurb:"A mound nobody can date, a steelworks meant to cancel Kraków, a church built by hand from two million stones, and a writer who imagined his way out.",
+  blurb:"The last letter of the alphabet, a mound nobody can date, a steelworks meant to cancel Kraków, a church built by hand from two million stones, and a writer who imagined his way out.",
   segs:["Before lunch","After lunch"]},
  {id:"d3", title:"Kings, Silence, and a Hill Nobody Can Date",
   blurb:"A courtyard built at the height of Polish confidence, a square where nobody scores points, and the oldest thing in the city, which refuses to give its age.",
@@ -758,12 +793,12 @@ const STOPS=[
  guesses:[
  {q:"How far has the ground level of this square risen in a thousand years?", a:"Two to two and a half metres, which is why the church looks sunk.", src:"here"},
  {q:"How many steps lead down to the original medieval doorway?", a:"Count them as you go down. The old floor sits almost two metres below the paving you are standing on.", src:"away"}],
- act:{type:"label", kind:"Diagram labelling", prompt:"Tap each number on the drawing, then choose what it is.",
+ act:{type:"label", kind:"Diagram labelling", prompt:"None of these labels name their own position, so you will have to work each one out.",
   svg:"adalbert",
-  pins:[{x:200,y:60,a:"17th-century dome, added when the church was raised"},
-        {x:176,y:104,a:"Round window, cut in the 1600s"},
-        {x:200,y:128,a:"Today's paving level"},
-        {x:200,y:186,a:"Ground level around the year 1000"}],
+  pins:[{x:200,y:60,a:"Baroque, and the newest thing on the whole building"},
+        {x:176,y:104,a:"Cut through Romanesque stone six centuries after it was laid"},
+        {x:200,y:128,a:"Where you are standing"},
+        {x:200,y:186,a:"Where the first worshippers stood"}],
   note:"The whole building is a Romanesque church wearing a Baroque hat, hoisted bodily out of a rising square."},
  verdict:{answer:"Older than it looks", note:"Older, and physically higher, than it was ever meant to be."},
  links:[["VisitMałopolska: St Adalbert's","https://visitmalopolska.pl/en_GB/obiekt/-/poi/kosciol-pw-sw-wojciecha-w-krakowie"]],
@@ -864,12 +899,12 @@ const STOPS=[
  guesses:[
  {q:"How many years did the carving take?", a:"Twelve, from 1477 to 1489.", src:"here"},
  {q:"Each of the largest figures was carved from a single tree. Roughly how many trees?", a:"Dozens. The biggest figures alone stand 2.7 metres, and every one needed a trunk that size.", src:"away"}],
- act:{type:"label", kind:"Diagram labelling", prompt:"Tap each number on the drawing, then choose what it is.",
+ act:{type:"label", kind:"Diagram labelling", prompt:"None of these labels name their own position, so you will have to work each one out.",
   svg:"altar",
-  pins:[{x:200,y:120,a:"Central panel, figures up to 2.7m, each from one tree"},
-        {x:98,y:134,a:"Outer wing, folds shut over the middle"},
-        {x:200,y:26,a:"Eleven metres wide"},
-        {x:356,y:140,a:"Thirteen metres high"}],
+  pins:[{x:200,y:120,a:"Every large figure here was cut from a single tree"},
+        {x:98,y:134,a:"Hinged, so the whole thing can be shut on a quiet day"},
+        {x:200,y:26,a:"About the length of a double-decker bus"},
+        {x:356,y:140,a:"About as tall as a four-storey house"}],
   note:"A pentaptych: five panels, hinged so the wings close. The opening of the wings is a daily ceremony worth timing your visit around."},
  verdict:{answer:"As old as it looks", note:"Genuinely finished in 1489, and one of the few things on this trip that is exactly what it claims. The wrinkle is that it spent 1941 to 1957 somewhere else entirely."},
  practical:"The wings are opened ceremonially once a day and that is the thing to catch. Check the current time at the door, since it shifts. Visitors enter through a separate side entrance from worshippers and pay a small fee.",
@@ -1033,7 +1068,35 @@ const STOPS=[
  kids:{who:"all", do:"Find the plaque on the wall. That is the whole task, and it takes thirty seconds.", find:"The name Conrad, hiding in the Polish text.", how:"A small plaque on the wall of the city offices on Poselska, a narrow quiet street. Thirty seconds. The task is simply to spot it, then find the name Conrad in the Polish text. Good one to give a child who wants a job while the adults read."},
  sources:[["Conrad Festival","https://en.conradfestival.pl/p/81,in-the-footsteps-of-conrad-conrad-year"],["Duke University: Conrad exhibition","https://exhibits.library.duke.edu/exhibits/show/josephconrad/borderlands"]]},
 /* ================= DAY TWO ================= */
-{id:"wanda", addr:"Kopiec Wandy, ul. Ujastek Mogilski, 31-752 Kraków", day:"d2", seg:0, tag:"all", svg:"mound",
+{id:"zielonyjar", addr:"Zielony Jar, 31-752 Kraków, Poland", day:null, seg:0, ord:0, tag:"all", svg:null,
+ title:"Zielony Jar parkrun", sub:"The last letter", era:"Saturday, 9am",
+ intro:"25 letters conquered, Z nearly in the bag, and only J left standing! We're delighted to run Zielony Jar with you today (or watch you). Here's to the final chapter of your alphabet adventure.",
+ story:[],
+ why:null,
+ look:[],
+ memoriesTitle:"From the family",
+ memories:[
+  {t:"My first memory is when Paul's interest was piqued to enquire about the parkrun. He decided to come along to check it out after a few weeks of me doing it when I got back from London, around the end of 2015. His recap post-run was \"never have I seen such a bunch of misfits but sure isn't it great for them\".", who:"Che",
+   photo:{src:"images/Hillsborough-Forest.jpg", cap:"When Sean had just moved to Belfast"}},
+  {t:"A good memory is surprising him by showing up to do his 300th run with him in Griffeen park. We told the race director to give him a congratulations in her briefing at the start and loads of the regulars came up after to say that Millie should have been congratulated too. Also, all the ones that have turned into lovely family days out like Bundoran (for Paul's 70th trip to Donegal) or Hillsborough (where Paul got more than he bargained for having to help push the double buggy up those hills!).", who:"Vinny",
+   photo:{src:"images/Avondale.jpg", cap:"Avondale parkrun was another lovely run and day out"}},
+  {t:"Saturday mornings! The best mornings of the week! Paul heads out at 08:30 and isn't back till 10:30. My morning to myself: sleep in, shower, a walk, and breakfast. All in my own space. It's special. Personal space is so important to everyone, big or small, old or young.", who:"Jenny",
+   photo:{src:"images/Christmas-Day-Parkrun.jpg", cap:"Christmas Day parkrun 2019"}},
+  {t:"I've been sporadic at best with my parkrun attendances, but those I did, I have always enjoyed. The one which stands out is Christmas morning in Palmerstown, both for the fun of dressing up as Santa and the dread of that final hill.", who:"Sean",
+   photo:{src:"images/Sean-First-Parkrun.jpg", cap:"When Sean did the parkrun for the first time. Always bringing the shtyle (2016)"}},
+  {t:"I've enjoyed the runs I have done with Paul and can always expect the question if I will be running in the morning when we visit for the weekend. I look forward to getting back into it more soon.", who:"Rose",
+   photo:{src:"images/Bundoran-Promenade.jpg", cap:"Paul's 70th"}},
+  {t:"Woof.", who:"Millie",
+   photo:{src:"images/100th-Parkrun.jpg", cap:"Paul, Millie, and Barry on Paul's 100th Run"}}],
+ photos:[],
+ guesses:[],
+ act:null,
+ verdict:null,
+ kids:null,
+ links:[["Zielony Jar parkrun","https://www.parkrun.pl/zielonyjar/"]],
+ sources:[]},
+
+{id:"wanda", addr:"Kopiec Wandy, ul. Ujastek Mogilski, 31-752 Kraków", day:"d2", seg:0, ord:1, tag:"all", svg:"mound",
  title:"Wanda Mound", sub:"Nobody knows who built it", era:"600s? 700s? Nobody can say",
  story:[
  "A grass hill sits beside Europe's ugliest steelworks, and nobody knows who built it or why.",
@@ -1161,12 +1224,12 @@ const STOPS=[
  guesses:[
  {q:"In what year did the royal court leave Kraków for Warsaw?", a:"1596. Kraków has now spent over four centuries as a former capital.", src:"here"},
  {q:"Count the columns on the top storey of one side of the courtyard. Guess first.", a:"Count them and settle it. The top storey uses columns of double height, which is the trick that makes the whole yard feel light.", src:"away"}],
- act:{type:"label", kind:"Diagram labelling", prompt:"Tap each number on the drawing, then choose what it is.",
+ act:{type:"label", kind:"Diagram labelling", prompt:"None of these labels name their own position, so you will have to work each one out.",
   svg:"wawel",
-  pins:[{x:76,y:64,a:"Top storey: columns of double height, which stretches the whole facade"},
-        {x:76,y:110,a:"Middle gallery, regular arcades"},
-        {x:76,y:160,a:"Ground arcade, where the court moved between rooms"},
-        {x:200,y:32,a:"Steep roof, a northern habit on an Italian design"}],
+  pins:[{x:76,y:64,a:"Stretched to double height, the trick that makes a heavy building look light"},
+        {x:76,y:110,a:"The plain tier, the only one that behaves itself"},
+        {x:76,y:160,a:"How the court crossed from room to room without stepping outside"},
+        {x:200,y:32,a:"A northern necessity bolted onto an Italian design"}],
   note:"The doubled top columns are the trick. They make a heavy building look light, and Polish builders copied it for generations."},
  verdict:{answer:"As old as it looks", note:"Genuinely 1517 to 1536, apart from one wing rebuilt under German occupation."},
  links:[["Wawel Royal Castle","https://wawel.krakow.pl/en/information-about-museum"]],
@@ -1251,9 +1314,9 @@ const STOPS=[
  guesses:[],
  act:null,
  verdict:null,
- practical:"Wed to Sun, 9:00 to 17:00, closed Monday and Tuesday, free on Wednesday. Last entry 30 minutes before closing, so be inside by 16:00. 22 PLN normal, 16 reduced, 44 family. Allow 45 minutes to an hour and a quarter. Not a stop for the youngest children.",
+ practical:"Wed to Sun, 9:00 to 17:00, closed Monday and Tuesday, free on Wednesday. Last entry 30 minutes before closing, so be inside by 16:00. 22 PLN normal, 16 reduced, 44 family. Allow 45 minutes to an hour and a quarter.",
  links:[["Polscy Sprawiedliwi: Pankiewicz's story","https://sprawiedliwi.org.pl/en/stories-of-rescue/story-tadeusz-pankiewicz"]],
- kids:{who:"skip", do:"Not a stop for them, and not one to bring them to. Take the children to the playground on Rynek Podgórski and swap over.", find:"Nothing here.", how:"Not a stop for them, and not one to bring them to. Take them to the playground on Rynek Podgórski, a few minutes away, and swap adults over so everyone who wants to see the pharmacy can."},
+ kids:null,
  sources:[["Polscy Sprawiedliwi","https://sprawiedliwi.org.pl/en/stories-of-rescue/story-tadeusz-pankiewicz"],["Silent Heroes Memorial Centre","https://www.gedenkstaette-stille-helden.de/en/silent-heroes/biographies/biographie/detail-281"]]},
 
 {id:"krakus", addr:"Kopiec Krakusa, ul. Maryewskiego, 30-543 Kraków", day:"d3", seg:1, tag:"all", svg:"mound",
@@ -1269,8 +1332,8 @@ const STOPS=[
  {q:"How much of this mound has been excavated?", a:"About four per cent. The work stopped for lack of money after the war and nobody has finished it.", src:"here"},
  {q:"How high is it, and where does it rank in the city?", a:"Sixteen metres, and the summit is the highest point anywhere in Kraków.", src:"away"}],
  act:{type:"reflect", kind:"Last word",
-  prompt:"Three days, twenty-seven stops. Go round the group: what has stuck with you, and why that one?",
-  note:"No right answer and no scoring against each other. Award the points to whoever gives the answer the group likes best, or split them. If it helps, prompts: which story would you repeat to someone at home, which thing looked oldest and was not, and which one you would come back for."},
+  prompt:"Three days, twenty-eight stops. Go round the group: what has stuck with you, and why that one?",
+  note:"No right answer and no scoring against each other. Award the points to whoever gives the answer the group likes best, or split them."},
  verdict:{answer:"Older than it looks", note:"The honest answer is that nobody knows, which makes it the right last card in the game."},
  links:[["Hidden Europe: Kraków's mounds","https://www.hiddeneurope.eu/the-magazine/issues/hidden-europe-59/mystery-and-memory-exploring-krakows-suburban-mounds/"]],
  kids:{who:"all", do:"At the top, point to four places they have already been. Then roll down the side.", find:"The whole city. This is the last scale, so it gets the big sticker.", how:"A grass hill across the river in Podgórze, steeper than the first one, with a path to the top. From the summit you can see the whole city. Point out the castle, the two church towers on the Main Square, the river, and the chimneys of Nowa Huta on the far horizon. Then let them point at things they recognise. Rolling down is expected. This is the last scale, so bring the big sticker."},
@@ -1486,7 +1549,7 @@ function activity(a,host,key,meta){
   }
 
   else if(a.type==="reflect"){
-    html+=`<button class="ghost rev">Show the prompt notes</button><div class="ansbox"></div>`+winBox();
+    html+=`<button class="ghost rev">Ready to score</button><div class="ansbox"></div>`+winBox();
     el.innerHTML=html;
     el.querySelector(".rev").onclick=()=>{
       el.querySelector(".rev").disabled=true;
@@ -1543,19 +1606,24 @@ function activity(a,host,key,meta){
 function renderStop(s){
   barTitle.textContent=s.title;
   const d=day(s.day);
-  const tagHtml=s.tag==="split"?'<span class="tag split">Group may split here</span>'
-    :s.tag==="food"?'<span class="tag food">Food stop</span>':'<span class="tag all">Everyone</span>';
+  const tagHtml=s.tag==="food"?'<span class="tag food">Food stop</span>':'';
   app.innerHTML=`
-    <p class="eyebrow" style="margin-top:22px">${esc(d.title)} &middot; ${esc(s.era)}</p>
+    <p class="eyebrow" style="margin-top:22px">${d?esc(d.title)+" &middot; ":""}${esc(s.era)}</p>
     <h2>${esc(s.title)}</h2>
     <p class="lede">${esc(s.sub)}</p>
-    <div>${tagHtml}</div>
+    ${tagHtml?`<div>${tagHtml}</div>`:""}
     ${s.solemn?"":""}
     <div class="addr" id="addr"><span class="a">${esc(s.addr)}</span><button id="cp">Copy</button></div>
     ${s.svg&&S[s.svg]?`<figure class="illus">${S[s.svg]}</figure>`:""}
-    <div class="card story">${s.story.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+    ${s.intro?`<div class="intro-note"><p class="eyebrow">Twenty-six down</p><p>${esc(s.intro)}</p></div>`:""}
+    ${s.story&&s.story.length?`<div class="card story">${s.story.map(p=>`<p>${esc(p)}</p>`).join("")}</div>`:""}
     ${s.why?`<div class="why"><p class="eyebrow">Why it matters</p><p>${esc(s.why)}</p></div>`:""}
-    <div class="look"><p class="eyebrow">Look for</p>${s.look.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+    ${s.look&&s.look.length?`<div class="look"><p class="eyebrow">Look for</p>${s.look.map(p=>`<p>${esc(p)}</p>`).join("")}</div>`:""}
+    ${s.memories&&s.memories.length?`<h3>${esc(s.memoriesTitle||"From the family")}</h3>
+      ${s.memories.map(m=>`<div class="memory${m.t.length<40?" short":""}"><p>${esc(m.t)}</p><p class="who">${esc(m.who)}</p></div>`
+        +(m.photo?`<div class="gallery solo"><figure><img src="${esc(m.photo.src)}" alt="${esc(m.photo.cap)}" loading="lazy"><figcaption>${esc(m.photo.cap)}</figcaption></figure></div>`:"")).join("")}`:""}
+    ${s.photos&&s.photos.length?`<h3>The photographs</h3>
+      <div class="gallery">${s.photos.map(ph=>`<figure><img src="${esc(ph.src)}" alt="${esc(ph.cap)}" loading="lazy"><figcaption>${esc(ph.cap)}</figcaption></figure>`).join("")}</div>`:""}
     ${s.kids?`<h3>For the children</h3>
       <div class="kids${s.kids.who==="skip"?" skip":""}">
         <p class="eyebrow">${s.kids.who==="skip"?"Not one for them"
@@ -1580,8 +1648,8 @@ function renderStop(s){
       </div>`:""}
     ${s.links&&s.links.length?`<h3>Look it up later</h3>
       <p class="sources">${s.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join(" &middot; ")}</p>`:""}
-    <h3>Sources</h3>
-    <p class="sources">${s.sources.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join(" &middot; ")}</p>`;
+    ${s.sources&&s.sources.length?`<h3>Sources</h3>
+    <p class="sources">${s.sources.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join(" &middot; ")}</p>`:""}`;
 
   const cp=app.querySelector("#cp");
   cp.onclick=()=>{
@@ -1597,7 +1665,7 @@ function renderStop(s){
         cp.textContent="Select it";}
       ta.remove();}
   };
-  const meta={day:d.title,stopId:s.id,stop:s.title};
+  const meta={day:d?d.title:"Anytime",stopId:s.id,stop:s.title};
   if(s.guesses&&s.guesses.length){
     const g=app.querySelector("#guesses");
     s.guesses.forEach((q,i)=>{
@@ -1665,7 +1733,7 @@ function renderQuizRound(r){
 
     if(r.kind==="order"){
       box.innerHTML=`<div class="hostslot"></div>`;
-      activity({type:"order",kind:"Size matters",prompt:it.prompt,opts:it.opts,note:it.note},box.querySelector(".hostslot"),key,meta);
+      activity({type:"order",kind:"Order Five",prompt:it.prompt,opts:it.opts,note:it.note},box.querySelector(".hostslot"),key,meta);
     }
 
     if(r.kind==="mcq"){
@@ -1694,7 +1762,7 @@ function renderQuizRound(r){
     }
 
     if(r.kind==="rich"){
-      box.innerHTML=`<div class="kind" style="color:var(--gold)">Rich list</div><div class="prompt">${esc(it.prompt)}</div>
+      box.innerHTML=`<div class="kind" style="color:var(--gold)">60 Seconds</div><div class="prompt">${esc(it.prompt)}</div>
         <p class="note">Sixty seconds. Write down as many as you can, one list between you or everyone racing separately.</p>
         <div class="timer">1:00</div><div class="timerbar"><i></i></div>
         <div class="row"><button class="solid start">Start the clock</button>
@@ -1717,7 +1785,7 @@ function renderQuizRound(r){
         rv.disabled=true;st.disabled=true;
         box.querySelector(".ans").innerHTML=`<div class="answer"><strong>${it.list.length} on the list</strong>${
           it.list.map(esc).join(" &middot; ")}<br><br>${esc(it.note)}</div>`;
-        award(key,"Rich list",meta,5,box);
+        award(key,"60 Seconds",meta,5,box);
       };
       show();
     }
@@ -1822,9 +1890,15 @@ function exportMail(){
 
 /* ===================== lists ===================== */
 function renderHome(){
-  barTitle.textContent="As Old As It Looks";
-  app.innerHTML=`<h1>As Old As It Looks</h1>
-    <p class="lede">Three days arguing with Kraków about what is genuinely ancient, what is younger than it pretends, and what somebody simply made up. Here's to Paul reaching the end of the alphabet.</p>
+  barTitle.textContent="A Weekend in Krakow - As Old As It Looks";
+  app.innerHTML=`<h1>A Weekend in Krakow - As Old As It Looks</h1>
+    <p class="lede">The tour of Krakow as it is described on this web page shows a genuinely fascinating city, though one that sometimes pretends to be younger than it is and other times it pretends to be older. It also exaggerates itself or makes things up for the sake of a good story. With all that in mind, I can't think of a better place to mark a milestone in Paul's life and a family holiday.</p>
+    <div class="feature" data-s="zielonyjar" role="button" tabindex="0">
+      <p class="eyebrow">Saturday, 9am &middot; the last letter</p>
+      <div class="feature-title">Zielony Jar parkrun</div>
+      <p class="feature-sub">25 letters conquered, Z nearly in the bag, and only J left standing. The stop, the family memories and the photographs.</p>
+      <p class="feature-link"><a href="https://www.parkrun.pl/zielonyjar/" target="_blank" rel="noopener">Zielony Jar parkrun on parkrun.pl &rarr;</a></p>
+    </div>
     <h3>Do this one first</h3>
     ${QUIZ.map(q=>`<button class="btn quiz" data-q="${q.id}">${esc(q.round)}<small>${esc(q.blurb.split(".")[0])}.</small></button>`).join("")}
     <h3>Then, in this order</h3>
@@ -1837,6 +1911,10 @@ function renderHome(){
     <hr class="rule">
     <div class="row"><button class="solid" id="pl">Players and scores</button></div>`;
   app.querySelector("[data-food]").onclick=()=>go({n:"food"});
+  app.querySelectorAll("[data-s]").forEach(b=>{
+    b.onclick=e=>{if(e.target.closest("a"))return;go({n:"stop",id:b.dataset.s});};
+    b.onkeydown=e=>{if((e.key==="Enter"||e.key===" ")&&!e.target.closest("a")){e.preventDefault();go({n:"stop",id:b.dataset.s});}};
+  });
   app.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>go({n:"quiz",id:b.dataset.q}));
   app.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>go({n:"day",id:b.dataset.d}));
   app.querySelector("#pl").onclick=()=>go({n:"players"});
@@ -1849,11 +1927,10 @@ function renderDay(d){
     d.segs.map((seg,si)=>{
       const list=mine.filter(s=>s.seg===si).sort((a,b)=>(a.ord==null?99:a.ord)-(b.ord==null?99:b.ord));
       if(!list.length)return "";
-      return `<h3>${esc(seg)}</h3>`+list.map(s=>{
-        const tag=s.tag==="split"?'<span class="tag split">May split</span>'
-          :s.tag==="food"?'<span class="tag food">Food</span>':'<span class="tag all">Everyone</span>';
+      return list.map(s=>{
+        const tag=s.tag==="food"?'<span class="tag food">Food</span><br>':'';
         return `<button class="btn${db.done[s.id]?" done":""}${s.solemn?" solemn":""}" data-s="${s.id}">
-          ${tag}<br>${esc(s.title)}<small>${esc(s.sub)}</small></button>`;}).join("");
+          ${tag}${esc(s.title)}<small>${esc(s.sub)}</small></button>`;}).join("");
     }).join("");
   app.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>go({n:"stop",id:b.dataset.s}));
 }
